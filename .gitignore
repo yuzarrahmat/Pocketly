@@ -1,0 +1,7 @@
+target/
+*.class
+nbactions.xml
+nb-configuration.xml
+db.properties
+bukti/*.jpg
+bukti/*.png
