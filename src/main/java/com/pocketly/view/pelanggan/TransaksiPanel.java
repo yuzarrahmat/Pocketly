@@ -44,9 +44,9 @@ public class TransaksiPanel extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
         setOpaque(false);
 
-        lblJudul.setText("Transaksi Saya");
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 24));
         lblJudul.setForeground(Theme.TEXT);
+        lblJudul.setText("Transaksi Saya");
 
         scrollDaftar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollDaftar.setOpaque(false);
@@ -59,10 +59,12 @@ public class TransaksiPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblJudul)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblJudul)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(scrollDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrollDaftar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
