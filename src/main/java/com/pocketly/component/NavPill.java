@@ -83,7 +83,20 @@ public class NavPill extends JPanel {
     public void setIconFile(String namaFile) {
         lblIkon.putClientProperty("fileIkon", namaFile);
         if (namaFile != null && !namaFile.isBlank()) {
-            lblIkon.setIcon(UIs.asset(namaFile, 24, 24));
+            java.net.URL url = getClass().getResource("/img/ui/" + namaFile);
+            if (url == null) {
+                lblIkon.setIcon(UIs.asset(namaFile, 24, 24)); // placeholder
+                return;
+            }
+            javax.swing.ImageIcon ikon = new javax.swing.ImageIcon(url);
+            // ikon tampil pada ukuran asli filenya (sedekakan file ikon 24x24).
+            // Pengaman saja: bila file yang ditempel jauh lebih besar dari
+            // slot pil (32px), diperkecil agar sidebar tidak rusak.
+            if (ikon.getIconWidth() > 32 || ikon.getIconHeight() > 32) {
+                lblIkon.setIcon(UIs.asset(namaFile, 24, 24));
+            } else {
+                lblIkon.setIcon(ikon);
+            }
         }
     }
 

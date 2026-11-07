@@ -22,10 +22,6 @@ public class KasirController {
     public record TambahHasil(boolean sukses, String pesan, KasirItem item) {
     }
 
-    /**
-     * Memvalidasi input form id produk & jumlah.
-     * Mengembalikan pesan error sesuai kesalahannya (flowchart).
-     */
     public TambahHasil tambahItem(List<KasirItem> items, String idProduk, String jumlahText) {
         if (idProduk == null || idProduk.isBlank()) {
             return new TambahHasil(false, "ID produk wajib diisi.", null);

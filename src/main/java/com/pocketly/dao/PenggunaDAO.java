@@ -8,14 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/** DAO akun pengguna: login dan pengecekan username registrasi. */
 public class PenggunaDAO {
 
-    /**
-     * Mengembalikan akun bila username + password cocok, selain itu null.
-     * Password di database boleh berupa hash PBKDF2 (akun baru) maupun
-     * teks biasa (akun lama), keduanya diverifikasi.
-     */
     public Pengguna login(String username, String password) {
         String sql = "SELECT username, password, peran_pengguna FROM pengguna WHERE username = ?";
         try (Connection c = DB.getConnection();
@@ -32,15 +26,10 @@ public class PenggunaDAO {
         return null;
     }
 
-    /** true bila username sudah dipakai akun lain. */
     public boolean usernameTerpakai(String username) {
         return DB.scalarInt("SELECT COUNT(*) FROM pengguna WHERE username = ?", username) > 0;
     }
 
-    /**
-     * Menyimpan akun pelanggan baru (password sudah di-hash) beserta
-     * data profilnya: nama, alamat, email, dan no. telepon.
-     */
     public void registrasiPelanggan(String username, String passwordHash, String nama,
                                     String alamat, String email, String noTelp) {
         Connection c = null;

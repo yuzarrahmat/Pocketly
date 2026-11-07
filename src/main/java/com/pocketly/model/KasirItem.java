@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model sementara item belanja di halaman kasir offline (belum disimpan ke DB). */
 public class KasirItem {
 
     public String idProduk;

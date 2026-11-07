@@ -9,10 +9,7 @@ import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JPasswordField;
 
-/**
- * Kolom password bergaya Figma (latar #F1EEEE, sudut membulat) dengan
- * dukungan teks placeholder. JavaBean untuk NetBeans GUI Builder.
- */
+
 public class RoundPasswordField extends JPasswordField {
 
     private String placeholder = "";

@@ -5,11 +5,6 @@ import com.pocketly.model.Pengguna;
 import com.pocketly.util.PasswordHasher;
 import java.util.regex.Pattern;
 
-/**
- * Controller autentikasi: login dan registrasi.
- * Setiap kolom masukan memiliki validasi tersendiri sesuai flowchart
- * "Tampilkan pesan error berdasarkan kesalahannya".
- */
 public class AuthController {
 
     private final PenggunaDAO dao = new PenggunaDAO();
@@ -23,11 +18,9 @@ public class AuthController {
     private static final Pattern POLA_EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     private static final Pattern POLA_TELP = Pattern.compile("^0[0-9]{9,12}$");
 
-    /** Hasil operasi autentikasi: sukses + pesan untuk ditampilkan view. */
     public record Hasil(boolean sukses, String pesan, Pengguna akun) {
     }
 
-    /** Memeriksa kredensial login. */
     public Hasil login(String username, String password) {
         if (username == null || username.isBlank() || password == null || password.isBlank()) {
             return new Hasil(false, "Username dan password wajib diisi.", null);
@@ -43,10 +36,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Registrasi akun pelanggan baru. Setiap kolom divalidasi satu per satu
-     * dan password disimpan sebagai hash PBKDF2 (bukan teks biasa).
-     */
+
     public Hasil registrasi(String username, String password, String nama,
                             String alamat, String email, String noTelp) {
         String err = validasiRegistrasi(username, password, nama, alamat, email, noTelp);
@@ -66,7 +56,6 @@ public class AuthController {
         }
     }
 
-    /** Validasi setiap kolom form registrasi; null bila semua lolos. */
     public String validasiRegistrasi(String username, String password, String nama,
                                      String alamat, String email, String noTelp) {
         if (username == null || username.isBlank()) {

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-/** DAO data profil pelanggan. */
 public class PelangganDAO {
 
     public Pelanggan getByUsername(String username) {
@@ -35,7 +34,6 @@ public class PelangganDAO {
         return null;
     }
 
-    /** Mengubah alamat pelanggan (digunakan di halaman keranjang). */
     public void updateAlamat(String username, String alamatBaru) {
         String sql = "UPDATE pelanggan SET alamat = ? WHERE username = ?";
         try (Connection c = DB.getConnection();

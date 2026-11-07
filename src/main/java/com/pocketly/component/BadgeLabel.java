@@ -10,10 +10,6 @@ import java.awt.RenderingHints;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-/**
- * Badge bulat kecil untuk jumlah item keranjang.
- * JavaBean untuk NetBeans GUI Builder.
- */
 public class BadgeLabel extends JLabel {
 
     public BadgeLabel() {

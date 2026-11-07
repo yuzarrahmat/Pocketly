@@ -6,16 +6,6 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-/**
- * Hash kata sandi dengan PBKDF2-HMAC-SHA256 (bawaan JDK, tanpa library
- * tambahan). Format tersimpan di database:
- *
- *   pbkdf2$iterasi$salt$hash     contoh: pbkdf2$120000$xxxx$xxxx
- *
- * Untuk kompatibilitas data lama, login memakai mode ganda:
- * nilai yang tidak berawalan "pbkdf2$" dianggap kata sandi lama
- * (teks biasa) sehingga akun lama tetap bisa masuk.
- */
 public final class PasswordHasher {
 
     private static final int ITERASI = 120_000;

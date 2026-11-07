@@ -14,14 +14,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-/**
- * Tombol pill (sudut penuh membulat) sesuai desain Figma Pocketly.
- *
- * JavaBean yang bisa dipakai langsung di NetBeans GUI Builder:
- * cukup ubah properti "text" dan "styleName" di Properties - Other.
- * Nilai styleName yang tersedia:
- * primary, action, success, danger, dangerSoft, secondary, ghost, navy.
- */
+
 public class RoundButton extends JButton {
 
     public static final String PRIMARY = "primary";

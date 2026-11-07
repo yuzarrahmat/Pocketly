@@ -5,13 +5,8 @@ import java.awt.Font;
 import java.io.InputStream;
 import javax.swing.UIManager;
 
-/**
- * Palet warna dan tipografi Pocketly, mengikuti desain Figma
- * "TIM 4 - UI/UX" (font Lato, latar biru muda, tombol pill navy).
- */
 public final class Theme {
 
-    // ===== Palet warna dari file Figma =====
     public static final Color NAVY        = new Color(0x06, 0x23, 0x49); // tombol utama & teks judul
     public static final Color NAVY_DARK   = new Color(0x03, 0x27, 0x57); // judul hero
     public static final Color BLUE        = new Color(0x00, 0x71, 0xE1); // aksi (Checkout)
@@ -35,7 +30,6 @@ public final class Theme {
     public static final Color WARNING_LT  = new Color(0xFE, 0xF3, 0xC7);
     public static final Color AMBER       = new Color(0xF5, 0x9E, 0x0B);
 
-    // ===== Font Lato (dibundel di resources/fonts) =====
     private static final String FALLBACK = "Tahoma";
     private static String fontFamily = FALLBACK;
     private static boolean latoSiap = false;
@@ -53,10 +47,6 @@ public final class Theme {
     public static Font body() { return font(Font.PLAIN, 13f); }
     public static Font small(){ return font(Font.PLAIN, 12f); }
 
-    /**
-     * Memuat font Lato dari resources lalu memasangnya secara global.
-     * Dipanggil sekali dari Main sebelum jendela pertama dibuka.
-     */
     public static void installGlobalFonts() {
         muatLato();
         UIManager.put("Label.font", body());
@@ -75,7 +65,7 @@ public final class Theme {
         }
     }
 
-    /** Mendaftarkan Lato (Regular/Bold/Light/Black) ke sistem Swing. */
+
     private static void muatLato() {
         String[] berkas = {"Lato-Regular.ttf", "Lato-Bold.ttf", "Lato-Light.ttf", "Lato-Black.ttf"};
         try {

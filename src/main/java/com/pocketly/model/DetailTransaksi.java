@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model satu baris detail transaksi (tabel detail_transaksi JOIN produk). */
 public class DetailTransaksi {
 
     public String idDetail;

@@ -7,11 +7,6 @@ package com.pocketly.model;
 
 import java.time.LocalDate;
 
-/**
- * Model transaksi online (tabel transaksi JOIN online JOIN pelanggan).
- * Dipakai di: halaman transaksi pelanggan, verifikasi bayar, ubah status pesanan.
- * Beberapa field boleh kosong tergantung konteks pemakaian.
- */
 public class OnlineOrder {
 
     public String idTransaksi;

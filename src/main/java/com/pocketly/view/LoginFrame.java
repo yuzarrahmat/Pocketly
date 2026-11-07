@@ -7,19 +7,14 @@ import com.pocketly.util.UIs;
 import com.pocketly.view.pelanggan.PelangganFrame;
 import com.pocketly.view.petugas.PetugasFrame;
 
-/**
- * Halaman login sesuai desain Figma: ilustrasi + judul di kiri,
- * kartu putih berisi form di kanan.
- * Form NetBeans GUI Builder - semua komponen bisa dilihat dan diedit
- * lewat file LoginFrame.form (buka di tab Design).
- */
 public class LoginFrame extends javax.swing.JFrame {
     private final AuthController auth = new AuthController();
 
     public LoginFrame() {
         initComponents();
-        getRootPane().setDefaultButton(btnLogin); // tombol Enter = Masuk
-        setLocationRelativeTo(null); // tampil di tengah layar
+        lblBuatAkun.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+        getRootPane().setDefaultButton(btnLogin); 
+        setLocationRelativeTo(null); 
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +51,7 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pocketly - Masuk");
         setMinimumSize(new java.awt.Dimension(980, 620));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         bgPanel.setBackground(Theme.PAGE_BG);
         bgPanel.setLayout(new java.awt.BorderLayout());
@@ -72,7 +68,7 @@ public class LoginFrame extends javax.swing.JFrame {
         kartu.setBackground(Theme.CARD);
         kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(34, 40, 30, 40));
 
-        logoKanan.setIcon(UIs.asset("logo-pocketly.png", 176, 58));
+        logoKanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/logo-pocketly-login.png"))); // NOI18N
 
         lblJudulForm.setBackground(Theme.TEXT_DARK);
         lblJudulForm.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 18)); // NOI18N
@@ -168,7 +164,6 @@ public class LoginFrame extends javax.swing.JFrame {
         lblBuatAkun.setFont(Theme.font(java.awt.Font.BOLD, 14));
         lblBuatAkun.setForeground(Theme.NAVY);
         lblBuatAkun.setText("Buat Akun");
-        lblBuatAkun.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         lblBuatAkun.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBuatAkunMouseClicked(evt);
@@ -245,25 +240,20 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(Theme.PAGE_BG);
 
-        jLabel1.setBackground(Theme.PAGE_BG);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/Your paragraph text (2).png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGap(0, 625, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 124, Short.MAX_VALUE))
+            .addGap(0, 718, Short.MAX_VALUE)
         );
+
+        jLabel1.setBackground(Theme.PAGE_BG);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/login-hero.png"))); // NOI18N
 
         javax.swing.GroupLayout bungkusLayout = new javax.swing.GroupLayout(bungkus);
         bungkus.setLayout(bungkusLayout);
@@ -271,19 +261,24 @@ public class LoginFrame extends javax.swing.JFrame {
             bungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bungkusLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 653, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bungkusLayout.createSequentialGroup()
+                .addGap(0, 279, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98))
+                .addGap(296, 296, 296))
         );
         bungkusLayout.setVerticalGroup(
             bungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bungkusLayout.createSequentialGroup()
-                .addGroup(bungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(bungkusLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(bungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 638, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelKanan.add(bungkus, java.awt.BorderLayout.CENTER);
@@ -296,7 +291,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsernameActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,12 +310,11 @@ public class LoginFrame extends javax.swing.JFrame {
         lblBuatAkun.setForeground(Theme.NAVY);
     }
 
-    /** Memproses tombol Masuk sesuai flowchart login. */
     private void prosesLogin() {
         lblError.setText(" ");
         var hasil = auth.login(tfUsername.getText(), new String(pfPassword.getPassword()));
         if (!hasil.sukses()) {
-            lblError.setText(hasil.pesan()); // "Username atau password salah"
+            lblError.setText(hasil.pesan()); 
             pfPassword.setText("");
             return;
         }

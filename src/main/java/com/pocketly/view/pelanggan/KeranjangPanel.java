@@ -22,12 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- * Halaman keranjang pelanggan sesuai desain Figma: kartu tipe pemesanan
- * dan alamat, daftar produk dengan tombol +/&#8722; dan hapus, rincian total,
- * lalu checkout (Cash / E-Wallet / M-Bangking).
- * Form NetBeans GUI Builder - buka KeranjangPanel.form di tab Design.
- */
 public class KeranjangPanel extends javax.swing.JPanel {
     private final String username;
     private final PelangganNav nav;
@@ -45,7 +39,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
         scrollDaftar.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public KeranjangPanel() {
         this(null, null);
     }
@@ -110,7 +103,7 @@ public class KeranjangPanel extends javax.swing.JPanel {
         kartuTipe.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16));
         kartuTipe.setLayout(new java.awt.BorderLayout(14, 0));
 
-        lblIkonAntar.setIcon(UIs.asset("icon-antar.png", 44, 36));
+        lblIkonAntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/icon-antar-besar.png"))); // NOI18N
         kartuTipe.add(lblIkonAntar);
 
         teksTipe.setOpaque(false);
@@ -160,7 +153,7 @@ public class KeranjangPanel extends javax.swing.JPanel {
         kartuAlamat.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16));
         kartuAlamat.setLayout(new java.awt.BorderLayout(14, 0));
 
-        lblIkonAlamat.setIcon(UIs.asset("icon-alamat.png", 34, 40));
+        lblIkonAlamat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/icon-alamat.png"))); // NOI18N
         kartuAlamat.add(lblIkonAlamat);
 
         teksAlamat.setOpaque(false);
@@ -314,7 +307,7 @@ public class KeranjangPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbTipeActionPerformed(java.awt.event.ActionEvent evt) {
-        hitungTotal(); // ongkir dan total berubah sesuai tipe pemesanan
+        hitungTotal(); 
     }
 
     private void btnUbahAlamatActionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,7 +315,7 @@ public class KeranjangPanel extends javax.swing.JPanel {
     }
 
     private void btnTambahProdukActionPerformed(java.awt.event.ActionEvent evt) {
-        nav.keBeranda(); // kembali mencari produk
+        nav.keBeranda();
     }
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,14 +326,13 @@ public class KeranjangPanel extends javax.swing.JPanel {
         checkout();
     }
 
-    /** Dimuat setiap kali halaman dibuka. */
+
     public void muatUlang() {
         List<KeranjangItem> items = ctl.isiKeranjang(username);
 
         Pelanggan p = pelangganDao.getByUsername(username);
         lblAlamatTampil.setText(p != null && p.alamat != null ? p.alamat : "-");
 
-        // flowchart: keranjang kosong -> notifikasi -> kembali ke beranda
         if (items.isEmpty()) {
             nav.perbaruiBadgeKeranjang();
             UIs.info(this, "Keranjang belanjamu masih kosong");
@@ -349,7 +341,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
         }
         nav.perbaruiBadgeKeranjang();
 
-        // tipe pemesanan tersimpan; bila belum pernah dipilih tetap kosong
         String tipe = ctl.tipePemesanan(username);
         cbTipe.setSelectedItem(tipe == null ? "- Pilih tipe -" : tipe);
 
@@ -376,7 +367,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
         return list;
     }
 
-    /** Tipe pemesanan terpilih pada dropdown; null bila masih kosong. */
     private String tipeTerpilih() {
         Object v = cbTipe.getSelectedItem();
         return v == null || v.toString().isBlank() || v.toString().startsWith("-") ? null : v.toString();
@@ -455,9 +445,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
     }
 
 
-    // ================= Dialog pilihan pembayaran =================
-
-    /** Flowchart: "Tampilan pilihan pembayaran cash atau e-wallet". */
     private class PilihPembayaranDialog extends javax.swing.JDialog {
 
         private final String tipe;
@@ -534,7 +521,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
             return p;
         }
 
-        /** Flowchart: Cash -> tampilkan halaman kode transaksi -> kembali ke beranda. */
         private void bayarCash() {
             String kode = ctl.buatKodeCash();
             JPanel card = UIs.card(16);
@@ -587,7 +573,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
             setLocationRelativeTo(KeranjangPanel.this);
         }
 
-        /** E-Wallet / M-Bangking: unggah bukti transfer lalu konfirmasi. */
         private void bayarEwallet(String metode) {
             File[] bukti = {null};
             JLabel lblFile = new JLabel("Belum memilih file bukti pembayaran.");
@@ -619,8 +604,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
             tombol.setOpaque(false);
             var btnPilih = UIs.button("Pilih File", UIs.Btn.SECONDARY);
             btnPilih.addActionListener(e -> {
-                // JFileChooser: komponen bawaan Swing yang membuka
-                // file manager sistem (tanpa library tambahan)
                 JFileChooser fc = new JFileChooser();
                 fc.setFileFilter(new FileNameExtensionFilter("Gambar (jpg, png, gif)", "jpg", "jpeg", "png", "gif"));
                 if (fc.showOpenDialog(PilihPembayaranDialog.this) == JFileChooser.APPROVE_OPTION) {
@@ -671,8 +654,6 @@ public class KeranjangPanel extends javax.swing.JPanel {
         }
     }
 
-    // ================= Satu baris item keranjang =================
-
     private class KeranjangBaris extends JPanel {
 
         private final KeranjangItem item;
@@ -688,11 +669,11 @@ public class KeranjangPanel extends javax.swing.JPanel {
             card.setLayout(new java.awt.BorderLayout(14, 0));
             card.setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
 
-            // kiri: centang + gambar + nama produk
+           
             JPanel kiri = new JPanel(new java.awt.BorderLayout(10, 0));
             kiri.setOpaque(false);
             chk.setOpaque(false);
-            chk.setSelected(true); // tercentang awal agar subtotal langsung terhitung
+            chk.setSelected(true); 
             chk.addItemListener(e -> hitungTotal());
             kiri.add(chk, java.awt.BorderLayout.WEST);
 
@@ -715,7 +696,7 @@ public class KeranjangPanel extends javax.swing.JPanel {
             kiri.add(identitas, java.awt.BorderLayout.CENTER);
             card.add(kiri, java.awt.BorderLayout.CENTER);
 
-            // kanan: tombol - jumlah + , subtotal, hapus
+  
             JPanel kanan = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
             kanan.setOpaque(false);
 

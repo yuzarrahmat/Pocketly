@@ -36,12 +36,10 @@ public final class DB {
     private DB() {
     }
 
-    /** true bila driver JDBC MySQL berhasil dimuat. */
     public static boolean driverTersedia() {
         return driverOk;
     }
 
-    /** Membaca konfigurasi koneksi dari db.properties bila ada (opsional). */
     private static void loadConfig() {
         File f = new File("db.properties");
         if (!f.exists()) {
@@ -71,12 +69,6 @@ public final class DB {
         return DriverManager.getConnection(url, user, pass);
     }
 
-    /**
-     * Menyamakan skema lama dengan skema terbaru (aman dijalankan berulang):
-     * 1. produk.gambar_produk     -> kolom nama file gambar di img/produk
-     * 2. keranjang.tipe_pemesanan -> "Pesan antar" / "Pick up" (boleh kosong)
-     * 3. mengisi gambar produk contoh bila kolomnya masih kosong.
-     */
     public static void ensurePatch() {
         String[] alters = {
             "ALTER TABLE pengguna MODIFY COLUMN password VARCHAR(255) NOT NULL",
@@ -99,7 +91,6 @@ public final class DB {
         }
     }
 
-    /** Mengisi gambar 21 produk contoh bila kolom gambar masih kosong. */
     private static void isiGambarContoh(Connection c) {
         String[][] seeds = {
             {"PRD001", "indomie-goreng.jpg"}, {"PRD002", "roti-sari-roti.jpg"},
@@ -128,9 +119,6 @@ public final class DB {
         }
     }
 
-    /**
-     * Membuat id berurutan berikutnya, contoh: prefix "TRX" -> TRX041.
-     */
     public static String nextId(String prefix, String table, String column) {
         String sql = "SELECT " + column + " FROM " + table;
         int max = 0;
@@ -154,7 +142,7 @@ public final class DB {
         return String.format("%s%03d", prefix, max + 1);
     }
 
-    /** Menutup resource dengan aman. */
+
     public static void close(AutoCloseable... rs) {
         for (AutoCloseable r : rs) {
             if (r != null) {
@@ -166,7 +154,6 @@ public final class DB {
         }
     }
 
-    /** Eksekusi query yang mengembalikan satu angka. */
     public static int scalarInt(String sql, Object... params) {
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {

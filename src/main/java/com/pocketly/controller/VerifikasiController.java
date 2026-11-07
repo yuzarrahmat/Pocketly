@@ -9,11 +9,6 @@ import com.pocketly.dao.TransaksiDAO;
 import com.pocketly.model.OnlineOrder;
 import java.util.List;
 
-/**
- * Controller verifikasi pembayaran (petugas).
- * Mengikuti flowchart "Halaman Verifikasi Bayar":
- * klik bukti -> popup foto -> Valid / Tidak valid.
- */
 public class VerifikasiController {
 
     private final TransaksiDAO dao = new TransaksiDAO();
@@ -23,11 +18,6 @@ public class VerifikasiController {
         return dao.menungguVerifikasi();
     }
 
-    /**
-     * Menyimpan hasil verifikasi.
-     * valid = true  -> "Bukti pembayaran diterima"
-     * valid = false -> "Bukti pembayaran ditolak"
-     */
     public String verifikasi(String idTransaksi, boolean valid, String petugas) {
         dao.verifikasiPembayaran(idTransaksi, valid, petugas);
         return valid ? "Bukti pembayaran diterima" : "Bukti pembayaran ditolak";

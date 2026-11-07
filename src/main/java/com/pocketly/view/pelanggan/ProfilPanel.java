@@ -5,10 +5,7 @@ import com.pocketly.model.Pelanggan;
 import com.pocketly.util.Theme;
 import com.pocketly.util.UIs;
 
-/**
- * Halaman profil pelanggan: kartu identitas + statistik + tombol logout.
- * Form NetBeans GUI Builder - buka ProfilPanel.form di tab Design.
- */
+
 public class ProfilPanel extends javax.swing.JPanel {
     private final String username;
     private final PelangganNav nav;
@@ -20,7 +17,7 @@ public class ProfilPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
+
     public ProfilPanel() {
         this(null, null);
     }
@@ -35,14 +32,14 @@ public class ProfilPanel extends javax.swing.JPanel {
         kartu = new com.pocketly.component.RoundPanel();
         lingkaran = new javax.swing.JPanel();
         lblAvatar = new com.pocketly.component.AvatarLabel();
-        strut1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 12), new java.awt.Dimension(0, 12), new java.awt.Dimension(32767, 12));
+        strut1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(32767, 8));
         lblNama = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
-        strut2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 18), new java.awt.Dimension(0, 18), new java.awt.Dimension(32767, 18));
+        strut2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 12), new java.awt.Dimension(0, 12), new java.awt.Dimension(32767, 12));
         stat = new com.pocketly.component.RoundPanel();
         lblAngka = new javax.swing.JLabel();
         lblKet = new javax.swing.JLabel();
-        strut3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 18), new java.awt.Dimension(0, 18), new java.awt.Dimension(32767, 18));
+        strut3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 12), new java.awt.Dimension(0, 12), new java.awt.Dimension(32767, 12));
         Nama = new javax.swing.JPanel();
         lblKunciNama = new javax.swing.JLabel();
         lblNilaiNama = new javax.swing.JLabel();
@@ -66,60 +63,60 @@ public class ProfilPanel extends javax.swing.JPanel {
         Sejak = new javax.swing.JPanel();
         lblKunciSejak = new javax.swing.JLabel();
         lblNilaiSejak = new javax.swing.JLabel();
-        strut9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 22), new java.awt.Dimension(0, 22), new java.awt.Dimension(32767, 22));
+        strut9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 14), new java.awt.Dimension(0, 14), new java.awt.Dimension(32767, 14));
         btnLogout = new com.pocketly.component.RoundButton();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
+        setOpaque(false);
         setLayout(new java.awt.BorderLayout());
 
-        lblJudul.setText("Profil");
-        lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 24));
+        lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 20));
         lblJudul.setForeground(Theme.TEXT);
-        lblJudul.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 14, 0));
+        lblJudul.setText("Profil");
+        lblJudul.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
         add(lblJudul);
 
         tengah.setOpaque(false);
         tengah.setLayout(new java.awt.GridBagLayout());
 
         kartu.setBackground(Theme.CARD);
-        kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 34, 28, 34));
-        kartu.setMaximumSize(new java.awt.Dimension(470, 32767));
+        kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 28, 20, 28));
+        kartu.setMaximumSize(new java.awt.Dimension(420, 32767));
 
         lingkaran.setOpaque(false);
-        lingkaran.setPreferredSize(new java.awt.Dimension(86, 86));
-        lingkaran.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        lingkaran.setPreferredSize(new java.awt.Dimension(64, 64));
+        lingkaran.setLayout(new java.awt.FlowLayout(1, 0, 0));
 
-        lblAvatar.setFont(Theme.font(java.awt.Font.BOLD, 34));
-        lblAvatar.setPreferredSize(new java.awt.Dimension(86, 86));
-        lblAvatar.setMaximumSize(new java.awt.Dimension(86, 86));
+        lblAvatar.setFont(Theme.font(java.awt.Font.BOLD, 26));
+        lblAvatar.setPreferredSize(new java.awt.Dimension(64, 64));
+        lblAvatar.setMaximumSize(new java.awt.Dimension(64, 64));
         lingkaran.add(lblAvatar);
 
-        lblNama.setText("-");
-        lblNama.setFont(Theme.font(java.awt.Font.BOLD, 20));
+        lblNama.setFont(Theme.font(java.awt.Font.BOLD, 17));
         lblNama.setForeground(Theme.NAVY);
+        lblNama.setText("(Nama Pengguna)");
 
-        lblUser.setText("-");
-        lblUser.setFont(Theme.font(java.awt.Font.PLAIN, 13));
+        lblUser.setFont(Theme.font(java.awt.Font.PLAIN, 12));
         lblUser.setForeground(Theme.TEXT_MUTED);
+        lblUser.setText("(Username)");
 
         stat.setBackground(Theme.CARD);
+        stat.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 16, 10, 16));
         stat.setRadius(16);
-        stat.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 22, 14, 22));
         stat.setLayout(new javax.swing.BoxLayout(stat, javax.swing.BoxLayout.PAGE_AXIS));
 
-        lblAngka.setText("0");
-        lblAngka.setFont(Theme.font(java.awt.Font.BOLD, 26));
+        lblAngka.setFont(Theme.font(java.awt.Font.BOLD, 21));
         lblAngka.setForeground(Theme.BLUE);
+        lblAngka.setText("0");
         stat.add(lblAngka);
 
-        lblKet.setText("Total transaksi online");
         lblKet.setFont(Theme.font(java.awt.Font.PLAIN, 12));
         lblKet.setForeground(Theme.TEXT_MUTED);
+        lblKet.setText("Total transaksi online");
         stat.add(lblKet);
 
-        Nama.setOpaque(false);
         Nama.setMaximumSize(new java.awt.Dimension(420, 24));
+        Nama.setOpaque(false);
         Nama.setLayout(new java.awt.BorderLayout());
 
         lblKunciNama.setText("Nama");
@@ -132,8 +129,8 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblNilaiNama.setForeground(Theme.TEXT);
         Nama.add(lblNilaiNama);
 
-        Username.setOpaque(false);
         Username.setMaximumSize(new java.awt.Dimension(420, 24));
+        Username.setOpaque(false);
         Username.setLayout(new java.awt.BorderLayout());
 
         lblKunciUsername.setText("Username");
@@ -146,8 +143,8 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblNilaiUsername.setForeground(Theme.TEXT);
         Username.add(lblNilaiUsername);
 
-        Hp.setOpaque(false);
         Hp.setMaximumSize(new java.awt.Dimension(420, 24));
+        Hp.setOpaque(false);
         Hp.setLayout(new java.awt.BorderLayout());
 
         lblKunciHp.setText("No. HP");
@@ -155,13 +152,13 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblKunciHp.setForeground(Theme.TEXT_MUTED);
         Hp.add(lblKunciHp);
 
-        lblNilaiHp.setText("-");
         lblNilaiHp.setFont(Theme.font(java.awt.Font.BOLD, 13));
         lblNilaiHp.setForeground(Theme.TEXT);
+        lblNilaiHp.setText("-");
         Hp.add(lblNilaiHp);
 
-        Email.setOpaque(false);
         Email.setMaximumSize(new java.awt.Dimension(420, 24));
+        Email.setOpaque(false);
         Email.setLayout(new java.awt.BorderLayout());
 
         lblKunciEmail.setText("Email");
@@ -169,13 +166,13 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblKunciEmail.setForeground(Theme.TEXT_MUTED);
         Email.add(lblKunciEmail);
 
-        lblNilaiEmail.setText("-");
         lblNilaiEmail.setFont(Theme.font(java.awt.Font.BOLD, 13));
         lblNilaiEmail.setForeground(Theme.TEXT);
+        lblNilaiEmail.setText("(Email Pengguna)");
         Email.add(lblNilaiEmail);
 
-        Alamat.setOpaque(false);
         Alamat.setMaximumSize(new java.awt.Dimension(420, 24));
+        Alamat.setOpaque(false);
         Alamat.setLayout(new java.awt.BorderLayout());
 
         lblKunciAlamat.setText("Alamat");
@@ -183,13 +180,13 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblKunciAlamat.setForeground(Theme.TEXT_MUTED);
         Alamat.add(lblKunciAlamat);
 
-        lblNilaiAlamat.setText("-");
         lblNilaiAlamat.setFont(Theme.font(java.awt.Font.BOLD, 13));
         lblNilaiAlamat.setForeground(Theme.TEXT);
+        lblNilaiAlamat.setText("(Alamat Pengguna)");
         Alamat.add(lblNilaiAlamat);
 
-        Sejak.setOpaque(false);
         Sejak.setMaximumSize(new java.awt.Dimension(420, 24));
+        Sejak.setOpaque(false);
         Sejak.setLayout(new java.awt.BorderLayout());
 
         lblKunciSejak.setText("Terdaftar sejak");
@@ -197,14 +194,14 @@ public class ProfilPanel extends javax.swing.JPanel {
         lblKunciSejak.setForeground(Theme.TEXT_MUTED);
         Sejak.add(lblKunciSejak);
 
-        lblNilaiSejak.setText("-");
         lblNilaiSejak.setFont(Theme.font(java.awt.Font.BOLD, 13));
         lblNilaiSejak.setForeground(Theme.TEXT);
+        lblNilaiSejak.setText("(Tanggal)");
         Sejak.add(lblNilaiSejak);
 
         btnLogout.setText("Logout");
+        btnLogout.setMaximumSize(new java.awt.Dimension(32767, 40));
         btnLogout.setStyleName("dangerSoft");
-        btnLogout.setMaximumSize(new java.awt.Dimension(32767, 44));
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -236,11 +233,11 @@ public class ProfilPanel extends javax.swing.JPanel {
                     .addGroup(kartuLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(kartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNama)
-                            .addComponent(lblUser)
                             .addComponent(stat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(90, Short.MAX_VALUE))
+                            .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNama, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kartuLayout.setVerticalGroup(
             kartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,10 +292,10 @@ public class ProfilPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {
-        nav.logout(); // flowchart: logout -> Halaman Login
+        nav.logout();
     }
 
-    /** Dimuat setiap kali halaman dibuka: mengisi data profil dari database. */
+
     public void muatUlang() {
         Pelanggan p = ctl.profil(username);
         int totalTrx = ctl.totalTransaksi(username);

@@ -14,12 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Verifikasi pembayaran pesanan online. Tombol "Lihat Bukti" pada tabel
- * memakai MouseListener (bukan tombol renderer) sehingga bisa diklik,
- * lalu membuka pop up bukti dengan tombol Valid / Tidak Valid.
- * Form NetBeans GUI Builder - buka VerifikasiPanel.form di tab Design.
- */
 public class VerifikasiPanel extends javax.swing.JPanel {
     private final String username;
     private final PetugasNav nav;
@@ -37,7 +31,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
         siapkanTabel();
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public VerifikasiPanel() {
         this(null, null);
     }
@@ -45,44 +38,86 @@ public class VerifikasiPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         lblJudul = new javax.swing.JLabel();
         kartu = new com.pocketly.component.RoundPanel();
         scrollTabel = new javax.swing.JScrollPane();
         tblVerifikasi = new javax.swing.JTable();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
-        this.setLayout(new java.awt.BorderLayout(0, 14));
-        lblJudul.setText("Verifikasi Pembayaran");
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 22));
         lblJudul.setForeground(Theme.TEXT);
+        lblJudul.setText("Verifikasi Pembayaran");
+
         kartu.setBackground(Theme.CARD);
-        kartu.setRadius(18);
         kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        kartu.setLayout(new java.awt.BorderLayout(0, 0));
+        kartu.setRadius(18);
+
         scrollTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollTabel.setOpaque(false);
+
         tblVerifikasi.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null}
-                },
-                new String [] { "ID Transaksi", "Tanggal", "Pelanggan", "Metode", "Total", "Bukti Pembayaran", "Status" }
-              ) {
-                boolean[] canEdit = new boolean [] { false, false, false, false, false, false, false };
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-              });
-        tblVerifikasi.setRowHeight(40);
+            new Object [][] {
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Transaksi", "Tanggal", "Pelanggan", "Metode", "Total", "Bukti Pembayaran", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblVerifikasi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblVerifikasi.setFillsViewportHeight(true);
+        tblVerifikasi.setRowHeight(40);
         scrollTabel.setViewportView(tblVerifikasi);
-        kartu.add(scrollTabel, java.awt.BorderLayout.CENTER);
-        this.add(lblJudul, java.awt.BorderLayout.NORTH);
-        this.add(kartu, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout kartuLayout = new javax.swing.GroupLayout(kartu);
+        kartu.setLayout(kartuLayout);
+        kartuLayout.setHorizontalGroup(
+            kartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kartuLayout.createSequentialGroup()
+                .addComponent(scrollTabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        kartuLayout.setVerticalGroup(
+            kartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kartuLayout.createSequentialGroup()
+                .addComponent(scrollTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJudul)
+                    .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, 1515, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblJudul)
+                .addGap(18, 18, 18)
+                .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    /** Gaya tabel, lebar kolom, renderer badge status dan tombol "Lihat Bukti". */
     private void siapkanTabel() {
         UIs.styleTable(tblVerifikasi);
         tblVerifikasi.setRowHeight(40);
@@ -92,7 +127,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
             tblVerifikasi.getColumnModel().getColumn(i).setPreferredWidth(lebarKolom[i]);
         }
 
-        // kolom status: badge
         tblVerifikasi.getColumnModel().getColumn(6).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable t, Object value,
@@ -113,7 +147,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
         kanan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tblVerifikasi.getColumnModel().getColumn(4).setCellRenderer(kanan);
 
-        // tombol "Lihat Bukti" / "Lihat Kode Cash" yang benar-benar bisa diklik
         UIs.pasangAksiKolom(tblVerifikasi, KOLOM_BUKTI, "Lihat Bukti", UIs.Btn.SECONDARY, baris -> {
             if (data != null && baris < data.size()) {
                 bukaBukti(data.get(baris));
@@ -139,7 +172,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
         }
     }
 
-    /** Pop up bukti pembayaran + tombol Valid / Tidak Valid (flowchart). */
     private void bukaBukti(OnlineOrder o) {
         javax.swing.JDialog dlg = new javax.swing.JDialog(
                 javax.swing.SwingUtilities.getWindowAncestor(this),
@@ -169,7 +201,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
 
         JLabel gambar;
         if (o.bayarTunai()) {
-            // pesanan cash: tidak ada foto, tampilkan kode besar
             JPanel kodePanel = UIs.card(12);
             kodePanel.setLayout(new BorderLayout());
             kodePanel.setBorder(BorderFactory.createEmptyBorder(20, 24, 20, 24));
@@ -197,7 +228,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
         btnTutup.addActionListener(e -> dlg.dispose());
         var btnTidak = UIs.button("Tidak Valid", UIs.Btn.DANGER);
         btnTidak.addActionListener(e -> {
-            // flowchart: Database transaksi -> "Bukti pembayaran ditolak"
             try {
                 String pesan = ctl.verifikasi(o.idTransaksi, false, username);
                 UIs.info(this, pesan);
@@ -209,7 +239,6 @@ public class VerifikasiPanel extends javax.swing.JPanel {
         });
         var btnValid = UIs.button("Valid", UIs.Btn.SUCCESS);
         btnValid.addActionListener(e -> {
-            // flowchart: Database transaksi -> "Bukti pembayaran diterima"
             try {
                 String pesan = ctl.verifikasi(o.idTransaksi, true, username);
                 UIs.info(this, pesan);
@@ -231,8 +260,8 @@ public class VerifikasiPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblJudul;
     private com.pocketly.component.RoundPanel kartu;
+    private javax.swing.JLabel lblJudul;
     private javax.swing.JScrollPane scrollTabel;
     private javax.swing.JTable tblVerifikasi;
     // End of variables declaration//GEN-END:variables
