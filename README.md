@@ -59,8 +59,8 @@ Sistem ini menggunakan arsitektur *supertype-subtype* pada pengelolaan akun peng
 ### Perancangan Sistem (ERD, Use Case, & Flowchart)
 
 #### 1. Arsitektur Basis Data (ERD Logical & Relational)
-<img width="10533" height="7457" alt="ERD Relational Model" src="https://github.com/user-attachments/assets/d2b411b0-a4c7-49d6-a2fc-12158f9e6930" />
-<img width="8940" height="5194" alt="ERD Logical Model" src="https://github.com/user-attachments/assets/a6d6b496-fa20-4b70-8ca6-99d0ffb17f93" />
+<img width="8349" height="5613" alt="ERD Relational Model Pocket" src="https://github.com/user-attachments/assets/64ebfe72-457e-4321-8849-f2341722c0e4" />
+<img width="8844" height="5173" alt="ERD Logical Model Pocket" src="https://github.com/user-attachments/assets/79293280-ad80-4dbd-9bc8-0102a509d52e" />
 
 ---
 
@@ -301,6 +301,7 @@ Gunakan Akun bawaan dari `db_pocketly.sql` dibawah untuk menguji alur **Pelangga
 #### A. Autentikasi & Login Sistem (`Main.java` & `AuthController.java`)
 
 <img width="1600" height="903" alt="Login" src="https://github.com/user-attachments/assets/6ac41e80-6ffa-4271-bd54-5450f62f9418" />
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/6aa4600e-6ecf-4278-93bc-f6a7d5a8b17e" />
 
 * **Masuk ke Sistem:** Masukkan `Username` (contoh: `budi_san` untuk Pelanggan atau `ptg_andi` untuk Petugas) beserta `Password`, lalu klik tombol **Masuk**. Sistem secara otomatis mengenali peran pengguna dan mengarahkan sesi ke antarmuka yang sesuai (`PelangganFrame` atau `PetugasFrame`).
 * **Registrasi Pelanggan Baru:** Bagi pelanggan yang belum memiliki akun, klik tautan **Buat Akun** di bagian bawah kartu login untuk membuka formulir pendaftaran akun baru.
@@ -330,6 +331,22 @@ Gunakan Akun bawaan dari `db_pocketly.sql` dibawah untuk menguji alur **Pelangga
 * **Penyesuaian Kuantitas & Seleksi Barang:** Centang produk yang ingin diproses, ubah kuantitas pembelian menggunakan tombol `-` / `+` lalu tekan **OK** untuk memperbarui subtotal item, atau klik **Hapus** / **Hapus Terpilih** untuk mengeluarkan barang dari keranjang.
 * **Proses Checkout:** Setelah memeriksa rincian **Subtotal produk**, **Biaya pengiriman**, dan **Total bayar**, klik tombol **Checkout** di kanan bawah untuk memilih metode pembayaran (*Cash* dengan kode transaksi atau *E-Wallet* / *M-Banking* dengan unggah bukti pembayaran).
 
+##### 3. Pemantauan Riwayat & Status Pesanan (`TransaksiPanel.java`)
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/90d4d6b2-f2ab-4d03-93ab-c5e19f683371" />
+
+* **Daftar Riwayat Pesanan (`Transaksi Saya`):** Menampilkan seluruh kartu riwayat transaksi daring yang pernah dibuat oleh pelanggan (contoh: pesanan `TRX039` dan `TRX024` milik akun `Agus Prayitno`) lengkap dengan tanggal transaksi dan **Tipe pemesanan** (*Pick up* atau *Pesan antar*).
+* **Indikator Status Visual (`BadgeLabel`):** Setiap kartu pesanan dilengkapi lencana status berwarna dinamis (seperti `Selesai` berwarna hijau atau `Dibatalkan` berwarna merah) untuk memudahkan pelanggan memantau perkembangan pesanannya secara instan.
+* **Rincian Transaksi Lengkap:** Klik tombol **Selengkapnya** pada sisi kanan kartu pesanan untuk melihat detail rincian belanja, alamat pengiriman, daftar produk yang dibeli, metode pembayaran, biaya ongkir, hingga total tagihan.
+
+##### 4. Informasi Profil Pelanggan & Logout (`ProfilPanel.java`)
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7de886d4-ccbd-4e4a-99b9-6c84489c3765" />
+
+* **Kartu Identitas & Statistik Akun:** Menampilkan inisial avatar pengguna (`AvatarLabel`), nama lengkap (`Agus Prayitno`), `@username` (`@agus_prayitno`), serta metrik ringkas jumlah **Total transaksi online** yang telah dilakukan oleh pelanggan.
+* **Data Kontak & Alamat Terdaftar:** Menyajikan rincian informasi akun yang tersimpan di basis data, meliputi nama lengkap, *username*, nomor telepon, alamat *email* (`agus.prayitno@gmail.com`), alamat pengiriman utama (`Jl. Anggrek No. 3 RT 01`), serta tanggal registrasi akun (`18 Feb 2026`).
+* **Pengakhiran Sesi (`Logout`):** Klik tombol **Logout** berwarna merah muda di bagian bawah kartu profil untuk mengakhiri sesi pelanggan secara aman dan kembali ke jendela autentikasi (`Login`).
+
 ---
 
 #### C. Alur Penggunaan Sisi Petugas / Admin (`com.pocketly.view.petugas`)
@@ -351,4 +368,25 @@ Gunakan Akun bawaan dari `db_pocketly.sql` dibawah untuk menguji alur **Pelangga
 * **Manajemen Daftar Belanja Kasir:** Tabel kasir menampilkan daftar barang yang dibeli pelanggan gerai fisik lengkap dengan harga satuan, kontrol **Ubah Jumlah** (`-` / `+`) yang tervalidasi langsung dengan sisa stok gudang, serta kalkulasi **Subtotal** per baris produk.
 * **Penyelesaian Pembayaran:** Total tagihan dihitung secara otomatis pada bagian **Total belanja** (contoh: `Rp 257.500`). Klik tombol hijau **Bayar** di kanan bawah untuk memilih metode pembayaran (*Tunai* dengan perhitungan uang kembalian otomatis atau *Non-Tunai*), menyimpan transaksi ke basis data, dan memotong stok produk secara *real-time*.
 
-```
+##### 3. Pembaruan Status Pesanan Online (`StatusPanel.java`)
+
+<img width="1912" height="1080" alt="image" src="https://github.com/user-attachments/assets/51381b4c-5f4c-4739-9ec8-d1ab4a8810dc" />
+
+* **Tabel Monitoring Logistik Pesanan:** Menampilkan daftar seluruh pesanan daring pelanggan (contoh: `TRX031` s.d. `TRX040`) beserta informasi **ID Pesanan**, **Tanggal**, nama **Pelanggan**, dan **Tipe** pemesanan (*Pesan antar* atau *Pick up*).
+* **Pengelolaan Status Bertahap:** Pada kolom **Status Saat Ini**, petugas dapat memantau sekaligus memperbarui tahapan pemenuhan pesanan secara langsung (*Dikemas*, *Siap diambil*, *Dikirim*, *Selesai*, atau *Dibatalkan*) yang divisualisasikan dengan lencana warna berbeda dan langsung tersinkronisasi ke halaman riwayat pelanggan.
+
+##### 4. Verifikasi Pembayaran Pelanggan (`VerifikasiPanel.java`)
+
+<img width="1912" height="1080" alt="image" src="https://github.com/user-attachments/assets/d1319244-c2e9-4497-9b3b-b0af9e0eee67" />
+
+* **Daftar Antrean Verifikasi:** Menyajikan daftar transaksi pelanggan yang masih berstatus *Menunggu verifikasi* (contoh: `TRX025`, `TRX026`, `TRX032`, `TRX037`, dan `TRX038`) lengkap dengan rincian **Tanggal**, nama **Pelanggan**, **Metode** pembayaran (*E-Wallet*, *M-Bangking*, atau *Cash*), serta **Total** tagihan.
+* **Pemeriksaan Bukti & Validasi Lunas:** Klik tombol **Lihat Bukti** pada kolom **Bukti Pembayaran** untuk memeriksa tangkapan layar bukti transfer atau kode transaksi kas pelanggan. Saat petugas mengonfirmasi pembayaran sebagai *Valid*, sistem secara otomatis mengubah status pembayaran menjadi `'Berhasil'`, mencatat `waktu_lunas`, dan memotong stok fisik barang pada tabel `produk`.
+
+##### 5. Manajemen Produk & Stok Inventaris (`KelolaProdukPanel.java`)
+
+<img width="1023" height="578" alt="image" src="https://github.com/user-attachments/assets/321c245d-2b02-44ee-8014-07c807b8358e" />
+
+* **Katalog Inventaris Terpusat:** Menampilkan tabel master produk (`PRD001` s.d. `PRD012`, dst.) beserta **Gambar** ikon produk, **ID**, **Nama Produk**, **Kategori**, serta **Harga / Satuan** (contoh: *Indomie Goreng* `Rp 3.500/bungkus`, *Minyak Goreng Bimoli 1L* `Rp 21.000/pouch`).
+* **Penambahan & Pengeditan Data Barang:** Klik tombol **+ Tambah Produk** di sudut kanan atas untuk mendaftarkan barang baru ke basis data, atau klik tombol **Edit** pada baris produk tertentu untuk memperbarui rincian nama, kategori, maupun harga satuan barang.
+* **Penyesuaian Stok Cepat (`Ubah Stok +/-`):** Petugas dapat menambah atau mengurangi jumlah stok secara instan menggunakan tombol `-` dan `+` pada kolom **Ubah Stok (+/-)**, atau mengklik judul kolom untuk mengetik angka stok secara langsung.
+* **Pengaturan Status Produk (*Soft Delete*):** Kolom **Status** menampilkan lencana `Aktif` (hijau) atau `Nonaktif` (abu-abu, seperti pada *Chitato Sapi Panggang 68g* dan *Ultra Milk Cokelat 250ml*). Penonaktifan produk menyembunyikan barang dari katalog pelanggan tanpa menghapus baris datanya di basis data guna menjaga integritas riwayat `detail_transaksi`.
