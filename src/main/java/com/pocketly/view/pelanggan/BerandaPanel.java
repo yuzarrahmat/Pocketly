@@ -98,11 +98,9 @@ public class BerandaPanel extends javax.swing.JPanel {
         setBackground(Theme.PAGE_BG);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
         setMaximumSize(new java.awt.Dimension(1920, 1080));
-        setMinimumSize(new java.awt.Dimension(1920, 1080));
         setName(""); // NOI18N
         setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
-        setLayout(new java.awt.BorderLayout(0, 16));
+        setLayout(new java.awt.BorderLayout());
 
         panelAtas.setOpaque(false);
         panelAtas.setLayout(new java.awt.BorderLayout(14, 0));
