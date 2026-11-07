@@ -4,13 +4,6 @@ import com.pocketly.controller.AuthController;
 import com.pocketly.util.Theme;
 import com.pocketly.util.UIs;
 
-/**
- * Dialog registrasi pelanggan sesuai desain Figma:
- * Nama, Username, Alamat, Email, No Telpon, Password.
- * Setiap kolom memiliki validasi tersendiri dan pesan error
- * ditampilkan tepat di bawah tombol Registrasi.
- * Form NetBeans GUI Builder - buka RegistrasiDialog.form di tab Design.
- */
 public class RegistrasiDialog extends javax.swing.JDialog {
     private final AuthController auth = new AuthController();
 
@@ -21,11 +14,12 @@ public class RegistrasiDialog extends javax.swing.JDialog {
     public RegistrasiDialog(java.awt.Window owner) {
         super(owner);
         initComponents();
+        lblMasuk.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         ((javax.swing.JPanel) getContentPane()).setBackground(Theme.PAGE_BG);
         scrollDaftar.setOpaque(false);
         scrollDaftar.getViewport().setOpaque(false);
         scrollDaftar.getVerticalScrollBar().setUnitIncrement(18);
-        setLocationRelativeTo(owner); // setelah pack() agar posisi tepat di tengah
+        setLocationRelativeTo(owner); 
     }
 
     @SuppressWarnings("unchecked")
@@ -308,7 +302,6 @@ public class RegistrasiDialog extends javax.swing.JDialog {
         lblMasuk.setFont(Theme.font(java.awt.Font.BOLD, 12));
         lblMasuk.setForeground(Theme.NAVY);
         lblMasuk.setText("Masuk");
-        lblMasuk.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         lblMasuk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMasukMouseClicked(evt);
@@ -389,7 +382,7 @@ public class RegistrasiDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsernameActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfUsernameActionPerformed
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +390,7 @@ public class RegistrasiDialog extends javax.swing.JDialog {
     }
 
     private void lblMasukMouseClicked(java.awt.event.MouseEvent evt) {
-        dispose(); // kembali ke halaman login
+        dispose();
     }
 
     private void prosesRegistrasi() {
@@ -407,11 +400,11 @@ public class RegistrasiDialog extends javax.swing.JDialog {
                 tfNama.getText(), tfAlamat.getText(),
                 tfEmail.getText(), tfTelp.getText());
         if (!hasil.sukses()) {
-            lblError.setText(hasil.pesan()); // pesan error sesuai kesalahannya
+            lblError.setText(hasil.pesan()); 
             return;
         }
         UIs.info(this, "Registrasi Berhasil");
-        dispose(); // kembali ke halaman login
+        dispose(); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

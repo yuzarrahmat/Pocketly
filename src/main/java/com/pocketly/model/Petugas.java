@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model data petugas toko (tabel petugas). */
 public class Petugas {
 
     public String username;

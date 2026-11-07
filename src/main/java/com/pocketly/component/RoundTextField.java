@@ -10,11 +10,7 @@ import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-/**
- * Kolom teks bergaya Figma: latar #F1EEEE dengan sudut membulat dan
- * teks placeholder. JavaBean untuk NetBeans GUI Builder - atur properti
- * "placeholder" lewat jendela Properties.
- */
+
 public class RoundTextField extends JTextField {
 
     private String placeholder = "";

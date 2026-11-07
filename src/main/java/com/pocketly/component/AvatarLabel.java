@@ -9,11 +9,7 @@ import java.awt.RenderingHints;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-/**
- * Label avatar berbentuk lingkaran (navy) berisi inisial pengguna.
- * JavaBean untuk NetBeans GUI Builder - cukup atur "text" (inisial),
- * "font", dan "preferredSize" lewat Properties.
- */
+
 public class AvatarLabel extends JLabel {
 
     public AvatarLabel() {

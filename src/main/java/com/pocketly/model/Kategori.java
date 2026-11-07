@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model kategori produk (tabel kategori_produk). */
 public class Kategori {
 
     public String id;

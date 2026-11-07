@@ -2,12 +2,12 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
-    <Property name="opaque" type="boolean" value="false"/>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
         <EmptyBorder bottom="22" left="26" right="26" top="22"/>
       </Border>
     </Property>
+    <Property name="opaque" type="boolean" value="false"/>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -19,23 +19,23 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-128,0,0,3,-124"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,64,0,0,4,48"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblJudul">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Profil"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Theme.font(java.awt.Font.BOLD, 24)" type="code"/>
+          <Connection code="Theme.font(java.awt.Font.BOLD, 20)" type="code"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Theme.TEXT" type="code"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="Profil"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="14" left="0" right="0" top="0"/>
+            <EmptyBorder bottom="10" left="0" right="0" top="0"/>
           </Border>
         </Property>
       </Properties>
@@ -59,11 +59,11 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="28" left="34" right="34" top="28"/>
+                <EmptyBorder bottom="20" left="28" right="28" top="20"/>
               </Border>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[470, 32767]"/>
+              <Dimension value="[420, 32767]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -96,14 +96,14 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblNama" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUser" min="-2" max="-2" attributes="0"/>
                                   <Component id="stat" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnLogout" min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="btnLogout" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="lblUser" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="lblNama" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="90" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -158,7 +158,7 @@
               <Properties>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[86, 86]"/>
+                  <Dimension value="[64, 64]"/>
                 </Property>
               </Properties>
 
@@ -170,19 +170,57 @@
                 <Component class="com.pocketly.component.AvatarLabel" name="lblAvatar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="Theme.font(java.awt.Font.BOLD, 34)" type="code"/>
+                      <Connection code="Theme.font(java.awt.Font.BOLD, 26)" type="code"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[86, 86]"/>
+                      <Dimension value="[64, 64]"/>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[86, 86]"/>
+                      <Dimension value="[64, 64]"/>
                     </Property>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.Box$Filler" name="strut1">
+              <Properties>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[32767, 8]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[0, 8]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[0, 8]"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblNama">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Theme.font(java.awt.Font.BOLD, 17)" type="code"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Theme.NAVY" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="(Nama Pengguna)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblUser">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Theme.font(java.awt.Font.PLAIN, 12)" type="code"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Theme.TEXT_MUTED" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="(Username)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.Box$Filler" name="strut2">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[32767, 12]"/>
@@ -198,44 +236,6 @@
                 <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblNama">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Theme.font(java.awt.Font.BOLD, 20)" type="code"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Theme.NAVY" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="-"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblUser">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Theme.font(java.awt.Font.PLAIN, 13)" type="code"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Theme.TEXT_MUTED" type="code"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="-"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.Box$Filler" name="strut2">
-              <Properties>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[32767, 18]"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 18]"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 18]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
-              </AuxValues>
-            </Component>
             <Container class="com.pocketly.component.RoundPanel" name="stat">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -243,7 +243,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder bottom="14" left="22" right="22" top="14"/>
+                    <EmptyBorder bottom="10" left="16" right="16" top="10"/>
                   </Border>
                 </Property>
                 <Property name="radius" type="int" value="16"/>
@@ -255,24 +255,24 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblAngka">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="Theme.font(java.awt.Font.BOLD, 26)" type="code"/>
+                      <Connection code="Theme.font(java.awt.Font.BOLD, 21)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.BLUE" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblKet">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Total transaksi online"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.font(java.awt.Font.PLAIN, 12)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.TEXT_MUTED" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Total transaksi online"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -280,13 +280,13 @@
             <Component class="javax.swing.Box$Filler" name="strut3">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[32767, 18]"/>
+                  <Dimension value="[32767, 12]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 18]"/>
+                  <Dimension value="[0, 12]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 18]"/>
+                  <Dimension value="[0, 12]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -416,13 +416,13 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNilaiHp">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="-"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.font(java.awt.Font.BOLD, 13)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.TEXT" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="-"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -466,13 +466,13 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNilaiEmail">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="-"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.font(java.awt.Font.BOLD, 13)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.TEXT" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="(Email Pengguna)"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -516,13 +516,13 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNilaiAlamat">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="-"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.font(java.awt.Font.BOLD, 13)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.TEXT" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="(Alamat Pengguna)"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -566,13 +566,13 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNilaiSejak">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="-"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.font(java.awt.Font.BOLD, 13)" type="code"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.TEXT" type="code"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="(Tanggal)"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -580,13 +580,13 @@
             <Component class="javax.swing.Box$Filler" name="strut9">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[32767, 22]"/>
+                  <Dimension value="[32767, 14]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 22]"/>
+                  <Dimension value="[0, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 22]"/>
+                  <Dimension value="[0, 14]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -597,7 +597,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Logout"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[32767, 44]"/>
+                  <Dimension value="[32767, 40]"/>
                 </Property>
                 <Property name="styleName" type="java.lang.String" value="dangerSoft"/>
               </Properties>

@@ -23,12 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Kasir offline: input produk, tabel belanja dengan tombol +/- jumlah
- * (klik ditangani MouseListener tabel sehingga benar-benar berfungsi),
- * lalu pembayaran Tunai / E-Wallet / M-Bangking.
- * Form NetBeans GUI Builder - buka KasirPanel.form di tab Design.
- */
 public class KasirPanel extends javax.swing.JPanel {
     private final String username;
     private final PetugasNav nav;
@@ -47,7 +41,6 @@ public class KasirPanel extends javax.swing.JPanel {
         pasangAksiTabel();
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public KasirPanel() {
         this(null, null);
     }
@@ -55,20 +48,20 @@ public class KasirPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         panelAtas = new javax.swing.JPanel();
-        judulBaris = new javax.swing.JPanel();
-        lblJudul = new javax.swing.JLabel();
-        btnKembali = new com.pocketly.component.RoundButton();
         formCard = new com.pocketly.component.RoundPanel();
         baris1 = new javax.swing.JPanel();
         lblIdProduk = new javax.swing.JLabel();
         tfIdProduk = new com.pocketly.component.RoundTextField();
         lblJumlah = new javax.swing.JLabel();
         tfJumlah = new com.pocketly.component.RoundTextField();
-        btnTambah = new com.pocketly.component.RoundButton();
         baris2 = new javax.swing.JPanel();
         lblNamaPembeli = new javax.swing.JLabel();
         tfNamaPembeli = new com.pocketly.component.RoundTextField();
+        btnTambah = new com.pocketly.component.RoundButton();
+        lblJudul = new javax.swing.JLabel();
+        btnKembali = new com.pocketly.component.RoundButton();
         tabelCard = new com.pocketly.component.RoundPanel();
         scrollTabel = new javax.swing.JScrollPane();
         tblKasir = new javax.swing.JTable();
@@ -79,16 +72,122 @@ public class KasirPanel extends javax.swing.JPanel {
         kanan = new javax.swing.JPanel();
         btnBayar = new com.pocketly.component.RoundButton();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
-        this.setLayout(new java.awt.BorderLayout(0, 12));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+
         panelAtas.setOpaque(false);
-        panelAtas.setLayout(new java.awt.BorderLayout(0, 12));
-        judulBaris.setOpaque(false);
-        judulBaris.setLayout(new java.awt.BorderLayout(0, 0));
-        lblJudul.setText("Kasir Offline");
+
+        formCard.setBackground(Theme.CARD);
+        formCard.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 18, 14, 18));
+        formCard.setRadius(18);
+
+        baris1.setOpaque(false);
+
+        lblIdProduk.setFont(Theme.font(java.awt.Font.BOLD, 15));
+        lblIdProduk.setForeground(Theme.TEXT_DARK);
+        lblIdProduk.setText("ID Produk");
+
+        tfIdProduk.setPreferredSize(new java.awt.Dimension(140, 36));
+        tfIdProduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIdProdukActionPerformed(evt);
+            }
+        });
+
+        lblJumlah.setFont(Theme.font(java.awt.Font.BOLD, 15));
+        lblJumlah.setForeground(Theme.TEXT_DARK);
+        lblJumlah.setText("Jumlah");
+
+        tfJumlah.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfJumlah.setPreferredSize(new java.awt.Dimension(90, 36));
+        tfJumlah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfJumlahActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout baris1Layout = new javax.swing.GroupLayout(baris1);
+        baris1.setLayout(baris1Layout);
+        baris1Layout.setHorizontalGroup(
+            baris1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(baris1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblIdProduk)
+                .addGap(10, 10, 10)
+                .addComponent(tfIdProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(lblJumlah)
+                .addGap(10, 10, 10)
+                .addComponent(tfJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+        baris1Layout.setVerticalGroup(
+            baris1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(baris1Layout.createSequentialGroup()
+                .addGroup(baris1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(baris1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(lblIdProduk))
+                    .addGroup(baris1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(tfIdProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(baris1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(lblJumlah))
+                    .addGroup(baris1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(tfJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
+        );
+
+        baris2.setOpaque(false);
+        baris2.setLayout(new java.awt.FlowLayout(0, 10, 0));
+
+        lblNamaPembeli.setText("Nama pembeli (opsional)");
+        lblNamaPembeli.setFont(Theme.font(java.awt.Font.BOLD, 15));
+        lblNamaPembeli.setForeground(Theme.TEXT_DARK);
+        baris2.add(lblNamaPembeli);
+
+        tfNamaPembeli.setPreferredSize(new java.awt.Dimension(280, 36));
+        baris2.add(tfNamaPembeli);
+
+        btnTambah.setText("Tambah");
+        btnTambah.setPreferredSize(new java.awt.Dimension(110, 38));
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formCardLayout = new javax.swing.GroupLayout(formCard);
+        formCard.setLayout(formCardLayout);
+        formCardLayout.setHorizontalGroup(
+            formCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formCardLayout.createSequentialGroup()
+                .addComponent(baris2, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(252, Short.MAX_VALUE))
+            .addGroup(formCardLayout.createSequentialGroup()
+                .addComponent(baris1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        formCardLayout.setVerticalGroup(
+            formCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formCardLayout.createSequentialGroup()
+                .addGroup(formCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(baris1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(baris2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 22));
         lblJudul.setForeground(Theme.TEXT);
+        lblJudul.setText("Kasir Offline");
+
         btnKembali.setText("Kembali");
         btnKembali.setStyleName("ghost");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -96,96 +195,87 @@ public class KasirPanel extends javax.swing.JPanel {
                 btnKembaliActionPerformed(evt);
             }
         });
-        judulBaris.add(lblJudul, java.awt.BorderLayout.WEST);
-        judulBaris.add(btnKembali, java.awt.BorderLayout.EAST);
-        formCard.setBackground(Theme.CARD);
-        formCard.setRadius(18);
-        formCard.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 18, 14, 18));
-        formCard.setLayout(new java.awt.BorderLayout(0, 10));
-        baris1.setOpaque(false);
-        baris1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
-        lblIdProduk.setText("ID Produk");
-        lblIdProduk.setFont(Theme.font(java.awt.Font.BOLD, 15));
-        lblIdProduk.setForeground(Theme.TEXT_DARK);
-        tfIdProduk.setPreferredSize(new java.awt.Dimension(140, 36));
-        tfIdProduk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIdProdukActionPerformed(evt);
-            }
-        });
-        lblJumlah.setText("Jumlah");
-        lblJumlah.setFont(Theme.font(java.awt.Font.BOLD, 15));
-        lblJumlah.setForeground(Theme.TEXT_DARK);
-        tfJumlah.setPreferredSize(new java.awt.Dimension(90, 36));
-        tfJumlah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tfJumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfJumlahActionPerformed(evt);
-            }
-        });
-        btnTambah.setText("Tambah");
-        btnTambah.setStyleName("primary");
-        btnTambah.setPreferredSize(new java.awt.Dimension(110, 38));
-        btnTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTambahActionPerformed(evt);
-            }
-        });
-        baris1.add(lblIdProduk);
-        baris1.add(tfIdProduk);
-        baris1.add(lblJumlah);
-        baris1.add(tfJumlah);
-        baris1.add(btnTambah);
-        baris2.setOpaque(false);
-        baris2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
-        lblNamaPembeli.setText("Nama pembeli (opsional)");
-        lblNamaPembeli.setFont(Theme.font(java.awt.Font.BOLD, 15));
-        lblNamaPembeli.setForeground(Theme.TEXT_DARK);
-        tfNamaPembeli.setPreferredSize(new java.awt.Dimension(280, 36));
-        baris2.add(lblNamaPembeli);
-        baris2.add(tfNamaPembeli);
-        formCard.add(baris1, java.awt.BorderLayout.NORTH);
-        formCard.add(baris2, java.awt.BorderLayout.SOUTH);
-        panelAtas.add(judulBaris, java.awt.BorderLayout.NORTH);
-        panelAtas.add(formCard, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout panelAtasLayout = new javax.swing.GroupLayout(panelAtas);
+        panelAtas.setLayout(panelAtasLayout);
+        panelAtasLayout.setHorizontalGroup(
+            panelAtasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAtasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelAtasLayout.createSequentialGroup()
+                .addComponent(formCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelAtasLayout.setVerticalGroup(
+            panelAtasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAtasLayout.createSequentialGroup()
+                .addGroup(panelAtasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(formCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         tabelCard.setBackground(Theme.CARD);
-        tabelCard.setRadius(18);
         tabelCard.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        tabelCard.setLayout(new java.awt.BorderLayout(0, 0));
+        tabelCard.setRadius(18);
+
         scrollTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollTabel.setOpaque(false);
+
         tblKasir.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null}
-                },
-                new String [] { "ID", "Nama Produk", "Harga", "Ubah Jumlah", "Subtotal" }
-              ) {
-                boolean[] canEdit = new boolean [] { false, false, false, false, false };
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-              });
-        tblKasir.setRowHeight(40);
-        tblKasir.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama Produk", "Harga", "Ubah Jumlah", "Subtotal"
+            }
+        ));
+        tblKasir.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblKasir.setFillsViewportHeight(true);
+        tblKasir.setRowHeight(40);
         scrollTabel.setViewportView(tblKasir);
-        tabelCard.add(scrollTabel, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout tabelCardLayout = new javax.swing.GroupLayout(tabelCard);
+        tabelCard.setLayout(tabelCardLayout);
+        tabelCardLayout.setHorizontalGroup(
+            tabelCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabelCardLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollTabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        tabelCardLayout.setVerticalGroup(
+            tabelCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollTabel)
+        );
+
         footCard.setBackground(Theme.CARD);
-        footCard.setRadius(18);
         footCard.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 20, 14, 20));
+        footCard.setRadius(18);
         footCard.setLayout(new java.awt.BorderLayout(18, 0));
+
         tot.setOpaque(false);
-        tot.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+        tot.setLayout(new java.awt.FlowLayout(0, 8, 0));
+
         lblTotalK.setText("Total belanja:");
         lblTotalK.setFont(Theme.font(java.awt.Font.BOLD, 15));
         lblTotalK.setForeground(Theme.TEXT_DARK);
+        tot.add(lblTotalK);
+
         lblTotal.setText("Rp 0");
         lblTotal.setFont(Theme.font(java.awt.Font.BOLD, 20));
         lblTotal.setForeground(Theme.NAVY);
-        tot.add(lblTotalK);
         tot.add(lblTotal);
+
+        footCard.add(tot, java.awt.BorderLayout.WEST);
+
         kanan.setOpaque(false);
-        kanan.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
+        kanan.setLayout(new java.awt.FlowLayout(2, 10, 0));
+
         btnBayar.setText("Bayar");
         btnBayar.setStyleName("success");
         btnBayar.setPreferredSize(new java.awt.Dimension(140, 42));
@@ -195,11 +285,32 @@ public class KasirPanel extends javax.swing.JPanel {
             }
         });
         kanan.add(btnBayar);
-        footCard.add(tot, java.awt.BorderLayout.WEST);
+
         footCard.add(kanan, java.awt.BorderLayout.EAST);
-        this.add(panelAtas, java.awt.BorderLayout.NORTH);
-        this.add(tabelCard, java.awt.BorderLayout.CENTER);
-        this.add(footCard, java.awt.BorderLayout.SOUTH);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(footCard, javax.swing.GroupLayout.PREFERRED_SIZE, 1103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelAtas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tabelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelAtas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(tabelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
+                .addComponent(footCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +333,6 @@ public class KasirPanel extends javax.swing.JPanel {
         bayar(); // pop up ringkasan pembelian
     }
 
-    /** Gaya tabel, lebar kolom, dan renderer kolom ubah jumlah [- jumlah +]. */
     private void siapkanTabel() {
         UIs.styleTable(tblKasir);
         tblKasir.setRowHeight(40);
@@ -232,7 +342,6 @@ public class KasirPanel extends javax.swing.JPanel {
             tblKasir.getColumnModel().getColumn(i).setPreferredWidth(lebarKolom[i]);
         }
 
-        // kolom ubah jumlah: tampilan [- jumlah +]
         tblKasir.getColumnModel().getColumn(KOLOM_JUMLAH).setCellRenderer((t, value, isSelected, hasFocus, row, column) -> {
             JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 0)) {
                 @Override
@@ -263,7 +372,6 @@ public class KasirPanel extends javax.swing.JPanel {
         tblKasir.getColumnModel().getColumn(4).setCellRenderer(kanan2);
     }
 
-    /** Gambar tombol mini untuk renderer (tanpa aksi). */
     private JButton tombolMini(String teks) {
         JButton b = new JButton(teks) {
             @Override
@@ -287,7 +395,6 @@ public class KasirPanel extends javax.swing.JPanel {
         return b;
     }
 
-    /** Aksi klik pada kolom ubah jumlah: area kiri = kurang, kanan = tambah. */
     private void pasangAksiTabel() {
         tblKasir.addMouseListener(new MouseAdapter() {
             @Override
@@ -339,14 +446,13 @@ public class KasirPanel extends javax.swing.JPanel {
         lblTotal.setText(UIs.money(ctl.totalBelanja(items)));
     }
 
-    /** Validasi form lalu menambah produk ke tabel belanja (flowchart). */
     private void tambahProduk() {
         var hasil = ctl.tambahItem(items, tfIdProduk.getText(), tfJumlah.getText());
         if (!hasil.sukses()) {
             UIs.error(this, hasil.pesan()); // pesan error sesuai kesalahannya
             return;
         }
-        // gabungkan bila produk sama
+        
         KasirItem baru = hasil.item();
         var ada = items.stream().filter(i -> i.idProduk.equals(baru.idProduk)).findFirst();
         if (ada.isPresent()) {
@@ -361,11 +467,10 @@ public class KasirPanel extends javax.swing.JPanel {
         muatTabel();
     }
 
-    /** Mengubah jumlah satu item lewat tombol +/- pada tabel. */
     private void ubahJumlah(KasirItem item, int arah) {
         String pesan = ctl.ubahJumlah(items, item, item.jumlah + arah);
         if (!pesan.startsWith("Berhasil") && !pesan.startsWith("Item dihapus")) {
-            UIs.error(this, pesan); // "Stok tidak mencukupi"
+            UIs.error(this, pesan);
         }
         muatTabel();
     }
@@ -392,7 +497,6 @@ public class KasirPanel extends javax.swing.JPanel {
         }
     }
 
-    /** Tombol bayar -> pop up ringkasan pembelian + tombol pembayaran. */
     private void bayar() {
         if (items.isEmpty()) {
             UIs.error(this, "Belum ada produk yang diinput.");
@@ -401,8 +505,6 @@ public class KasirPanel extends javax.swing.JPanel {
         new RingkasanBayarDialog().setVisible(true);
     }
 
-
-    // ================= Dialog pembayaran =================
 
     private class RingkasanBayarDialog extends javax.swing.JDialog {
 
@@ -457,7 +559,6 @@ public class KasirPanel extends javax.swing.JPanel {
             setLocationRelativeTo(KasirPanel.this);
         }
 
-        /** Flowchart e-wallet/m-bangking: pop up "pembayaran berhasil?" tombol iya/tidak. */
         private void tanyaDigital(String metode) {
             Object[] opsi = {"Pembayaran " + metode + " berhasil?"};
             int pilih = javax.swing.JOptionPane.showOptionDialog(RingkasanBayarDialog.this, opsi,
@@ -465,7 +566,6 @@ public class KasirPanel extends javax.swing.JPanel {
                     javax.swing.JOptionPane.QUESTION_MESSAGE, null,
                     new String[]{"Iya", "Tidak"}, "Iya");
             if (pilih != 0) {
-                // flowchart: tampilkan "pembayaran dibatalkan" -> kembali ke ringkasan
                 UIs.info(RingkasanBayarDialog.this, "pembayaran dibatalkan");
                 return;
             }
@@ -477,7 +577,6 @@ public class KasirPanel extends javax.swing.JPanel {
             }
         }
 
-        /** Flowchart tunai: pop up total bayar, form uang pelanggan, uang kembalian. */
         private void bayarTunai() {
             double total = ctl.totalBelanja(items);
             JTextField tfUang = UIs.textField();
@@ -559,37 +658,35 @@ public class KasirPanel extends javax.swing.JPanel {
             }
         }
 
-        /** Simpan -> tampilkan "transaksi selesai" -> kembali ke kasir kosong. */
         private void selesai(String pesan) {
-            UIs.info(KasirPanel.this, pesan); // "transaksi selesai"
+            UIs.info(KasirPanel.this, pesan); 
             dispose();
             muatUlang();
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panelAtas;
-    private javax.swing.JPanel judulBaris;
-    private javax.swing.JLabel lblJudul;
-    private com.pocketly.component.RoundButton btnKembali;
-    private com.pocketly.component.RoundPanel formCard;
     private javax.swing.JPanel baris1;
-    private javax.swing.JLabel lblIdProduk;
-    private com.pocketly.component.RoundTextField tfIdProduk;
-    private javax.swing.JLabel lblJumlah;
-    private com.pocketly.component.RoundTextField tfJumlah;
-    private com.pocketly.component.RoundButton btnTambah;
     private javax.swing.JPanel baris2;
-    private javax.swing.JLabel lblNamaPembeli;
-    private com.pocketly.component.RoundTextField tfNamaPembeli;
-    private com.pocketly.component.RoundPanel tabelCard;
-    private javax.swing.JScrollPane scrollTabel;
-    private javax.swing.JTable tblKasir;
-    private com.pocketly.component.RoundPanel footCard;
-    private javax.swing.JPanel tot;
-    private javax.swing.JLabel lblTotalK;
-    private javax.swing.JLabel lblTotal;
-    private javax.swing.JPanel kanan;
     private com.pocketly.component.RoundButton btnBayar;
+    private com.pocketly.component.RoundButton btnKembali;
+    private com.pocketly.component.RoundButton btnTambah;
+    private com.pocketly.component.RoundPanel footCard;
+    private com.pocketly.component.RoundPanel formCard;
+    private javax.swing.JPanel kanan;
+    private javax.swing.JLabel lblIdProduk;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblJumlah;
+    private javax.swing.JLabel lblNamaPembeli;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalK;
+    private javax.swing.JPanel panelAtas;
+    private javax.swing.JScrollPane scrollTabel;
+    private com.pocketly.component.RoundPanel tabelCard;
+    private javax.swing.JTable tblKasir;
+    private com.pocketly.component.RoundTextField tfIdProduk;
+    private com.pocketly.component.RoundTextField tfJumlah;
+    private com.pocketly.component.RoundTextField tfNamaPembeli;
+    private javax.swing.JPanel tot;
     // End of variables declaration//GEN-END:variables
 }

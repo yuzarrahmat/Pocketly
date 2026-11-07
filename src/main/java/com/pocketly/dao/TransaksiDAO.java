@@ -20,10 +20,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO transaksi: checkout online, riwayat pelanggan, verifikasi pembayaran,
- * ubah status pesanan, kasir offline, dan laporan pendapatan.
- */
 public class TransaksiDAO {
 
     // ================= PEMBACAAN =================
@@ -88,7 +84,6 @@ public class TransaksiDAO {
         return null;
     }
 
-    /** Daftar produk yang dibeli pada satu transaksi. */
     public List<DetailTransaksi> detailItem(String idTransaksi) {
         List<DetailTransaksi> list = new ArrayList<>();
         String sql = "SELECT d.id_detail_transaksi, d.id_transaksi, d.id_produk, p.nama_produk, "
@@ -117,7 +112,6 @@ public class TransaksiDAO {
         return list;
     }
 
-    /** Transaksi online yang menunggu verifikasi pembayaran (halaman verifikasi bayar). */
     public List<OnlineOrder> menungguVerifikasi() {
         List<OnlineOrder> list = new ArrayList<>();
         String sql = ONLINE_SELECT + "WHERE t.status_pembayaran = 'Menunggu verifikasi' "
@@ -134,7 +128,6 @@ public class TransaksiDAO {
         return list;
     }
 
-    /** Seluruh pesanan online (halaman ubah status pesanan). */
     public List<OnlineOrder> semuaPesananOnline() {
         List<OnlineOrder> list = new ArrayList<>();
         String sql = ONLINE_SELECT + "ORDER BY t.tanggal_transaksi DESC, t.id_transaksi DESC";
@@ -150,14 +143,10 @@ public class TransaksiDAO {
         return list;
     }
 
-    /** Jumlah transaksi online milik pelanggan (halaman profil). */
     public int jumlahTransaksiPelanggan(String username) {
         return DB.scalarInt("SELECT COUNT(*) FROM online WHERE pelanggan_username = ?", username);
     }
 
-    // ================= LAPORAN PENDAPATAN =================
-
-    /** Baris pendapatan = seluruh transaksi yang berhasil dibayar. */
     public List<PendapatanRow> pendapatan() {
         List<PendapatanRow> list = new ArrayList<>();
         String sql = "SELECT id_transaksi, tanggal_transaksi, jenis_transaksi, metode_pembayaran, total_bayar "
@@ -229,15 +218,6 @@ public class TransaksiDAO {
         }
     }
 
-    // ================= CHECKOUT ONLINE =================
-
-    /**
-     * Menyimpan checkout online dalam satu transaksi DB:
-     * transaksi + online + detail_transaksi per item, lalu menghapus
-     * baris keranjang yang di-checkout.
-     * Catatan: stok produk sudah dipesan (dikurangi) saat item dimasukkan
-     * ke keranjang, sehingga di sini tidak dikurangi lagi.
-     */
     public void checkoutOnline(String username, List<KeranjangItem> items, String tipePemesanan,
                                String metodePembayaran, String kodeCash, String buktiPath,
                                double ongkir, String petugasDefault) {

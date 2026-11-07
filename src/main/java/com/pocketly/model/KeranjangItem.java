@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model satu baris keranjang pelanggan (tabel keranjang JOIN produk). */
 public class KeranjangItem {
 
     public String idKeranjang;

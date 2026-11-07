@@ -6,11 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
-/**
- * Panel berwarna dengan sudut membulat untuk kartu konten sesuai Figma.
- * JavaBean untuk NetBeans GUI Builder - atur lewat Properties:
- * "background" (warna kartu) dan "radius" (kelengkungan sudut).
- */
 public class RoundPanel extends JPanel {
 
     private int radius = 25;

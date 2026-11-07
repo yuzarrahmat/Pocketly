@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model akun pengguna (tabel pengguna). */
 public class Pengguna {
 
     public String username;

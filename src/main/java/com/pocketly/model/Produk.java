@@ -5,7 +5,6 @@
 
 package com.pocketly.model;
 
-/** Model produk (tabel produk). */
 public class Produk {
 
     public String id;

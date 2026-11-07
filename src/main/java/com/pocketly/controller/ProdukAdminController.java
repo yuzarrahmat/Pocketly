@@ -32,11 +32,6 @@ public class ProdukAdminController {
         return kategoriDao.semua();
     }
 
-    /**
-     * Validasi form produk. Mengembalikan pesan error spesifik
-     * sesuai kesalahan input (flowchart: "Tampilkan pesan error
-     * berdasarkan kesalahannya"), atau null bila valid.
-     */
     public String validasi(String nama, String hargaText, String stokText, String satuan, String idKategori) {
         if (nama == null || nama.isBlank()) {
             return "Nama produk wajib diisi.";
@@ -84,7 +79,7 @@ public class ProdukAdminController {
         return "Berhasil menambah produk";
     }
 
-    /** Menyimpan perubahan produk; mengembalikan pesan hasil operasi. */
+
     public String ubahProduk(Produk asli, String nama, String hargaText, String stokText,
                              String satuan, String idKategori, String status, File gambarBaru) {
         String err = validasi(nama, hargaText, stokText, satuan, idKategori);
@@ -114,7 +109,6 @@ public class ProdukAdminController {
         p.status = status == null ? "Aktif" : status;
     }
 
-    /** Menyalin file gambar pilihan ke img/produk dengan nama rapi. */
     private String salinGambar(File src, String idProduk) {
         if (src == null) {
             return null;
@@ -135,7 +129,6 @@ public class ProdukAdminController {
         return i < 0 ? ".jpg" : nama.substring(i).toLowerCase();
     }
 
-    /** Ubah stok cepat pada tabel kelola produk. */
     public String ubahStok(String idProduk, int stokBaru) {
         if (stokBaru < 0) {
             return "Stok tidak boleh negatif.";

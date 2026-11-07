@@ -27,14 +27,6 @@ public class KatalogController {
         return produkDao.aktifPerKategori(idKategori);
     }
 
-    /**
-     * Menambahkan produk ke keranjang pelanggan.
-     * Mengembalikan pesan notifikasi untuk view:
-     * - "Stok tidak mencukupi" bila stok tersisa < jumlah yang diminta.
-     * - "Item ditambahkan" bila berhasil.
-     * Stok produk berkurang saat dimasukkan keranjang (dipesan) dan
-     * dikembalikan bila item dihapus dari keranjang.
-     */
     public String tambahKeKeranjang(String username, String idProduk, int jumlah) {
         if (jumlah <= 0) {
             return "Jumlah harus lebih dari 0";

@@ -15,13 +15,6 @@ import java.util.Locale;
 import java.util.Map;
 import javax.swing.JPanel;
 
-/**
- * Grafik batang pendapatan per tanggal (digambar sendiri dengan Java2D,
- * tanpa library tambahan). JavaBean untuk NetBeans GUI Builder; data
- * diisi dari kode lewat setData(tahun, bulan, petaNilai). Saat dibuka
- * di GUI Builder (design time) komponen menampilkan contoh data agar
- * tampilannya bisa dilihat.
- */
 public class ChartPanel extends JPanel {
 
     private Map<LocalDate, Double> data = new HashMap<>();

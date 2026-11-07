@@ -15,7 +15,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/** DAO kategori produk. */
 public class KategoriDAO {
 
     public List<Kategori> semua() {

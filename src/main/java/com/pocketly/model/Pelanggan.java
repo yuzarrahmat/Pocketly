@@ -2,7 +2,6 @@ package com.pocketly.model;
 
 import java.time.LocalDate;
 
-/** Model data pelanggan (tabel pelanggan). */
 public class Pelanggan {
 
     public String username;

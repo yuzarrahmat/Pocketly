@@ -30,13 +30,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Kelola produk &amp; stok. Tombol +/- pada kolom stok dan tombol Edit
- * menggunakan MouseListener tabel (bukan tombol di dalam renderer,
- * yang hanya berfungsi sebagai gambar), sehingga benar-benar bisa
- * diklik dan tersimpan ke database.
- * Form NetBeans GUI Builder - buka KelolaProdukPanel.form di tab Design.
- */
 public class KelolaProdukPanel extends javax.swing.JPanel {
     private final String username;
     private final PetugasNav nav;
@@ -56,7 +49,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
         pasangAksiTabel();
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public KelolaProdukPanel() {
         this(null, null);
     }
@@ -64,76 +56,104 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         panelAtas = new javax.swing.JPanel();
         lblJudul = new javax.swing.JLabel();
         btnTambah = new com.pocketly.component.RoundButton();
+        lblCatatan = new javax.swing.JLabel();
         kartu = new com.pocketly.component.RoundPanel();
         scrollTabel = new javax.swing.JScrollPane();
         tblProduk = new javax.swing.JTable();
-        lblCatatan = new javax.swing.JLabel();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
-        this.setLayout(new java.awt.BorderLayout(0, 12));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+
         panelAtas.setOpaque(false);
-        panelAtas.setLayout(new java.awt.BorderLayout(0, 0));
-        lblJudul.setText("Kelola Produk & Stok");
+        panelAtas.setLayout(new java.awt.BorderLayout());
+
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 22));
         lblJudul.setForeground(Theme.TEXT);
+        lblJudul.setText("Kelola Produk & Stok");
+        panelAtas.add(lblJudul, java.awt.BorderLayout.CENTER);
+
         btnTambah.setText("+ Tambah Produk");
-        btnTambah.setStyleName("primary");
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
             }
         });
-        panelAtas.add(lblJudul, java.awt.BorderLayout.WEST);
-        panelAtas.add(btnTambah, java.awt.BorderLayout.EAST);
-        kartu.setBackground(Theme.CARD);
-        kartu.setRadius(18);
-        kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        kartu.setLayout(new java.awt.BorderLayout(0, 0));
-        scrollTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        scrollTabel.setOpaque(false);
-        tblProduk.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null}
-                },
-                new String [] { "Gambar", "ID", "Nama Produk", "Kategori", "Harga / Satuan", "Ubah Stok (+/-)", "Status", "Edit" }
-              ) {
-                boolean[] canEdit = new boolean [] { false, false, false, false, false, false, false, false };
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-              });
-        tblProduk.setRowHeight(56);
-        tblProduk.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblProduk.setFillsViewportHeight(true);
-        scrollTabel.setViewportView(tblProduk);
-        kartu.add(scrollTabel, java.awt.BorderLayout.CENTER);
-        lblCatatan.setText("Tips: klik tombol +/- pada kolom stok untuk penyesuaian cepat, klik judul kolom \"Ubah Stok\" untuk mengetik angka langsung.");
+        panelAtas.add(btnTambah, java.awt.BorderLayout.LINE_END);
+
         lblCatatan.setFont(Theme.font(java.awt.Font.PLAIN, 12));
         lblCatatan.setForeground(Theme.TEXT_MUTED);
-        this.add(panelAtas, java.awt.BorderLayout.NORTH);
-        this.add(kartu, java.awt.BorderLayout.CENTER);
-        this.add(lblCatatan, java.awt.BorderLayout.SOUTH);
+        lblCatatan.setText("Tips: klik tombol +/- pada kolom stok untuk penyesuaian cepat, klik judul kolom \"Ubah Stok\" untuk mengetik angka langsung.");
+        panelAtas.add(lblCatatan, java.awt.BorderLayout.PAGE_END);
+
+        kartu.setBackground(Theme.CARD);
+        kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12));
+        kartu.setRadius(18);
+        kartu.setLayout(new java.awt.BorderLayout());
+
+        scrollTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollTabel.setOpaque(false);
+
+        tblProduk.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Gambar", "ID", "Nama Produk", "Kategori", "Harga / Satuan", "Ubah Stok (+/-)", "Status", "Edit"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProduk.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblProduk.setFillsViewportHeight(true);
+        tblProduk.setRowHeight(56);
+        scrollTabel.setViewportView(tblProduk);
+
+        kartu.add(scrollTabel, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1868, Short.MAX_VALUE)
+            .addComponent(kartu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelAtas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, 989, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {
         new ProdukFormDialog(null).setVisible(true); // flowchart: form tambah produk
     }
 
-    /** Gaya tabel, lebar kolom, dan renderer khusus (gambar, stok +/-, badge, edit). */
     private void siapkanTabel() {
         UIs.styleTable(tblProduk);
-        tblProduk.setRowHeight(56); // baris lebih tinggi agar thumbnail gambar terlihat utuh
+        tblProduk.setRowHeight(56); 
         model = (DefaultTableModel) tblProduk.getModel();
         int[] lebarKolom = {64, 64, 190, 130, 120, 140, 84, 86};
         for (int i = 0; i < lebarKolom.length && i < tblProduk.getColumnCount(); i++) {
             tblProduk.getColumnModel().getColumn(i).setPreferredWidth(lebarKolom[i]);
         }
 
-        // kolom gambar: thumbnail produk
+        
         tblProduk.getColumnModel().getColumn(0).setCellRenderer((t, value, isSelected, hasFocus, row, column) -> {
             JLabel l = new JLabel(UIs.productImage(String.valueOf(value), 48, 44));
             l.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -142,7 +162,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             return l;
         });
 
-        // kolom stok: tampilan [- jumlah +] (klik ditangani MouseListener)
         tblProduk.getColumnModel().getColumn(KOLOM_STOK).setCellRenderer((t, value, isSelected, hasFocus, row, column) -> {
             JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 0)) {
                 @Override
@@ -155,7 +174,7 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             int stok = (value instanceof Integer i) ? i : 0;
             int modelRow = tblProduk.convertRowIndexToModel(row);
             if (produkTampil != null && modelRow < produkTampil.size()) {
-                stok = produkTampil.get(modelRow).stok; // tampilkan stok terkini
+                stok = produkTampil.get(modelRow).stok; 
             }
             p.add(tombolMini("\u2212"));
             JLabel lblStok = new JLabel(String.valueOf(stok));
@@ -168,7 +187,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             return p;
         });
 
-        // kolom status: badge
         tblProduk.getColumnModel().getColumn(6).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(javax.swing.JTable t, Object value, boolean isSelected,
@@ -188,7 +206,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             }
         });
 
-        // kolom edit: tombol (klik ditangani MouseListener)
         tblProduk.getColumnModel().getColumn(KOLOM_EDIT).setCellRenderer((t, value, isSelected, hasFocus, row, column) -> {
             JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)) {
                 @Override
@@ -204,13 +221,11 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             return p;
         });
 
-        // harga rata kanan
         DefaultTableCellRenderer kanan = new DefaultTableCellRenderer();
         kanan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tblProduk.getColumnModel().getColumn(4).setCellRenderer(kanan);
     }
 
-    /** Gambar tombol mini untuk renderer (tanpa aksi). */
     private JButton tombolMini(String teks) {
         JButton b = new JButton(teks) {
             @Override
@@ -233,10 +248,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
         return b;
     }
 
-    /**
-     * Memasang aksi klik pada tabel: tombol +/- kolom stok dan tombol Edit.
-     * Renderer hanya menggambar tampilan; klik asli diteruskan di sini.
-     */
     private void pasangAksiTabel() {
         tblProduk.addMouseListener(new MouseAdapter() {
             @Override
@@ -276,7 +287,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
                         : Cursor.getDefaultCursor());
             }
         });
-        // klik kepala kolom stok -> input angka manual untuk baris terpilih
         tblProduk.getTableHeader().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -293,7 +303,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
         });
     }
 
-    /** Mengubah stok produk sebanyak delta (+1 / -1) lalu memuat ulang. */
     private void ubahStok(Produk p, int arah) {
         if (p.stok + arah < 0) {
             UIs.error(this, "Stok tidak boleh negatif.");
@@ -311,7 +320,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
         }
     }
 
-    /** Dialog input stok manual untuk satu produk. */
     private void inputStokManual(Produk p) {
         JTextField input = UIs.textField();
         input.setText(String.valueOf(p.stok));
@@ -352,16 +360,9 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
     }
 
 
-    // ================= Dialog tambah / edit produk =================
-
-    /**
-     * Form produk (flowchart): nama, harga, stok, satuan, kategori,
-     * status, plus gambar produk (opsional, JFileChooser membuka file
-     * manager sistem). Validasi gagal -> pesan error per kolom.
-     */
     private class ProdukFormDialog extends javax.swing.JDialog {
 
-        private final Produk edit; // null = tambah baru
+        private final Produk edit;
         private File gambarTerpilih;
 
         private final JTextField tfNama = UIs.textField();
@@ -439,7 +440,7 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
             btnHapusGambar.addActionListener(e -> {
                 gambarTerpilih = null;
                 if (edit != null) {
-                    edit.gambar = null; // tandai hapus gambar
+                    edit.gambar = null;
                 }
                 lblGambar.setIcon(UIs.productImage(null, 96, 84));
                 lblGambar.setText(null);
@@ -496,7 +497,6 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
         }
 
         private void pilihGambar() {
-            // JFileChooser membuka file manager sistem operasi
             JFileChooser fc = new JFileChooser();
             fc.setFileFilter(new FileNameExtensionFilter("Gambar (jpg, png, gif)", "jpg", "jpeg", "png", "gif"));
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -539,12 +539,12 @@ public class KelolaProdukPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panelAtas;
-    private javax.swing.JLabel lblJudul;
     private com.pocketly.component.RoundButton btnTambah;
     private com.pocketly.component.RoundPanel kartu;
+    private javax.swing.JLabel lblCatatan;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JPanel panelAtas;
     private javax.swing.JScrollPane scrollTabel;
     private javax.swing.JTable tblProduk;
-    private javax.swing.JLabel lblCatatan;
     // End of variables declaration//GEN-END:variables
 }

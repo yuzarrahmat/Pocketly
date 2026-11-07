@@ -138,3 +138,62 @@ Catatan teknis: warna memakai *custom code* `Theme.NAVY` dst. dan font memakai
 view dan aplikasi berjalan; properti tersebut bisa dilihat di Properties →
 kode. Isi dinamis (baris keranjang, kartu produk, tabel data) tetap diisi
 dari kode setelah `initComponents()` — pola standar form NetBeans.
+
+## 8. Revisi GUI Builder — November 2026 (form bebas error + gambar lewat ikon)
+
+### 8.1 Peringatan "Form Loaded With Errors" — DIPERBAIKI
+
+Penyebab: properti `cursor` ditulis sebagai *custom code* di dalam file
+`.form`. Properti ini **tidak didukung editor form NetBeans**, sehingga setiap
+kali form dibuka muncul dialog
+`Error in loading component property: ... ->cursor - No such property exists in the component.`
+
+Perbaikan: properti `cursor` dihapus dari 5 file `.form`
+(LoginFrame, RegistrasiDialog, PelangganFrame ×2, PetugasFrame) dan kursor
+tangan kini dipasang **satu baris di luar blok ter-guard** setelah
+`initComponents()` — GUI Builder tidak membaca kode di luar blok ter-guard,
+jadi form terbuka 100% bersih dan efek kursor tangan tetap ada saat aplikasi
+berjalan.
+
+### 8.2 Gambar kini lewat properti ikon (Image Within Project) — bukan kode
+
+Semua gambar yang tampil di form tidak lagi dipasang lewat kode
+`UIs.asset("...", w, h)`; sekarang memakai **properti `icon` bawaan GUI
+Builder** (ikon terlihat langsung di kanvas Design dan bisa diganti lewat
+Properties → icon → Image Within Project, package `img.ui`):
+
+| Form | Komponen | File ikon (ukuran asli file = ukuran tampil) |
+|---|---|---|
+| LoginFrame | `logoKanan` | `img/ui/logo-pocketly-login.png` (176×58) |
+| LoginFrame | `jLabel1` (hero) | `img/ui/login-hero.png` (588×594; sebelumnya bernama `Your paragraph text (2).png`) |
+| PelangganFrame / PetugasFrame | `logo` sidebar | `img/ui/logo-pocketly.png` (140×46) |
+| BerandaPanel | `lblGambarPromo` | `img/ui/promo-checkout.png` (104×104) |
+| BerandaPanel | ikon chip antar / pickup | `img/ui/icon-antar.png`, `img/ui/icon-pickup.png` (30×30) |
+| KeranjangPanel | ikon antar / alamat | `img/ui/icon-antar-besar.png` (44×36), `img/ui/icon-alamat.png` (34×40) |
+
+Semua file PNG di `src/main/resources/img/ui/` dan `img/kategori/` sudah
+**diperkecil ke ukuran tampil persisnya** (logo 140×46, ikon navigasi NavPill
+24×24, ikon kategori 104×68, foto produk 170×120), jadi tidak ada lagi
+penskalaan lewat kode — **ingin mengganti gambar/ukurannya? cukup timpa file
+PNG-nya** dengan ukuran yang diinginkan. Ikon NavPill juga kini dimuat pada
+ukuran asli filenya (lihat `NavPill.setIconFile`); kasir memakai file baru
+`icon-kasir.png` agar tidak bentrok dengan chip pickup 30×30.
+
+### 8.3 Panel Profil & Kategori Produk diperkecil
+
+- **ProfilPanel**: kartu 470→420px, avatar 86→64px, judul 24→20pt, nama
+  20→17pt, angka statistik 26→21pt, jarak antar baris dan padding kartu
+  dipadatkan, tombol Logout 195→170px (tinggi 44→40px).
+- **Kategori Produk** (Beranda): ilustrasi kategori 140×92 → **104×68**,
+  padding kartu dan jarak grid 14→12/10px, font nama kategori 12→11pt.
+  Kartu kini jauh lebih pendek sehingga daftar produk langsung terlihat
+  tanpa banyak menggulir.
+- Bug kecil: tinggi label gambar promo di BerandaPanel sebelumnya terkunci
+  di 312px (melebihi kartu 132px) — kini mengikuti ukuran asli gambar.
+
+### 8.4 Catatan
+
+Folder `target/` dihapus dari arsip agar tidak ada class/resource lama yang
+terpakai; setelah dibuka di NetBeans lakukan **Clean and Build (Shift+F11)**
+sekali seperti biasa (lihat bagian 7.3). Seluruh file `.form` tervalidasi XML
+dan seluruh sumber berhasil dikompilasi tanpa error.

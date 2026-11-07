@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/** DAO data petugas. */
 public class PetugasDAO {
 
     public Petugas getByUsername(String username) {
@@ -36,7 +35,6 @@ public class PetugasDAO {
         return null;
     }
 
-    /** Kasir default yang dicatat pada transaksi online saat pelanggan checkout. */
     public String kasirDefault() {
         String sql = "SELECT username FROM petugas WHERE jabatan = 'Kasir' ORDER BY username LIMIT 1";
         try (Connection c = DB.getConnection();
@@ -48,6 +46,6 @@ public class PetugasDAO {
         } catch (SQLException ex) {
             System.err.println("[PetugasDAO] kasirDefault: " + ex.getMessage());
         }
-        return "ptg_dewi"; // fallback data contoh
+        return "ptg_dewi";
     }
 }

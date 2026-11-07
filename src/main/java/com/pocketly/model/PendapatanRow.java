@@ -7,7 +7,6 @@ package com.pocketly.model;
 
 import java.time.LocalDate;
 
-/** Model baris laporan pendapatan (halaman beranda petugas). */
 public class PendapatanRow {
 
     public String idTransaksi;

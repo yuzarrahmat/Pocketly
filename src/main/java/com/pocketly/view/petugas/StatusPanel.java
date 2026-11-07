@@ -12,12 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Ubah status pesanan online. Tombol "Ubah Status" pada tabel memakai
- * MouseListener sehingga bisa diklik, lalu membuka dropdown status
- * (Dikemas / Siap diambil / Dikirim / Selesai) sesuai flowchart.
- * Form NetBeans GUI Builder - buka StatusPanel.form di tab Design.
- */
 public class StatusPanel extends javax.swing.JPanel {
     private final String username;
     private final PetugasNav nav;
@@ -35,7 +29,6 @@ public class StatusPanel extends javax.swing.JPanel {
         siapkanTabel();
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public StatusPanel() {
         this(null, null);
     }
@@ -43,44 +36,72 @@ public class StatusPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         lblJudul = new javax.swing.JLabel();
         kartu = new com.pocketly.component.RoundPanel();
         scrollTabel = new javax.swing.JScrollPane();
         tblStatus = new javax.swing.JTable();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
-        this.setLayout(new java.awt.BorderLayout(0, 14));
-        lblJudul.setText("Ubah Status Pesanan Online");
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 22));
         lblJudul.setForeground(Theme.TEXT);
+        lblJudul.setText("Ubah Status Pesanan Online");
+
         kartu.setBackground(Theme.CARD);
-        kartu.setRadius(18);
         kartu.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        kartu.setLayout(new java.awt.BorderLayout(0, 0));
+        kartu.setRadius(18);
+        kartu.setLayout(new java.awt.BorderLayout());
+
         scrollTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollTabel.setOpaque(false);
+
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null}
-                },
-                new String [] { "ID Pesanan", "Tanggal", "Pelanggan", "Tipe", "Status Saat Ini", "Ubah Status" }
-              ) {
-                boolean[] canEdit = new boolean [] { false, false, false, false, false, false };
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-              });
-        tblStatus.setRowHeight(40);
+            new Object [][] {
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Pesanan", "Tanggal", "Pelanggan", "Tipe", "Status Saat Ini", "Ubah Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblStatus.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblStatus.setFillsViewportHeight(true);
+        tblStatus.setRowHeight(40);
         scrollTabel.setViewportView(tblStatus);
+
         kartu.add(scrollTabel, java.awt.BorderLayout.CENTER);
-        this.add(lblJudul, java.awt.BorderLayout.NORTH);
-        this.add(kartu, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJudul)
+                    .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, 1575, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(293, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblJudul)
+                .addGap(6, 6, 6)
+                .addComponent(kartu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    /** Gaya tabel, lebar kolom, renderer badge, dan tombol "Ubah Status". */
     private void siapkanTabel() {
         UIs.styleTable(tblStatus);
         tblStatus.setRowHeight(40);
@@ -90,7 +111,6 @@ public class StatusPanel extends javax.swing.JPanel {
             tblStatus.getColumnModel().getColumn(i).setPreferredWidth(lebarKolom[i]);
         }
 
-        // kolom status: badge
         tblStatus.getColumnModel().getColumn(4).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable t, Object value,
@@ -108,7 +128,6 @@ public class StatusPanel extends javax.swing.JPanel {
             }
         });
 
-        // tombol "Ubah Status" yang benar-benar bisa diklik
         UIs.pasangAksiKolom(tblStatus, KOLOM_AKSI, "Ubah Status", UIs.Btn.SECONDARY, baris -> {
             if (data != null && baris < data.size()) {
                 bukaDropdown(data.get(baris));
@@ -133,7 +152,6 @@ public class StatusPanel extends javax.swing.JPanel {
         }
     }
 
-    /** Dropdown status (flowchart) -> pilih -> simpan -> notifikasi. */
     private void bukaDropdown(OnlineOrder o) {
         JComboBox<String> cb = new JComboBox<>(StatusController.STATUS);
         cb.setSelectedItem(o.statusPesanan);
@@ -144,8 +162,8 @@ public class StatusPanel extends javax.swing.JPanel {
             String statusBaru = (String) cb.getSelectedItem();
             try {
                 String pesan2 = ctl.ubahStatus(o.idTransaksi, statusBaru);
-                UIs.info(this, pesan2); // "Status pesanan diperbarui"
-                muatUlang(); // refresh tabel (loop pada flowchart)
+                UIs.info(this, pesan2); 
+                muatUlang(); 
             } catch (RuntimeException ex) {
                 UIs.error(this, ex.getMessage());
             }
@@ -153,8 +171,8 @@ public class StatusPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblJudul;
     private com.pocketly.component.RoundPanel kartu;
+    private javax.swing.JLabel lblJudul;
     private javax.swing.JScrollPane scrollTabel;
     private javax.swing.JTable tblStatus;
     // End of variables declaration//GEN-END:variables

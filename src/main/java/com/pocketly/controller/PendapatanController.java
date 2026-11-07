@@ -9,7 +9,7 @@ import com.pocketly.dao.TransaksiDAO;
 import com.pocketly.model.PendapatanRow;
 import java.util.List;
 
-/** Controller laporan pendapatan pada beranda petugas. */
+
 public class PendapatanController {
 
     private final TransaksiDAO dao = new TransaksiDAO();
@@ -26,11 +26,6 @@ public class PendapatanController {
     public record BulanGrafik(int tahun, int bulan, java.util.Map<java.time.LocalDate, Double> data) {
     }
 
-    /**
-     * Pendapatan harian untuk grafik: memakai bulan berjalan; bila bulan
-     * berjalan belum ada transaksi, otomatis memakai bulan terakhir yang
-     * memiliki data agar grafik tetap terisi.
-     */
     public BulanGrafik bulanGrafik() {
         java.time.LocalDate now = java.time.LocalDate.now();
         java.util.Map<java.time.LocalDate, Double> data = dao.pendapatanHarian(now.getYear(), now.getMonthValue());

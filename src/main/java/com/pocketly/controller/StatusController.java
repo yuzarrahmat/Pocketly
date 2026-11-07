@@ -10,10 +10,6 @@ import com.pocketly.dao.TransaksiDAO;
 import com.pocketly.model.OnlineOrder;
 import java.util.List;
 
-/**
- * Controller ubah status pesanan online (petugas).
- * Mengikuti flowchart "Halaman Ubah Status Pesanan".
- */
 public class StatusController {
 
     private final TransaksiDAO dao = new TransaksiDAO();

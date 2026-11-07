@@ -48,10 +48,6 @@ public class KeranjangController {
         pelangganDao.updateAlamat(username, alamat);
     }
 
-    /**
-     * Mengubah jumlah satu item keranjang (tombol +/- atau input angka).
-     * Bila jumlah bertambah, stok dicek dulu; bila berkurang, stok dikembalikan.
-     */
     public String ubahJumlah(KeranjangItem item, int jumlahBaru) {
         if (jumlahBaru <= 0) {
             hapusItem(item);

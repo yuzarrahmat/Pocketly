@@ -9,7 +9,7 @@ import com.pocketly.dao.PelangganDAO;
 import com.pocketly.dao.TransaksiDAO;
 import com.pocketly.model.Pelanggan;
 
-/** Controller halaman profil pelanggan (flowchart "Halaman Profil"). */
+
 public class ProfilController {
 
     private final PelangganDAO pelangganDao = new PelangganDAO();

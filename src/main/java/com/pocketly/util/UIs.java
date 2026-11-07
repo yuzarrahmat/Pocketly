@@ -34,10 +34,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-/**
- * Kumpulan komponen UI Pocketly sesuai desain Figma: tombol pill,
- * kartu bersudut membulat, kolom input abu lembut, dan utilitas gambar.
- */
 public final class UIs {
 
     public static final String IMG_DIR = "/img/produk";
@@ -47,10 +43,7 @@ public final class UIs {
 
     private UIs() {
     }
-
-    // ================= Format =================
-
-    /** Format uang gaya Indonesia: 17500 -> "Rp 17.500". */
+    
     public static String money(double v) {
         NumberFormat nf = NumberFormat.getIntegerInstance(new Locale("id", "ID"));
         return "Rp " + nf.format(v);
@@ -63,9 +56,7 @@ public final class UIs {
         return d.format(DateTimeFormatter.ofPattern("dd MMM yyyy", new Locale("id", "ID")));
     }
 
-    // ================= Panel & label =================
 
-    /** Panel putih dengan sudut membulat untuk kartu konten. */
     public static JPanel card(int radius) {
         JPanel p = new RoundedPanel(radius, Theme.CARD);
         p.setOpaque(false);
@@ -93,7 +84,6 @@ public final class UIs {
         return l;
     }
 
-    // ================= Tombol modern (gaya Figma) =================
 
     public enum Btn {
         PRIMARY(Theme.NAVY, Color.WHITE),
@@ -117,7 +107,6 @@ public final class UIs {
         return new ModernButton(text, style);
     }
 
-    /** Tombol pill gaya Figma: sudut penuh membulat, warna flat, hover halus. */
     public static class ModernButton extends JButton {
 
         private final Btn style;
@@ -177,8 +166,7 @@ public final class UIs {
             return new Color(Math.max(0, c.getRed() - 24), Math.max(0, c.getGreen() - 24), Math.max(0, c.getBlue() - 24));
         }
     }
-
-    /** Panel dengan sudut membulat. */
+    
     public static class RoundedPanel extends JPanel {
 
         private final int radius;
@@ -199,7 +187,6 @@ public final class UIs {
         }
     }
 
-    /** TextField gaya Figma: latar #F1EEEE, sudut membulat. */
     public static JTextField textField() {
         JTextField tf = new JTextField() {
             @Override
@@ -250,12 +237,6 @@ public final class UIs {
                 BorderFactory.createEmptyBorder(6, 8, 6, 8)));
     }
 
-    // ================= Gambar produk, kategori, dan aset UI =================
-
-    /**
-     * Mengambil gambar produk dari img/produk lalu menyesuaikan ukuran.
-     * Bila produk belum punya gambar, tampil placeholder khusus.
-     */
     public static ImageIcon productImage(String gambar, int w, int h) {
         // Gambar produk diupload admin saat runtime (lihat ProdukAdminController),
         // jadi harus tetap dibaca dari disk, bukan dari classpath.
@@ -272,7 +253,16 @@ public final class UIs {
         return placeholder(w, h, "produk ini belum ada gambar");
     }
 
-    /** Gambar ilustrasi kategori dari img/kategori (dimuat dari classpath). */
+    public static ImageIcon kategoriImage(String namaFile) {
+        if (namaFile != null && !namaFile.isBlank()) {
+            java.net.URL url = UIs.class.getResource(KATEGORI_DIR + "/" + namaFile);
+            if (url != null) {
+                return new ImageIcon(url);
+            }
+        }
+        return placeholder(104, 68, "kategori");
+    }
+
     public static ImageIcon kategoriImage(String namaFile, int w, int h) {
         if (namaFile != null && !namaFile.isBlank()) {
             java.net.URL url = UIs.class.getResource(KATEGORI_DIR + "/" + namaFile);
@@ -283,7 +273,6 @@ public final class UIs {
         return placeholder(w, h, "kategori");
     }
 
-    /** Ikon/aset dekoratif dari img/ui (logo, hero, ikon navigasi), dimuat dari classpath. */
     public static ImageIcon asset(String namaFile, int w, int h) {
         java.net.URL url = UIs.class.getResource(UI_DIR + "/" + namaFile);
         if (url != null) {
@@ -291,8 +280,7 @@ public final class UIs {
         }
         return placeholder(w, h, namaFile);
     }
-
-    /** Gambar bukti pembayaran; placeholder bila file tidak ditemukan. */
+    
     public static ImageIcon buktiImage(String path, int w, int h) {
         if (path != null && !path.isBlank()) {
             File f = new File(path);
@@ -331,8 +319,7 @@ public final class UIs {
         g.dispose();
         return new ImageIcon(img);
     }
-
-    /** Membuat gambar placeholder abu-biru dengan teks di tengah. */
+    
     public static ImageIcon placeholder(int w, int h, String text) {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -385,7 +372,6 @@ public final class UIs {
         }
     }
 
-    // ================= Dialog & notifikasi =================
 
     public static void info(Component parent, String msg) {
         JOptionPane.showMessageDialog(parent, msg, "Pocketly", JOptionPane.INFORMATION_MESSAGE);
@@ -400,7 +386,6 @@ public final class UIs {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
-    /** Latar halaman standar Pocketly. */
     public static JComponent pageBg() {
         JPanel p = new JPanel() {
             @Override
@@ -414,7 +399,6 @@ public final class UIs {
         return p;
     }
 
-    /** Label badge status (Berhasil / Menunggu / Dibatalkan / ...). */
     public static JLabel statusBadge(String status) {
         Color bg, fg;
         switch (status == null ? "" : status) {
@@ -442,7 +426,6 @@ public final class UIs {
         return l;
     }
 
-    /** Gaya tabel standar Pocketly (header, baris, grid). */
     public static void styleTable(javax.swing.JTable t) {
         t.setRowHeight(30);
         t.setFont(Theme.body());
@@ -457,15 +440,7 @@ public final class UIs {
         t.setFillsViewportHeight(true);
     }
 
-    // ================= Tombol di dalam sel tabel =================
-
-    /**
-     * Membuat sel pada satu kolom tabel berperilaku seperti tombol.
-     * Klik pada sel kolom tersebut memanggil aksi dengan nomor baris
-     * model (bukan baris tampilan).
-     */
     public static void pasangAksiKolom(JTable tabel, int kolom, String teksTombol, Btn gaya, IntConsumer aksi) {
-        // renderer: hanya menampilkan gambar tombol
         tabel.getColumnModel().getColumn(kolom).setCellRenderer((t, value, isSelected, hasFocus, row, column) -> {
             JPanel p = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0)) {
                 @Override
@@ -480,7 +455,6 @@ public final class UIs {
             p.add(b);
             return p;
         });
-        // listener: meneruskan klik asli pada sel ke aksi
         tabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -494,7 +468,6 @@ public final class UIs {
                 }
             }
         });
-        // kursor tangan saat melayang di atas kolom tombol
         tabel.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -506,7 +479,6 @@ public final class UIs {
         });
     }
 
-    /** Memotong teks dengan elipsis (...) bila melebihi jumlah karakter. */
     public static String potong(String teks, int maks) {
         if (teks == null) {
             return "-";
@@ -514,7 +486,6 @@ public final class UIs {
         return teks.length() <= maks ? teks : teks.substring(0, maks - 1) + "\u2026";
     }
 
-    /** Menjalankan runnable di EDT. */
     public static void edt(Runnable r) {
         if (SwingUtilities.isEventDispatchThread()) {
             r.run();

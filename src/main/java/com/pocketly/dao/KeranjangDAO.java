@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** DAO keranjang belanja pelanggan. */
+
 public class KeranjangDAO {
 
     private static KeranjangItem map(ResultSet rs) throws SQLException {
@@ -52,7 +52,6 @@ public class KeranjangDAO {
         return list;
     }
 
-    /** Baris keranjang untuk satu pelanggan + produk (null bila belum ada). */
     public KeranjangItem cari(String username, String idProduk) {
         String sql = "SELECT kr.id_keranjang, kr.id_produk, p.nama_produk, p.harga_satuan, "
                    + "p.satuan_barang, p.gambar_produk, kr.jumlah_barang, kr.subtotal_estimasi "
@@ -73,7 +72,6 @@ public class KeranjangDAO {
         return null;
     }
 
-    /** Menambah jumlah produk pada keranjang (atau membuat baris baru). */
     public void tambah(String username, String idProduk, int tambahan, double hargaSatuan) {
         KeranjangItem existing = cari(username, idProduk);
         int baru = (existing == null ? 0 : existing.jumlah) + tambahan;
@@ -104,7 +102,7 @@ public class KeranjangDAO {
         }
     }
 
-    /** Mengubah jumlah barang satu baris keranjang. */
+
     public void setJumlah(String idKeranjang, int jumlah, double hargaSatuan) {
         String sql = "UPDATE keranjang SET jumlah_barang = ?, subtotal_estimasi = ? WHERE id_keranjang = ?";
         try (Connection c = DB.getConnection();
@@ -128,10 +126,6 @@ public class KeranjangDAO {
         }
     }
 
-    /**
-     * Tipe pemesanan tersimpan pelanggan ("Pesan antar" / "Pick up").
-     * Mengembalikan null bila pelanggan belum memilih (dropdown kosong).
-     */
     public String tipePemesanan(String username) {
         String sql = "SELECT tipe_pemesanan FROM keranjang WHERE pelanggan_username = ? "
                    + "AND tipe_pemesanan IS NOT NULL LIMIT 1";
@@ -149,7 +143,6 @@ public class KeranjangDAO {
         return null;
     }
 
-    /** Menyimpan tipe pemesanan untuk seluruh baris keranjang pelanggan. */
     public void setTipePemesanan(String username, String tipe) {
         String sql = "UPDATE keranjang SET tipe_pemesanan = ? WHERE pelanggan_username = ?";
         try (Connection c = DB.getConnection();

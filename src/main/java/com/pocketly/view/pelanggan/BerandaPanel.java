@@ -23,11 +23,7 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- * Beranda pelanggan sesuai desain Figma: kartu promo di atas,
- * deretan kartu kategori bergambar, lalu produk pada kategori terpilih.
- * Form NetBeans GUI Builder - buka BerandaPanel.form di tab Design.
- */
+
 public class BerandaPanel extends javax.swing.JPanel {
     private final String username;
     private final PelangganNav nav;
@@ -56,7 +52,7 @@ public class BerandaPanel extends javax.swing.JPanel {
         scrollProduk.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
+
     public BerandaPanel() {
         this(null, null);
     }
@@ -99,8 +95,13 @@ public class BerandaPanel extends javax.swing.JPanel {
         scrollProduk = new javax.swing.JScrollPane();
         pnlProduk = new javax.swing.JPanel();
 
-        setOpaque(false);
+        setBackground(Theme.PAGE_BG);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setName(""); // NOI18N
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setLayout(new java.awt.BorderLayout(0, 16));
 
         panelAtas.setOpaque(false);
@@ -117,14 +118,14 @@ public class BerandaPanel extends javax.swing.JPanel {
         teksPromo.setOpaque(false);
         teksPromo.setLayout(new javax.swing.BoxLayout(teksPromo, javax.swing.BoxLayout.PAGE_AXIS));
 
-        lblPromo1.setText("Jangan lupa checkout");
         lblPromo1.setFont(Theme.font(java.awt.Font.BOLD, 15));
         lblPromo1.setForeground(Theme.NAVY);
+        lblPromo1.setText("Jangan lupa checkout");
         teksPromo.add(lblPromo1);
 
-        lblPromo2.setText("keranjangmu ya!");
         lblPromo2.setFont(Theme.font(java.awt.Font.BOLD, 15));
         lblPromo2.setForeground(Theme.NAVY);
+        lblPromo2.setText("keranjangmu ya!");
         teksPromo.add(lblPromo2);
 
         lblGambarPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/promo-checkout.png"))); // NOI18N
@@ -135,41 +136,43 @@ public class BerandaPanel extends javax.swing.JPanel {
             promoCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(promoCardLayout.createSequentialGroup()
                 .addComponent(teksPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 551, Short.MAX_VALUE)
                 .addComponent(lblGambarPromo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
         promoCardLayout.setVerticalGroup(
             promoCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(promoCardLayout.createSequentialGroup()
                 .addGroup(promoCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(teksPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(promoCardLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblGambarPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(teksPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(promoCardLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblGambarPromo)))
+                .addContainerGap())
         );
 
         promoWrap.add(promoCard);
 
         promoTeks.setBackground(Theme.CARD);
-        promoTeks.setRadius(20);
         promoTeks.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 18, 16, 18));
         promoTeks.setPreferredSize(new java.awt.Dimension(0, 130));
+        promoTeks.setRadius(20);
         promoTeks.setLayout(new java.awt.BorderLayout());
 
         teksPromoTeks.setOpaque(false);
         teksPromoTeks.setLayout(new javax.swing.BoxLayout(teksPromoTeks, javax.swing.BoxLayout.PAGE_AXIS));
 
-        lblPromoJudul.setText("<html><div style='width:220px'>Belanja low effort dengan Pocketly</div></html>");
         lblPromoJudul.setFont(Theme.font(java.awt.Font.BOLD, 17));
         lblPromoJudul.setForeground(Theme.NAVY);
+        lblPromoJudul.setText("<html><div style='width:220px'>Belanja low effort dengan Pocketly</div></html>");
         teksPromoTeks.add(lblPromoJudul);
         teksPromoTeks.add(strutPromo);
 
-        lblPromoIsi.setText("<html><div style='width:240px'>Belanja offline dan online ritel pocket kini terintegrasi. Kenyamanan anda adalah prioritas kami.</div></html>");
         lblPromoIsi.setFont(Theme.font(java.awt.Font.PLAIN, 11));
         lblPromoIsi.setForeground(Theme.TEXT_MUTED);
+        lblPromoIsi.setText("<html><div style='width:240px'>Belanja offline dan online ritel pocket kini terintegrasi. Kenyamanan anda adalah prioritas kami.</div></html>");
         teksPromoTeks.add(lblPromoIsi);
 
         promoTeks.add(teksPromoTeks, java.awt.BorderLayout.CENTER);
@@ -186,7 +189,7 @@ public class BerandaPanel extends javax.swing.JPanel {
         chipAntar.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 6));
         chipAntar.setLayout(new java.awt.BorderLayout(10, 0));
 
-        lblIkonchipAntar.setIcon(UIs.asset("icon-antar.png", 30, 30));
+        lblIkonchipAntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/icon-antar.png"))); // NOI18N
         chipAntar.add(lblIkonchipAntar);
 
         tekschipAntar.setOpaque(false);
@@ -212,7 +215,7 @@ public class BerandaPanel extends javax.swing.JPanel {
         chipPickup.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 6));
         chipPickup.setLayout(new java.awt.BorderLayout(10, 0));
 
-        lblIkonchipPickup.setIcon(UIs.asset("icon-pickup.png", 30, 30));
+        lblIkonchipPickup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/icon-pickup.png"))); // NOI18N
         chipPickup.add(lblIkonchipPickup);
 
         tekschipPickup.setOpaque(false);
@@ -236,39 +239,72 @@ public class BerandaPanel extends javax.swing.JPanel {
 
         add(panelAtas, java.awt.BorderLayout.NORTH);
 
+        panelTengah.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        panelTengah.setMinimumSize(new java.awt.Dimension(1920, 1080));
         panelTengah.setOpaque(false);
-        panelTengah.setLayout(new javax.swing.BoxLayout(panelTengah, javax.swing.BoxLayout.PAGE_AXIS));
+        panelTengah.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        lblJudulKategori.setText("Kategori Produk");
         lblJudulKategori.setFont(Theme.font(java.awt.Font.BOLD, 16));
         lblJudulKategori.setForeground(Theme.TEXT);
-        panelTengah.add(lblJudulKategori);
-        panelTengah.add(strut1);
+        lblJudulKategori.setText("Kategori Produk");
 
+        pnlKategori.setMaximumSize(new java.awt.Dimension(1920, 1080));
         pnlKategori.setOpaque(false);
         pnlKategori.setLayout(new java.awt.GridLayout(2, 4, 14, 14));
-        panelTengah.add(pnlKategori);
-        panelTengah.add(strut2);
 
-        lblJudulProduk.setText(" ");
         lblJudulProduk.setFont(Theme.font(java.awt.Font.BOLD, 16));
         lblJudulProduk.setForeground(Theme.TEXT);
-        panelTengah.add(lblJudulProduk);
-        panelTengah.add(strut3);
+        lblJudulProduk.setText("Produk");
 
         scrollProduk.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollProduk.setOpaque(false);
 
+        pnlProduk.setMaximumSize(new java.awt.Dimension(1920, 1080));
         pnlProduk.setOpaque(false);
         pnlProduk.setLayout(new java.awt.GridLayout(0, 3, 14, 14));
         scrollProduk.setViewportView(pnlProduk);
 
-        panelTengah.add(scrollProduk);
+        javax.swing.GroupLayout panelTengahLayout = new javax.swing.GroupLayout(panelTengah);
+        panelTengah.setLayout(panelTengahLayout);
+        panelTengahLayout.setHorizontalGroup(
+            panelTengahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTengahLayout.createSequentialGroup()
+                .addGroup(panelTengahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlKategori, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollProduk, javax.swing.GroupLayout.DEFAULT_SIZE, 1602, Short.MAX_VALUE)
+                    .addGroup(panelTengahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblJudulProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelTengahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(strut1, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(strut2, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(strut3, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelTengahLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblJudulKategori)))))
+                .addContainerGap(318, Short.MAX_VALUE))
+        );
+        panelTengahLayout.setVerticalGroup(
+            panelTengahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTengahLayout.createSequentialGroup()
+                .addComponent(lblJudulKategori)
+                .addGap(0, 0, 0)
+                .addComponent(strut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(strut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lblJudulProduk)
+                .addGap(0, 0, 0)
+                .addComponent(strut3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         add(panelTengah, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    /** Dimuat setiap kali halaman dibuka. */
     public void muatUlang() {
         nav.perbaruiBadgeKeranjang();
         muatKategori();
@@ -322,7 +358,7 @@ public class BerandaPanel extends javax.swing.JPanel {
         String pesan = katalog.tambahKeKeranjang(username, p.id, 1);
         nav.perbaruiBadgeKeranjang();
         if ("Item ditambahkan".equals(pesan)) {
-            UIs.info(this, "Item ditambahkan"); // notifikasi sukses (flowchart)
+            UIs.info(this, "Item ditambahkan"); 
             int buka = javax.swing.JOptionPane.showConfirmDialog(this,
                     "Item ditambahkan ke keranjang. Buka keranjang sekarang?",
                     "Keranjang", javax.swing.JOptionPane.YES_NO_OPTION,
@@ -333,12 +369,9 @@ public class BerandaPanel extends javax.swing.JPanel {
                 muatUlang();
             }
         } else {
-            UIs.error(this, pesan); // "Stok tidak mencukupi"
+            UIs.error(this, pesan); 
         }
     }
-
-
-    // ================= Kartu kategori (Figma: Group 34-41) =================
 
     private class KartuKategori extends JPanel {
 
@@ -347,7 +380,7 @@ public class BerandaPanel extends javax.swing.JPanel {
 
         private KartuKategori(Kategori k) {
             this.kategori = k;
-            setLayout(new java.awt.BorderLayout(0, 4));
+            setLayout(new java.awt.BorderLayout(0, 2));
             setOpaque(false);
             setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             addMouseListener(new MouseAdapter() {
@@ -357,17 +390,17 @@ public class BerandaPanel extends javax.swing.JPanel {
                 }
             });
 
-            JPanel card = UIs.card(18);
+            JPanel card = UIs.card(16);
             card.setLayout(new java.awt.BorderLayout(0, 2));
-            card.setBorder(BorderFactory.createEmptyBorder(8, 8, 6, 8));
+            card.setBorder(BorderFactory.createEmptyBorder(6, 6, 4, 6));
 
             String file = GAMBAR_KATEGORI.getOrDefault(k.id, "");
-            JLabel img = new JLabel(UIs.kategoriImage(file, 140, 92));
+            JLabel img = new JLabel(UIs.kategoriImage(file));
             img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             card.add(img, java.awt.BorderLayout.CENTER);
 
             JLabel nama = new JLabel(k.nama, JLabel.CENTER);
-            nama.setFont(Theme.font(Font.PLAIN, 12f));
+            nama.setFont(Theme.font(Font.PLAIN, 11f));
             nama.setForeground(Theme.TEXT);
             card.add(nama, java.awt.BorderLayout.SOUTH);
 
@@ -393,7 +426,6 @@ public class BerandaPanel extends javax.swing.JPanel {
         }
     }
 
-    // ================= Kartu produk =================
 
     private class ProdukCard extends JPanel {
 

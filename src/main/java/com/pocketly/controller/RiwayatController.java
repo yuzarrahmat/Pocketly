@@ -10,10 +10,7 @@ import com.pocketly.model.DetailTransaksi;
 import com.pocketly.model.OnlineOrder;
 import java.util.List;
 
-/**
- * Controller riwayat & detail transaksi pelanggan.
- * Mengikuti flowchart "Halaman Transaksi (Pelanggan)".
- */
+
 public class RiwayatController {
 
     private final TransaksiDAO dao = new TransaksiDAO();

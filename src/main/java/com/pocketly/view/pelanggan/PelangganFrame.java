@@ -9,11 +9,6 @@ import com.pocketly.util.UIs;
 import com.pocketly.view.LoginFrame;
 import java.awt.CardLayout;
 
-/**
- * Kerangka halaman pelanggan: sidebar putih gaya Figma + area konten
- * membulat dengan CardLayout. Form NetBeans GUI Builder - buka
- * PelangganFrame.form di tab Design untuk melihat dan mengedit tata letak.
- */
 public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
     private final String username;
     private final KeranjangController keranjangCtl = new KeranjangController();
@@ -29,30 +24,28 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
 
     public PelangganFrame(String username) {
         this.username = username;
-
-        // panel halaman dibuat dengan data pengguna lalu dipasang ke
-        // area konten (CardLayout) yang dideklarasikan di file .form
         berandaPanel = new BerandaPanel(username, this);
         keranjangPanel = new KeranjangPanel(username, this);
         transaksiPanel = new TransaksiPanel(username, this);
         profilPanel = new ProfilPanel(username, this);
 
         initComponents();
+        kartuUser.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+        lblKeluar.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         konten.add(berandaPanel, "beranda");
         konten.add(keranjangPanel, "keranjang");
         konten.add(transaksiPanel, "transaksi");
         konten.add(profilPanel, "profil");
         cards = (CardLayout) konten.getLayout();
 
-        // aksi navigasi pada sidebar (Figma: Rectangle 55)
-        pills = new NavPill[]{pillBeranda, pillKeranjang, pillTransaksi, pillProfil};
+
+        pills = new NavPill[]{pillBeranda, pillKeranjang, pillTransaksi, };
         pillBeranda.setAksi(() -> tampilkan(0));
         pillKeranjang.setAksi(() -> tampilkan(1));
         pillTransaksi.setAksi(() -> tampilkan(2));
-        pillProfil.setAksi(() -> tampilkan(3));
 
         avatar.setText(username == null ? "?" : username.substring(0, 1).toUpperCase());
-        lblBadge.setVisible(false); // badge hanya tampil bila keranjang terisi
+        lblBadge.setVisible(false);
         isiDataPengguna();
         if (username != null) {
             tampilkan(0);
@@ -62,20 +55,19 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         bgPanel = new javax.swing.JPanel();
         sidebar = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         strut1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 26), new java.awt.Dimension(0, 26), new java.awt.Dimension(32767, 26));
-        lblSeksi = new javax.swing.JLabel();
-        pillBeranda = new com.pocketly.component.NavPill();
         strut2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(32767, 8));
         barisKeranjang = new javax.swing.JPanel();
         pillKeranjang = new com.pocketly.component.NavPill();
         lblBadge = new com.pocketly.component.BadgeLabel();
+        pillBeranda = new com.pocketly.component.NavPill();
         strut3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(32767, 8));
         pillTransaksi = new com.pocketly.component.NavPill();
         strut4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(32767, 8));
-        pillProfil = new com.pocketly.component.NavPill();
         glue1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         kartuUser = new com.pocketly.component.RoundPanel();
         avatarWrap = new javax.swing.JPanel();
@@ -91,124 +83,221 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pocketly - Pelanggan");
         setMinimumSize(new java.awt.Dimension(1140, 700));
-        getContentPane().setLayout(new java.awt.BorderLayout(0, 0));
+        getContentPane().setLayout(new java.awt.BorderLayout());
+
         bgPanel.setBackground(Theme.PAGE_BG);
-        bgPanel.setLayout(new java.awt.BorderLayout(0, 0));
-        sidebar.setPreferredSize(new java.awt.Dimension(236, 0));
+        bgPanel.setLayout(new java.awt.BorderLayout());
+
+        sidebar.setBackground(Theme.BLUE_LIGHT);
         sidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 20, 18, 12));
-        sidebar.setLayout(new javax.swing.BoxLayout(sidebar, javax.swing.BoxLayout.Y_AXIS));
-        logo.setIcon(UIs.asset("logo-pocketly.png", 140, 46));
-        logo.setAlignmentX(0.0F);
-        strut1.setMaximumSize(new java.awt.Dimension(32767, 26));
-        strut1.setMinimumSize(new java.awt.Dimension(0, 26));
-        strut1.setPreferredSize(new java.awt.Dimension(0, 26));
-        lblSeksi.setText("Utama");
-        lblSeksi.setFont(Theme.font(java.awt.Font.PLAIN, 13));
-        lblSeksi.setForeground(Theme.TEXT);
-        lblSeksi.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 6, 0));
-        pillBeranda.setText("Beranda");
-        pillBeranda.setIconFile("icon-beranda.png");
-        strut2.setMaximumSize(new java.awt.Dimension(32767, 8));
-        strut2.setMinimumSize(new java.awt.Dimension(0, 8));
-        strut2.setPreferredSize(new java.awt.Dimension(0, 8));
-        barisKeranjang.setOpaque(false);
+        sidebar.setPreferredSize(new java.awt.Dimension(236, 0));
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ui/logo-pocketly.png"))); // NOI18N
+
         barisKeranjang.setMaximumSize(new java.awt.Dimension(32767, 48));
-        barisKeranjang.setLayout(new java.awt.BorderLayout(10, 0));
-        pillKeranjang.setText("Keranjang");
+        barisKeranjang.setOpaque(false);
+
         pillKeranjang.setIconFile("icon-keranjang.png");
+        pillKeranjang.setText("Keranjang");
+
+        lblBadge.setBackground(new java.awt.Color(102, 204, 255));
         lblBadge.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
-        barisKeranjang.add(pillKeranjang, java.awt.BorderLayout.CENTER);
-        barisKeranjang.add(lblBadge, java.awt.BorderLayout.EAST);
-        strut3.setMaximumSize(new java.awt.Dimension(32767, 8));
-        strut3.setMinimumSize(new java.awt.Dimension(0, 8));
-        strut3.setPreferredSize(new java.awt.Dimension(0, 8));
-        pillTransaksi.setText("Transaksi");
+        lblBadge.setForeground(new java.awt.Color(0, 0, 0));
+        lblBadge.setText("");
+
+        pillBeranda.setIconFile("icon-beranda.png");
+        pillBeranda.setText("Beranda");
+
+        javax.swing.GroupLayout barisKeranjangLayout = new javax.swing.GroupLayout(barisKeranjang);
+        barisKeranjang.setLayout(barisKeranjangLayout);
+        barisKeranjangLayout.setHorizontalGroup(
+            barisKeranjangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barisKeranjangLayout.createSequentialGroup()
+                .addGroup(barisKeranjangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pillKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pillBeranda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBadge, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
+        );
+        barisKeranjangLayout.setVerticalGroup(
+            barisKeranjangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barisKeranjangLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(pillBeranda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pillKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barisKeranjangLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblBadge, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         pillTransaksi.setIconFile("icon-transaksi.png");
-        strut4.setMaximumSize(new java.awt.Dimension(32767, 8));
-        strut4.setMinimumSize(new java.awt.Dimension(0, 8));
-        strut4.setPreferredSize(new java.awt.Dimension(0, 8));
-        pillProfil.setText("Profil");
-        pillProfil.setIconFile("icon-profil.png");
-        glue1.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        pillTransaksi.setText("Transaksi");
+
         kartuUser.setBackground(Theme.CARD);
-        kartuUser.setRadius(25);
-        kartuUser.setPreferredSize(new java.awt.Dimension(204, 60));
         kartuUser.setBorder(javax.swing.BorderFactory.createEmptyBorder(9, 10, 9, 10));
-        kartuUser.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
-        kartuUser.setLayout(new java.awt.BorderLayout(12, 0));
+        kartuUser.setPreferredSize(new java.awt.Dimension(204, 60));
         kartuUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kartuUserMouseClicked(evt);
             }
         });
+
         avatarWrap.setOpaque(false);
         avatarWrap.setPreferredSize(new java.awt.Dimension(42, 42));
-        avatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        avatarWrap.setLayout(new java.awt.FlowLayout(1, 0, 0));
+
         avatar.setFont(Theme.font(java.awt.Font.BOLD, 15));
         avatar.setPreferredSize(new java.awt.Dimension(40, 40));
         avatar.setMaximumSize(new java.awt.Dimension(40, 40));
         avatarWrap.add(avatar);
+
         identitas.setOpaque(false);
-        identitas.setLayout(new javax.swing.BoxLayout(identitas, javax.swing.BoxLayout.Y_AXIS));
-        lblNamaUser.setText(" ");
+
         lblNamaUser.setFont(Theme.font(java.awt.Font.PLAIN, 12));
         lblNamaUser.setForeground(Theme.TEXT);
-        lblEmailUser.setText(" ");
+        lblNamaUser.setText(" ");
+
         lblEmailUser.setFont(Theme.font(java.awt.Font.PLAIN, 10));
         lblEmailUser.setForeground(Theme.TEXT_MUTED);
-        identitas.add(lblNamaUser);
-        identitas.add(lblEmailUser);
-        kartuUser.add(avatarWrap, java.awt.BorderLayout.WEST);
-        kartuUser.add(identitas, java.awt.BorderLayout.CENTER);
-        strut5.setMaximumSize(new java.awt.Dimension(32767, 8));
-        strut5.setMinimumSize(new java.awt.Dimension(0, 8));
-        strut5.setPreferredSize(new java.awt.Dimension(0, 8));
-        lblKeluar.setText("Keluar");
+        lblEmailUser.setText(" ");
+
+        javax.swing.GroupLayout identitasLayout = new javax.swing.GroupLayout(identitas);
+        identitas.setLayout(identitasLayout);
+        identitasLayout.setHorizontalGroup(
+            identitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblNamaUser)
+            .addComponent(lblEmailUser)
+        );
+        identitasLayout.setVerticalGroup(
+            identitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(identitasLayout.createSequentialGroup()
+                .addComponent(lblNamaUser)
+                .addGap(0, 0, 0)
+                .addComponent(lblEmailUser)
+                .addContainerGap(293, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout kartuUserLayout = new javax.swing.GroupLayout(kartuUser);
+        kartuUser.setLayout(kartuUserLayout);
+        kartuUserLayout.setHorizontalGroup(
+            kartuUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kartuUserLayout.createSequentialGroup()
+                .addComponent(avatarWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(identitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        kartuUserLayout.setVerticalGroup(
+            kartuUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(avatarWrap, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(identitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         lblKeluar.setFont(Theme.font(java.awt.Font.PLAIN, 12));
         lblKeluar.setForeground(Theme.TEXT_MUTED);
+        lblKeluar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblKeluar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblKeluar.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 12, 0, 0));
-        lblKeluar.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         lblKeluar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblKeluarMouseClicked(evt);
             }
         });
-        sidebar.add(logo);
-        sidebar.add(strut1);
-        sidebar.add(lblSeksi);
-        sidebar.add(pillBeranda);
-        sidebar.add(strut2);
-        sidebar.add(barisKeranjang);
-        sidebar.add(strut3);
-        sidebar.add(pillTransaksi);
-        sidebar.add(strut4);
-        sidebar.add(pillProfil);
-        sidebar.add(glue1);
-        sidebar.add(kartuUser);
-        sidebar.add(strut5);
-        sidebar.add(lblKeluar);
-        kontenBungkus.setOpaque(false);
+
+        javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
+        sidebar.setLayout(sidebarLayout);
+        sidebarLayout.setHorizontalGroup(
+            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidebarLayout.createSequentialGroup()
+                .addComponent(pillTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(strut3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(sidebarLayout.createSequentialGroup()
+                .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(strut2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(barisKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(kartuUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(strut4, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(glue1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sidebarLayout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(strut1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(sidebarLayout.createSequentialGroup()
+                                .addComponent(lblKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(strut5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(logo))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        sidebarLayout.setVerticalGroup(
+            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidebarLayout.createSequentialGroup()
+                .addComponent(logo)
+                .addGap(0, 0, 0)
+                .addComponent(strut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(strut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(barisKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(strut3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(pillTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(strut4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(glue1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kartuUser, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(strut5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKeluar))
+                .addContainerGap())
+        );
+
+        bgPanel.add(sidebar, java.awt.BorderLayout.WEST);
+
+        kontenBungkus.setBackground(Theme.PAGE_BG);
         kontenBungkus.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 14, 14));
-        kontenBungkus.setLayout(new java.awt.BorderLayout(0, 0));
+        kontenBungkus.setOpaque(false);
+        kontenBungkus.setLayout(new java.awt.BorderLayout());
+
         konten.setBackground(Theme.CONTENT_BG);
-        konten.setRadius(25);
+        konten.setMaximumSize(new java.awt.Dimension(1920, 1080));
+        konten.setMinimumSize(new java.awt.Dimension(1920, 1080));
         konten.setLayout(new java.awt.CardLayout());
         kontenBungkus.add(konten, java.awt.BorderLayout.CENTER);
-        bgPanel.add(sidebar, java.awt.BorderLayout.WEST);
+
         bgPanel.add(kontenBungkus, java.awt.BorderLayout.CENTER);
+
         getContentPane().add(bgPanel, java.awt.BorderLayout.CENTER);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void kartuUserMouseClicked(java.awt.event.MouseEvent evt) {
-        tampilkan(3); // buka halaman Profil
+        tampilkan(3);
     }
 
     private void lblKeluarMouseClicked(java.awt.event.MouseEvent evt) {
-        logout(); // flowchart: logout -> Halaman Login
+        logout();
     }
 
-    /** Mengisi nama dan email pengguna pada kartu di sidebar. */
+
     private void isiDataPengguna() {
         String nama = username;
         String email = "-";
@@ -248,8 +337,6 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
         }
     }
 
-    /** Memuat ulang isi halaman; gangguan koneksi database ditampilkan
-     *  sebagai dialog, bukan menghentikan aplikasi. */
     private void reloadSafe(Runnable reload) {
         try {
             reload.run();
@@ -258,7 +345,6 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
         }
     }
 
-    // ================= API navigasi untuk panel =================
 
     @Override
     public void keBeranda() {
@@ -290,34 +376,32 @@ public class PelangganFrame extends javax.swing.JFrame implements PelangganNav {
     @Override
     public void logout() {
         dispose();
-        new LoginFrame().setVisible(true); // Halaman Login
+        new LoginFrame().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bgPanel;
-    private javax.swing.JPanel sidebar;
-    private javax.swing.JLabel logo;
-    private javax.swing.Box.Filler strut1;
-    private javax.swing.JLabel lblSeksi;
-    private com.pocketly.component.NavPill pillBeranda;
-    private javax.swing.Box.Filler strut2;
-    private javax.swing.JPanel barisKeranjang;
-    private com.pocketly.component.NavPill pillKeranjang;
-    private com.pocketly.component.BadgeLabel lblBadge;
-    private javax.swing.Box.Filler strut3;
-    private com.pocketly.component.NavPill pillTransaksi;
-    private javax.swing.Box.Filler strut4;
-    private com.pocketly.component.NavPill pillProfil;
-    private javax.swing.Box.Filler glue1;
-    private com.pocketly.component.RoundPanel kartuUser;
-    private javax.swing.JPanel avatarWrap;
     private com.pocketly.component.AvatarLabel avatar;
+    private javax.swing.JPanel avatarWrap;
+    private javax.swing.JPanel barisKeranjang;
+    private javax.swing.JPanel bgPanel;
+    private javax.swing.Box.Filler glue1;
     private javax.swing.JPanel identitas;
-    private javax.swing.JLabel lblNamaUser;
-    private javax.swing.JLabel lblEmailUser;
-    private javax.swing.Box.Filler strut5;
-    private javax.swing.JLabel lblKeluar;
-    private javax.swing.JPanel kontenBungkus;
+    private com.pocketly.component.RoundPanel kartuUser;
     private com.pocketly.component.RoundPanel konten;
+    private javax.swing.JPanel kontenBungkus;
+    private com.pocketly.component.BadgeLabel lblBadge;
+    private javax.swing.JLabel lblEmailUser;
+    private javax.swing.JLabel lblKeluar;
+    private javax.swing.JLabel lblNamaUser;
+    private javax.swing.JLabel logo;
+    private com.pocketly.component.NavPill pillBeranda;
+    private com.pocketly.component.NavPill pillKeranjang;
+    private com.pocketly.component.NavPill pillTransaksi;
+    private javax.swing.JPanel sidebar;
+    private javax.swing.Box.Filler strut1;
+    private javax.swing.Box.Filler strut2;
+    private javax.swing.Box.Filler strut3;
+    private javax.swing.Box.Filler strut4;
+    private javax.swing.Box.Filler strut5;
     // End of variables declaration//GEN-END:variables
 }

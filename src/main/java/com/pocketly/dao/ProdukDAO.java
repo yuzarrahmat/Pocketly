@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** DAO produk: katalog pelanggan, kelola produk petugas, dan penyesuaian stok. */
 public class ProdukDAO {
 
     private static Produk map(ResultSet rs) throws SQLException {
@@ -37,7 +36,6 @@ public class ProdukDAO {
           + "p.id_kategori, k.nama_kategori, p.petugas_username, p.status_produk, p.gambar_produk "
           + "FROM produk p LEFT JOIN kategori_produk k ON k.id_kategori = p.id_kategori ";
 
-    /** Daftar produk aktif pada satu kategori (katalog pelanggan). */
     public List<Produk> aktifPerKategori(String idKategori) {
         List<Produk> list = new ArrayList<>();
         String sql = BASE_SELECT + "WHERE p.status_produk = 'Aktif' AND p.id_kategori = ? ORDER BY p.nama_produk";
@@ -55,7 +53,6 @@ public class ProdukDAO {
         return list;
     }
 
-    /** Seluruh produk (aktif + nonaktif) untuk halaman kelola produk. */
     public List<Produk> semua() {
         List<Produk> list = new ArrayList<>();
         String sql = BASE_SELECT + "ORDER BY p.id_produk";
@@ -148,12 +145,10 @@ public class ProdukDAO {
         }
     }
 
-    /** Stok terkini sebuah produk. */
     public int stokSaatIni(String idProduk) {
         return DB.scalarInt("SELECT stok FROM produk WHERE id_produk = ?", idProduk);
     }
 
-    /** Menambah/mengurangi stok (qty boleh negatif). */
     public void sesuaikanStok(String idProduk, int delta) {
         String sql = "UPDATE produk SET stok = stok + ? WHERE id_produk = ?";
         try (Connection c = DB.getConnection();

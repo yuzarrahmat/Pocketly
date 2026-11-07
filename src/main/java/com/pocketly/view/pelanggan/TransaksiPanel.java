@@ -15,11 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-/**
- * Riwayat transaksi online milik pelanggan beserta dialog detail
- * (flowchart "Halaman Transaksi").
- * Form NetBeans GUI Builder - buka TransaksiPanel.form di tab Design.
- */
 public class TransaksiPanel extends javax.swing.JPanel {
     private final String username;
     private final PelangganNav nav;
@@ -34,7 +29,6 @@ public class TransaksiPanel extends javax.swing.JPanel {
         scrollDaftar.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
     }
 
-    /** Konstruktor kosong untuk kompatibilitas. */
     public TransaksiPanel() {
         this(null, null);
     }
@@ -42,30 +36,47 @@ public class TransaksiPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         lblJudul = new javax.swing.JLabel();
         scrollDaftar = new javax.swing.JScrollPane();
         pnlDaftar = new javax.swing.JPanel();
 
-        setOpaque(false);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 26, 22, 26));
-        this.setLayout(new java.awt.BorderLayout(0, 14));
+        setOpaque(false);
+
         lblJudul.setText("Transaksi Saya");
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 24));
         lblJudul.setForeground(Theme.TEXT);
+
         scrollDaftar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollDaftar.setOpaque(false);
+
         pnlDaftar.setOpaque(false);
-        pnlDaftar.setLayout(new javax.swing.BoxLayout(pnlDaftar, javax.swing.BoxLayout.Y_AXIS));
+        pnlDaftar.setLayout(new javax.swing.BoxLayout(pnlDaftar, javax.swing.BoxLayout.PAGE_AXIS));
         scrollDaftar.setViewportView(pnlDaftar);
-        this.add(lblJudul, java.awt.BorderLayout.NORTH);
-        this.add(scrollDaftar, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblJudul)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(scrollDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblJudul)
+                .addGap(6, 6, 6)
+                .addComponent(scrollDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     public void muatUlang() {
         pnlDaftar.removeAll();
         List<OnlineOrder> riwayat = ctl.riwayat(username);
-
-        // flowchart: transaksi kosong -> notifikasi -> kembali ke halaman pelanggan
+        
         if (riwayat.isEmpty()) {
             UIs.info(this, "Belum ada riwayat transaksi");
             nav.keBeranda();
@@ -81,7 +92,6 @@ public class TransaksiPanel extends javax.swing.JPanel {
     }
 
 
-    // ================= Kartu satu transaksi =================
 
     private class TrxCard extends JPanel {
 
@@ -134,9 +144,8 @@ public class TransaksiPanel extends javax.swing.JPanel {
         }
     }
 
-    // ================= Dialog detail transaksi =================
 
-    /** Dialog detail transaksi sesuai flowchart: id, tanggal, status, penerima, produk, rincian. */
+ 
     private class DetailTransaksiDialog extends javax.swing.JDialog {
 
         private DetailTransaksiDialog(OnlineOrder o) {
@@ -172,7 +181,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
             head.add(badges, BorderLayout.EAST);
             card.add(head, BorderLayout.NORTH);
 
-            // ===== isi: penerima + produk =====
+
             JPanel isi = new JPanel();
             isi.setOpaque(false);
             isi.setLayout(new javax.swing.BoxLayout(isi, javax.swing.BoxLayout.Y_AXIS));
@@ -197,7 +206,6 @@ public class TransaksiPanel extends javax.swing.JPanel {
             isi.add(penerima);
             isi.add(javax.swing.Box.createVerticalStrut(10));
 
-            // tabel produk dibeli
             JPanel produk = UIs.card(10);
             produk.setLayout(new BorderLayout(0, 6));
             produk.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
@@ -222,7 +230,6 @@ public class TransaksiPanel extends javax.swing.JPanel {
             isi.add(produk);
             isi.add(javax.swing.Box.createVerticalStrut(10));
 
-            // rincian belanja
             JPanel rincian = UIs.card(10);
             rincian.setLayout(new BorderLayout(0, 4));
             rincian.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
@@ -259,7 +266,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
             scroll.setPreferredSize(new Dimension(520, 380));
             card.add(scroll, BorderLayout.CENTER);
 
-            // flowchart: klik tombol "Kembali ke beranda"
+
             var btnKembali = UIs.button("Kembali ke beranda", UIs.Btn.PRIMARY);
             btnKembali.addActionListener(e -> {
                 dispose();
@@ -293,7 +300,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblJudul;
-    private javax.swing.JScrollPane scrollDaftar;
     private javax.swing.JPanel pnlDaftar;
+    private javax.swing.JScrollPane scrollDaftar;
     // End of variables declaration//GEN-END:variables
 }
