@@ -212,7 +212,7 @@ public class VerifikasiPanel extends javax.swing.JPanel {
                     + "lalu klik Valid.", javax.swing.SwingConstants.CENTER);
             note.setFont(Theme.small());
             note.setForeground(Theme.TEXT_MUTED);
-            kodePanel.add(note, javax.swing.SwingConstants.SOUTH);
+            kodePanel.add(note, BorderLayout.SOUTH);
             gambar = new JLabel();
             gambar.setLayout(new BorderLayout());
             gambar.add(kodePanel, BorderLayout.CENTER);

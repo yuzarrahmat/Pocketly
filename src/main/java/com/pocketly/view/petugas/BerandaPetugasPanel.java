@@ -1,6 +1,7 @@
 package com.pocketly.view.petugas;
 
 import com.pocketly.controller.PendapatanController;
+import com.pocketly.component.RoundButton;
 import com.pocketly.model.PendapatanRow;
 import com.pocketly.util.Theme;
 import com.pocketly.util.UIs;
@@ -18,10 +19,16 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
     private final PetugasNav nav;
     private final PendapatanController ctl = new PendapatanController();
 
+    private PendapatanController.BulanGrafik cacheHarian;
+    private PendapatanController.TahunGrafik cacheBulanan;
+    private String modeGrafik = "harian";
+
     public BerandaPetugasPanel(String username, PetugasNav nav) {
         this.username = username;
         this.nav = nav;
         initComponents();
+        btnHarian.addActionListener(e -> pilihHarian());
+        btnBulanan.addActionListener(e -> pilihBulanan());
         lblJudul.setText("Selamat bertugas, " + (username == null ? "petugas" : username) + "!");
     }
 
@@ -49,7 +56,11 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
         lblHariIni = new javax.swing.JLabel();
         panelTengah = new javax.swing.JPanel();
         kartuGrafik = new com.pocketly.component.RoundPanel();
+        headerGrafik = new javax.swing.JPanel();
         lblJudulGrafik = new javax.swing.JLabel();
+        panelToggle = new javax.swing.JPanel();
+        btnHarian = new com.pocketly.component.RoundButton();
+        btnBulanan = new com.pocketly.component.RoundButton();
         grafik = new com.pocketly.component.ChartPanel();
         strut2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 14), new java.awt.Dimension(0, 14), new java.awt.Dimension(32767, 14));
         kartuTabel = new com.pocketly.component.RoundPanel();
@@ -67,7 +78,7 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
 
         lblJudul.setFont(Theme.font(java.awt.Font.BOLD, 22));
         lblJudul.setForeground(Theme.TEXT);
-        lblJudul.setText("Selamat bertugas!");
+        lblJudul.setText("Selamat bertugas! (Usernam Petugas)");
 
         lblSub.setFont(Theme.font(java.awt.Font.PLAIN, 13));
         lblSub.setForeground(Theme.TEXT_MUTED);
@@ -140,8 +151,8 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
             .addGroup(panelAtasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAtasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblJudul)
-                    .addComponent(lblSub)))
+                    .addComponent(lblSub)
+                    .addComponent(lblJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         panelAtasLayout.setVerticalGroup(
             panelAtasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,20 +177,37 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
         kartuGrafik.setMaximumSize(new java.awt.Dimension(32767, 280));
         kartuGrafik.setLayout(new java.awt.BorderLayout(0, 8));
 
+        headerGrafik.setOpaque(false);
+        headerGrafik.setLayout(new java.awt.BorderLayout(12, 0));
+
         lblJudulGrafik.setFont(Theme.font(java.awt.Font.BOLD, 15));
         lblJudulGrafik.setForeground(Theme.NAVY);
         lblJudulGrafik.setText("Grafik Pendapatan");
-        kartuGrafik.add(lblJudulGrafik);
+        headerGrafik.add(lblJudulGrafik, java.awt.BorderLayout.CENTER);
+
+        panelToggle.setOpaque(false);
+        panelToggle.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 5));
+
+        btnHarian.setText("Harian");
+        panelToggle.add(btnHarian);
+
+        btnBulanan.setText("Bulanan");
+        btnBulanan.setStyleName("ghost");
+        panelToggle.add(btnBulanan);
+
+        headerGrafik.add(panelToggle, java.awt.BorderLayout.EAST);
+
+        kartuGrafik.add(headerGrafik, java.awt.BorderLayout.NORTH);
 
         grafik.setPreferredSize(new java.awt.Dimension(0, 210));
-        kartuGrafik.add(grafik);
+        kartuGrafik.add(grafik, java.awt.BorderLayout.CENTER);
 
         panelTengah.add(kartuGrafik);
         panelTengah.add(strut2);
 
         kartuTabel.setBackground(Theme.CARD);
-        kartuTabel.setRadius(20);
         kartuTabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 20, 16, 20));
+        kartuTabel.setRadius(20);
         kartuTabel.setLayout(new java.awt.BorderLayout(0, 10));
 
         lblJudulTabel.setText("Tabel Pendapatan");
@@ -198,17 +226,18 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
 
     public void muatUlang() {
         List<PendapatanRow> rows = ctl.barisPendapatan();
-        var bulanGrafik = ctl.bulanGrafik();
+        cacheHarian = ctl.bulanGrafik();
+        cacheBulanan = ctl.tahunGrafik();
 
         lblTotal.setText(UIs.money(ctl.totalPendapatan()));
         lblJumlah.setText(rows.size() + " transaksi");
-        lblHariIni.setText(UIs.money(bulanGrafik.data().getOrDefault(LocalDate.now(), 0.0)));
+        lblHariIni.setText(UIs.money(cacheHarian.data().getOrDefault(LocalDate.now(), 0.0)));
 
-        lblJudulGrafik.setText("Grafik Pendapatan - "
-                + java.time.Month.of(bulanGrafik.bulan()).getDisplayName(
-                        java.time.format.TextStyle.FULL, new Locale("id", "ID"))
-                + " " + bulanGrafik.tahun());
-        grafik.setData(bulanGrafik.tahun(), bulanGrafik.bulan(), bulanGrafik.data());
+        if ("bulanan".equals(modeGrafik)) {
+            tampilkanBulanan();
+        } else {
+            tampilkanHarian();
+        }
 
         tabelWrap.removeAll();
         if (rows.isEmpty()) {
@@ -242,8 +271,44 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
         tabelWrap.repaint();
     }
 
+    private void pilihHarian() {
+        modeGrafik = "harian";
+        btnHarian.setStyleName(RoundButton.PRIMARY);
+        btnBulanan.setStyleName(RoundButton.GHOST);
+        tampilkanHarian();
+    }
+
+    private void pilihBulanan() {
+        modeGrafik = "bulanan";
+        btnHarian.setStyleName(RoundButton.GHOST);
+        btnBulanan.setStyleName(RoundButton.PRIMARY);
+        tampilkanBulanan();
+    }
+
+    private void tampilkanHarian() {
+        if (cacheHarian == null) {
+            return;
+        }
+        lblJudulGrafik.setText("Grafik Pendapatan - "
+                + java.time.Month.of(cacheHarian.bulan()).getDisplayName(
+                        java.time.format.TextStyle.FULL, new Locale("id", "ID"))
+                + " " + cacheHarian.tahun());
+        grafik.setData(cacheHarian.tahun(), cacheHarian.bulan(), cacheHarian.data());
+    }
+
+    private void tampilkanBulanan() {
+        if (cacheBulanan == null) {
+            return;
+        }
+        lblJudulGrafik.setText("Pendapatan Bulanan - " + cacheBulanan.tahun());
+        grafik.setDataBulanan(cacheBulanan.tahun(), cacheBulanan.data());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.pocketly.component.RoundButton btnBulanan;
+    private com.pocketly.component.RoundButton btnHarian;
     private com.pocketly.component.ChartPanel grafik;
+    private javax.swing.JPanel headerGrafik;
     private javax.swing.JPanel kartu;
     private com.pocketly.component.RoundPanel kartuGrafik;
     private com.pocketly.component.RoundPanel kartuHariIni;
@@ -262,6 +327,7 @@ public class BerandaPetugasPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblkartuTotal;
     private javax.swing.JPanel panelAtas;
     private javax.swing.JPanel panelTengah;
+    private javax.swing.JPanel panelToggle;
     private javax.swing.Box.Filler strut1;
     private javax.swing.Box.Filler strut2;
     private javax.swing.JPanel tabelWrap;
