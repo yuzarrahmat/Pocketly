@@ -70,6 +70,8 @@ Sistem ini menggunakan arsitektur *supertype-subtype* pada pengelolaan akun peng
 <img width="10533" height="7457" alt="ERD Relational Model" src="https://github.com/user-attachments/assets/d2b411b0-a4c7-49d6-a2fc-12158f9e6930" />
 <img width="8940" height="5194" alt="ERD Logical Model" src="https://github.com/user-attachments/assets/a6d6b496-fa20-4b70-8ca6-99d0ffb17f93" />
 
+---
+
 Basis data `db_pocketly` dirancang menggunakan **Notasi Barker** pada model logis dan diimplementasikan menjadi **10 tabel relasional** yang menerapkan pola **Supertype–Subtype (Generalization/Specialization)** pada dua domain utama:
 
 1. **Hierarki Akun Pengguna (`pengguna` $\rightarrow$ `pelanggan` & `petugas`):**
@@ -89,8 +91,12 @@ Basis data `db_pocketly` dirancang menggunakan **Notasi Barker** pada model logi
 * `produk` dikelola oleh satu `petugas` penanggung jawab (M:1) dan dirujuk oleh `keranjang` (1:M) serta `detail_transaksi` (1:M).
 * `detail_transaksi` menjembatani relasi *Many-to-Many* antara `transaksi` dan `produk` dengan menyimpan `harga_transaksi` historis saat pembelian terjadi agar perubahan harga produk di masa depan tidak merusak catatan keuangan masa lalu.
 
+---
+
 #### 2. Pemetaan Use Case Diagram
 <img width="1381" height="844" alt="Use Case Pocketly" src="https://github.com/user-attachments/assets/4652fa01-fdcc-4c96-9328-23cc5140d1f9" />
+
+---
 
 Interaksi fungsional dalam sistem melibatkan dua aktor utama (**Pelanggan** dan **Petugas**) dengan rincian relasi `<<include>>` dan `<<extend>>` sebagai berikut:
 
@@ -107,19 +113,61 @@ Interaksi fungsional dalam sistem melibatkan dua aktor utama (**Pelanggan** dan 
 | 9 | **Melayani Transaksi Kasir Offline** | Petugas | `<<include>>` ke *Login Sistem* & `<<include>>` ke *Input Barang Pembayaran* | `KasirController` (`KasirPanel`, `TransaksiDAO`, `ProdukDAO`) |
 | 10 | **Melihat Rekap Laporan Penjualan** | Petugas | `<<include>>` ke *Login Sistem* | `PendapatanController` (`BerandaPetugasPanel`, `ChartPanel`) |
 
+---
 
+#### 3. Alur Proses (FlowChart)
 
-#### 3. Rangkuman Alur Proses (9 Flowchart Sistem)
+1. **Alur Login & Registrasi** 
+<img width="1201" height="752" alt="Picture1" src="https://github.com/user-attachments/assets/9173556a-d282-4fe1-a92a-a607e2baa3a4" />
+Menampilkan halaman masuk; jika pengguna memilih registrasi, sistem memvalidasi ketersediaan `username` di database pengguna (menolak jika duplikat, menyimpan jika unik). Saat login, sistem memverifikasi kredensial dan mengarahkan antarmuka berdasarkan *role* (`Petugas` ke `PetugasFrame`, `Pelanggan` ke `PelangganFrame`).
 
-1. **Alur Login & Registrasi:** Menampilkan halaman masuk; jika pengguna memilih registrasi, sistem memvalidasi ketersediaan `username` di database pengguna (menolak jika duplikat, menyimpan jika unik). Saat login, sistem memverifikasi kredensial dan mengarahkan antarmuka berdasarkan *role* (`Petugas` ke `PetugasFrame`, `Pelanggan` ke `PelangganFrame`).
-2. **Alur Beranda Pelanggan:** Menampilkan katalog produk berdasarkan kategori. Ketika pelanggan menekan tombol tambah (`+`), sistem memeriksa stok pada database produk; jika mencukupi, item masuk ke database keranjang disertai notifikasi `"Item ditambahkan"`.
-3. **Alur Keranjang Belanja & Checkout:** Memeriksa isi keranjang pelanggan; mendukung pemilihan tipe pemesanan (*Pesan Antar* atau *Pick Up*), pengubahan alamat profil, penyesuaian jumlah item dengan validasi stok, penghapusan item, hingga proses *Checkout* menggunakan *E-Wallet* (unggah bukti pembayaran) atau *Cash* (menampilkan kode transaksi) yang menetapkan status awal `"Menunggu verifikasi"`.
-4. **Alur Riwayat Transaksi & Profil Pelanggan:** Menampilkan daftar pesanan pelanggan beserta tampilan rincian lengkap (ID transaksi, tanggal, status pesanan, status pembayaran, penerima, alamat, item produk, metode bayar, ongkir, subtotal) dan informasi profil yang dilengkapi fitur *Logout*.
-5. **Alur Beranda & Laporan Pendapatan Petugas:** Menampilkan navigasi utama petugas serta rekapitulasi pendapatan dari database transaksi. Jika terdapat riwayat transaksi lunas, sistem merender total akumulasi pendapatan beserta tabel dan grafik penjualan harian.
-6. **Alur Kelola Produk Petugas:** Memfasilitasi penambahan produk baru, pengeditan atribut produk melalui validasi input, penyesuaian stok langsung (`+/-` atau angka), serta pengubahan status produk (`Aktif` / `Nonaktif`) melalui *dropdown*.
-7. **Alur Verifikasi Pembayaran Petugas:** Menampilkan daftar transaksi pelanggan beserta pratinjau bukti pembayaran atau kode kas. Saat petugas memilih status `"Valid"`, sistem memperbarui status pembayaran di database transaksi menjadi `'Berhasil'`, memotong stok di database produk, dan menampilkan notifikasi `"Bukti pembayaran diterima"`. Jika `"Tidak Valid"`, status menjadi `'Dibatalkan'`.
-8. **Alur Ubah Status Pesanan Petugas:** Memungkinkan petugas memperbarui tahapan logistik pesanan daring melalui *dropdown* (`Dikemas`, `Dikirim`, `Siap diambil`, `Selesai`) yang langsung disimpan ke tabel `online`.
-9. **Alur Kasir Offline Petugas:** Memvalidasi input ID produk dan jumlah beli terhadap ketersediaan stok, menampilkan ringkasan pembayaran (*Tunai* dengan kalkulasi uang bayar dan kembalian, atau konfirmasi *E-Wallet*), lalu menyimpan transaksi sekaligus memotong stok produk secara permanen.
+---
+
+2. **Alur Beranda Pelanggan** 
+<img width="1200" height="427" alt="Picture2" src="https://github.com/user-attachments/assets/ae2a52d1-7461-481e-ba17-a5b5a1ceebec" />
+Menampilkan katalog produk berdasarkan kategori. Ketika pelanggan menekan tombol tambah (`+`), sistem memeriksa stok pada database produk; jika mencukupi, item masuk ke database keranjang disertai notifikasi `"Item ditambahkan"`.
+
+---
+
+3. **Alur Keranjang Belanja & Checkout** 
+<img width="1186" height="770" alt="Picture3" src="https://github.com/user-attachments/assets/d8305690-cf52-4222-bc64-afba0a8f0194" />
+Memeriksa isi keranjang pelanggan; mendukung pemilihan tipe pemesanan (*Pesan Antar* atau *Pick Up*), pengubahan alamat profil, penyesuaian jumlah item dengan validasi stok, penghapusan item, hingga proses *Checkout* menggunakan *E-Wallet* (unggah bukti pembayaran) atau *Cash* (menampilkan kode transaksi) yang menetapkan status awal `"Menunggu verifikasi"`.
+
+---
+
+4. **Alur Riwayat Transaksi & Profil Pelanggan** 
+<img width="1198" height="643" alt="Picture4" src="https://github.com/user-attachments/assets/b3b946ad-e5c8-4597-9c37-f0b7bc39f26c" />
+Menampilkan daftar pesanan pelanggan beserta tampilan rincian lengkap (ID transaksi, tanggal, status pesanan, status pembayaran, penerima, alamat, item produk, metode bayar, ongkir, subtotal) dan informasi profil yang dilengkapi fitur *Logout*.
+
+---
+
+5. **Alur Beranda & Laporan Pendapatan Petugas** 
+<img width="1193" height="809" alt="Picture5" src="https://github.com/user-attachments/assets/ad7a9892-b465-465b-b338-19ab10786c2b" />
+Menampilkan navigasi utama petugas serta rekapitulasi pendapatan dari database transaksi. Jika terdapat riwayat transaksi lunas, sistem merender total akumulasi pendapatan beserta tabel dan grafik penjualan harian.
+
+---
+
+6. **Alur Kelola Produk Petugas** 
+<img width="1096" height="753" alt="Picture6" src="https://github.com/user-attachments/assets/f257441d-4b16-40d1-a972-4f537b32fefb" />
+Memfasilitasi penambahan produk baru, pengeditan atribut produk melalui validasi input, penyesuaian stok langsung (`+/-` atau angka), serta pengubahan status produk (`Aktif` / `Nonaktif`) melalui *dropdown*.
+
+---
+
+7. **Alur Verifikasi Pembayaran Petugas** 
+<img width="913" height="532" alt="Picture7" src="https://github.com/user-attachments/assets/db2c83d4-000b-4266-9243-7270b28f1c40" />
+Menampilkan daftar transaksi pelanggan beserta pratinjau bukti pembayaran atau kode kas. Saat petugas memilih status `"Valid"`, sistem memperbarui status pembayaran di database transaksi menjadi `'Berhasil'`, memotong stok di database produk, dan menampilkan notifikasi `"Bukti pembayaran diterima"`. Jika `"Tidak Valid"`, status menjadi `'Dibatalkan'`.
+
+---
+
+8. **Alur Ubah Status Pesanan Petugas** 
+<img width="522" height="251" alt="Picture8" src="https://github.com/user-attachments/assets/51761ae1-f37b-4a7d-abc2-b24af03f372d" />
+Memungkinkan petugas memperbarui tahapan logistik pesanan daring melalui *dropdown* (`Dikemas`, `Dikirim`, `Siap diambil`, `Selesai`) yang langsung disimpan ke tabel `online`.
+
+---
+
+9. **Alur Kasir Offline Petugas** 
+<img width="1206" height="851" alt="Picture9" src="https://github.com/user-attachments/assets/e952e7bf-fe64-41c4-8e59-ff83534b570b" />
+Memvalidasi input ID produk dan jumlah beli terhadap ketersediaan stok, menampilkan ringkasan pembayaran (*Tunai* dengan kalkulasi uang bayar dan kembalian, atau konfirmasi *E-Wallet*), lalu menyimpan transaksi sekaligus memotong stok produk secara permanen.
 
 ---
 
@@ -217,6 +265,8 @@ Pocketly Capstone/
 ---
 
 ## Penjelasan Penerapan 4 Pilar OOP
+
+Aplikasi Pocketly mengimplementasikan keempat pilar Object-Oriented Programming (OOP) secara nyata di seluruh paket kode sumbernya:
 
 1. **Encapsulation (Enkapsulasi)**
 * Seluruh atribut entitas data pada package `com.pocketly.model` (seperti `id_pengguna`, `nama`, `stok`, `harga`, `total_harga`) dideklarasikan berakses **`private`**.
