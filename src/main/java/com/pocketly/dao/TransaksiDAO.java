@@ -22,8 +22,6 @@ import java.util.List;
 
 public class TransaksiDAO {
 
-    // ================= PEMBACAAN =================
-
     private static OnlineOrder mapOnline(ResultSet rs) throws SQLException {
         OnlineOrder o = new OnlineOrder();
         o.idTransaksi = rs.getString("id_transaksi");
@@ -169,8 +167,7 @@ public class TransaksiDAO {
         }
         return list;
     }
-
-    /** Tanggal transaksi berhasil terakhir (null bila belum ada). */
+    
     public LocalDate tanggalPendapatanTerakhir() {
         String sql = "SELECT MAX(tanggal_transaksi) FROM transaksi WHERE status_pembayaran = 'Berhasil'";
         try (Connection c = DB.getConnection();
@@ -182,10 +179,36 @@ public class TransaksiDAO {
         }
     }
 
-    /**
-     * Total pendapatan per tanggal pada satu bulan tertentu
-     * (hanya transaksi berstatus Berhasil).
-     */
+    public Integer tahunPendapatanTerakhir() {
+        String sql = "SELECT MAX(YEAR(tanggal_transaksi)) FROM transaksi WHERE status_pembayaran = 'Berhasil'";
+        try (Connection c = DB.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            return rs.next() && rs.getObject(1) != null ? rs.getInt(1) : null;
+        } catch (SQLException ex) {
+            throw new RuntimeException("Gagal membaca tahun pendapatan: " + ex.getMessage(), ex);
+        }
+    }
+
+    public java.util.Map<Integer, Double> pendapatanBulanan(int tahun) {
+        java.util.Map<Integer, Double> map = new java.util.LinkedHashMap<>();
+        String sql = "SELECT MONTH(tanggal_transaksi), SUM(total_bayar) FROM transaksi "
+                   + "WHERE status_pembayaran = 'Berhasil' AND YEAR(tanggal_transaksi) = ? "
+                   + "GROUP BY MONTH(tanggal_transaksi) ORDER BY MONTH(tanggal_transaksi)";
+        try (Connection c = DB.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, tahun);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    map.put(rs.getInt(1), rs.getDouble(2));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Gagal membaca pendapatan bulanan: " + ex.getMessage(), ex);
+        }
+        return map;
+    }
+
     public java.util.Map<LocalDate, Double> pendapatanHarian(int tahun, int bulan) {
         java.util.Map<LocalDate, Double> map = new java.util.LinkedHashMap<>();
         String sql = "SELECT tanggal_transaksi, SUM(total_bayar) FROM transaksi "
@@ -296,13 +319,6 @@ public class TransaksiDAO {
         }
     }
 
-    // ================= VERIFIKASI PEMBAYARAN =================
-
-    /**
-     * Hasil verifikasi bukti pembayaran oleh petugas.
-     * Valid   -> status Berhasil + waktu lunas + petugas verifikator.
-     * Invalid -> status Dibatalkan (transaksi & pesanan) + stok dikembalikan.
-     */
     public void verifikasiPembayaran(String idTransaksi, boolean valid, String petugas) {
         Connection c = null;
         try {
@@ -349,7 +365,6 @@ public class TransaksiDAO {
         }
     }
 
-    /** Mengubah status pesanan online (Dikemas / Siap diambil / Dikirim / Selesai). */
     public void updateStatusPesanan(String idTransaksi, String statusBaru) {
         String sql = "UPDATE online SET status_pesanan = ? WHERE id_transaksi = ?";
         try (Connection c = DB.getConnection();
@@ -362,12 +377,6 @@ public class TransaksiDAO {
         }
     }
 
-    // ================= KASIR OFFLINE =================
-
-    /**
-     * Menyimpan transaksi kasir offline: transaksi + offline + detail,
-     * serta mengurangi stok produk.
-     */
     public void simpanKasirOffline(List<KasirItem> items, String metodePembayaran,
                                    double nominalBayar, double kembalian,
                                    String namaPembeli, String petugas) {
@@ -438,12 +447,7 @@ public class TransaksiDAO {
             }
         }
     }
-
-    /**
-     * Membuat id berurutan berikutnya menggunakan koneksi transaksi yang
-     * sama, sehingga baris yang baru disisipkan (belum di-commit) tetap
-     * terhitung dan id tidak akan duplikat.
-     */
+    
     private static String nextId(Connection c, String prefix, String table, String column) throws SQLException {
         String sql = "SELECT " + column + " FROM " + table;
         int max = 0;
@@ -465,7 +469,6 @@ public class TransaksiDAO {
         return String.format("%s%03d", prefix, max + 1);
     }
 
-    /** Membuat kode transaksi tunai: CSH-yymmdd-xxx (urutan per hari). */
     public String buatKodeCash() {
         String prefix = "CSH-" + LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("yyMMdd")) + "-";
         int max = 0;
