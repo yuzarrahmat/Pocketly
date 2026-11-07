@@ -265,25 +265,26 @@ Pocketly Capstone/
 ---
 
 ## Penjelasan Penerapan 4 Pilar OOP
+**Pocketly** dibangun di atas arsitektur **MVC (*Model-View-Controller*) + DAO (*Data Access Object*)** pada paket utama `com.pocketly` dengan menerapkan keempat pilar *Object-Oriented Programming* (OOP) secara menyeluruh:
 
-Aplikasi Pocketly mengimplementasikan keempat pilar Object-Oriented Programming (OOP) secara nyata di seluruh paket kode sumbernya:
+* **1. Encapsulation (Enkapsulasi)**
+* **Proteksi Entitas Data (`com.pocketly.model`):** Seluruh kelas representasi tabel (*POJO*)—meliputi `Pengguna.java`, `Pelanggan.java`, `Petugas.java`, `Produk.java`, `Kategori.java`, `DetailTransaksi.java`, `KeranjangItem.java`, `KasirItem.java`, `OnlineOrder.java`, dan `PendapatanRow.java`—mendeklarasikan atribut internalnya menggunakan pengubah akses `private` (seperti `idProduk`, `hargaSatuan`, `stok`, `subtotalEstimasi`, dan `totalBayar`). Manipulasi maupun pembacaan nilai atribut dari luar kelas hanya diizinkan melalui metode *getter* dan *setter* berakses `public` untuk menjamin validitas state objek di memori.
+* **Isolasi Akses Basis Data (`com.pocketly.dao`):** Detail teknis koneksi JDBC, pembacaan konfigurasi kredensial pada berkas `db.properties`, serta penyusunan sintaks SQL (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) dibungkus sepenuhnya di dalam lapisan DAO (`PenggunaDAO.java`, `PelangganDAO.java`, `PetugasDAO.java`, `ProdukDAO.java`, `KategoriDAO.java`, `KeranjangDAO.java`, dan `TransaksiDAO.java`) menggunakan `PreparedStatement`. Hal ini mencegah kelas antarmuka pada paket `com.pocketly.view` memodifikasi basis data `db_pocketly` secara langsung tanpa melewati validasi aturan bisnis.
 
-1. **Encapsulation (Enkapsulasi)**
-* Seluruh atribut entitas data pada package `com.pocketly.model` (seperti `id_pengguna`, `nama`, `stok`, `harga`, `total_harga`) dideklarasikan berakses **`private`**.
-* Pengaksesan dan modifikasi data wajib melalui fungsi **`getter`** dan **`setter`** publik untuk menjaga integritas data agar tidak diubah secara bebas di luar kelasnya.
 
-2. **Inheritance (Pewarisan)**
-* **Supertype-Subtype Pengguna:** Kelas `Pengguna` bertindak sebagai *superclass* (parent) yang memuat variabel umum (`id`, `username`, `password`, `role`), kemudian diturunkan (*extends*) menjadi kelas *subclass* seperti `Petugas` (Admin/Kasir) dan `Pelanggan`.
-* Memungkinkan penggunaan ulang kode (*code reusability*) secara efisien tanpa perlu mendeklarasikan ulang variabel umum.
+* **2. Inheritance (Pewarisan)**
+* **Hierarki Model Supertype–Subtype (`com.pocketly.model`):** Selaras dengan skema generalisasi pada ERD basis data, kelas `Pelanggan.java` (yang menyimpan atribut spesifik `alamat`, `tanggalRegistrasi`, `email`, dan `nama`) serta kelas `Petugas.java` (yang menyimpan atribut `nip` dan `jabatan`) mewarisi (`extends`) atribut kredensial dasar (`username`, `password`, dan `peranPengguna`) dari kelas induk `Pengguna.java`.
+* **Pewarisan Komponen Antarmuka Swing (`com.pocketly.view` & `com.pocketly.component`):** Jendela utama aplikasi (`PelangganFrame.java` dan `PetugasFrame.java`) mewarisi sifat dan perilaku kelas `javax.swing.JFrame`, sedangkan seluruh panel menu (`BerandaPanel.java`, `KeranjangPanel.java`, `TransaksiPanel.java`, `ProfilPanel.java`, `BerandaPetugasPanel.java`, `KasirPanel.java`, `KelolaProdukPanel.java`, `StatusPanel.java`, dan `VerifikasiPanel.java`) mewarisi kelas `javax.swing.JPanel`. Selain itu, komponen antarmuka kustom pada paket `com.pocketly.component` memperluas komponen standar Java Swing, seperti `RoundPanel.java` dan `ChartPanel.java` yang mewarisi `JPanel`, `RoundButton.java` yang mewarisi `JButton`, `RoundTextField.java` yang mewarisi `JTextField`, `RoundPasswordField.java` yang mewarisi `JPasswordField`, serta `AvatarLabel.java`, `BadgeLabel.java`, dan `NavPill.java` yang mewarisi komponen teks/label dasar.
 
-3. **Polymorphism (Polimorfisme)**
-* **Method Overriding:** Kelas turunan mengimplementasikan kembali metode dari kelas induk atau interface untuk memberikan perilaku spesifik. Contohnya kalkulasi total bayar atau pencetakan rincian transaksi antara transaksi kasir *offline* dan transaksi pesan-antar *online*.
-* **Method Overloading:** Penggunaan nama metode yang sama dengan kombinasi parameter berbeda pada lapisan Controller/DAO (misalnya pemanggilan `pencarianProduk(String keyword)` dan `pencarianProduk(int idKategori)`).
 
-4. **Abstraction (Abstraksi)**
-* Penerapan pola **DAO (Data Access Object)** memisahkan secara total kompleksitas operasi basis data JDBC dari lapisan visual antarmuka pengguna.
-* Controller hanya perlu memanggil metode abstrak seperti `transaksiDAO.tambahTransaksi(...)` atau `produkDAO.updateStok(...)` tanpa harus mengetahui detail implementasi sintaks SQL yang dieksekusi di tingkat basis data.
+* **3. Polymorphism (Polimorfisme)**
+* **Custom UI Rendering melalui *Method Overriding* (`com.pocketly.component`):** Komponen visual kustom menerapkan polimorfisme melalui mekanisme *overriding* (`@Override`) terhadap metode `paintComponent(Graphics g)` dan `paintBorder(Graphics g)` milik kelas induk Swing. Di dalam `RoundPanel.java`, `RoundButton.java`, `BadgeLabel.java`, dan `AvatarLabel.java`, metode tersebut ditulis ulang menggunakan objek `Graphics2D` (`RenderingHints.KEY_ANTIALIASING`) untuk merender sudut melengkung (*rounded corners*) dan indikator warna status transaksi secara dinamis, sedangkan pada `ChartPanel.java` metode yang sama dioverride untuk menggambar visualisasi grafik batang laporan pendapatan harian.
+* **Resolusi Peran & Penanganan Event (`com.pocketly.controller`):** Saat proses autentikasi pada `AuthController.java`, objek referensi bertipe induk `Pengguna` dapat diperlakukan secara polimorfik menjadi instans `Pelanggan` atau `Petugas` untuk mengarahkan sesi login ke frame yang sesuai. Polimorfisme juga diterapkan melalui implementasi antarmuka pendengar aksi (*event listener* seperti `ActionListener` dan `MouseListener`) pada kesepuluh kelas kontroler, di mana metode penanganan aksi memberikan respons logika yang berbeda sesuai konteks tombol dan panel yang sedang aktif.
 
+
+* **4. Abstraction (Abstraksi)**
+* **Abstraksi Logika Bisnis & Transaksi (`com.pocketly.controller` & `com.pocketly.dao`):** Kompleksitas proses bisnis *omnichannel* disembunyikan dari lapisan antarmuka (`view`) melalui pemisahan peran antara kelas kontroler (`KasirController.java`, `KeranjangController.java`, `VerifikasiController.java`, `StatusController.java`, `ProdukAdminController.java`, `PendapatanController.java`, `KatalogController.java`, `RiwayatController.java`, dan `ProfilController.java`) dan lapisan DAO. Ketika petugas memverifikasi bukti pembayaran pada `VerifikasiPanel.java` atau menyelesaikan transaksi tunai pada `KasirPanel.java`, panel antarmuka cukup memanggil satu metode eksekusi pada kontroler tanpa perlu mengetahui proses penguncian transaksi (`START TRANSACTION`, `SAVEPOINT`, `COMMIT`, `ROLLBACK`), penggabungan tabel (`JOIN` antara `transaksi`, `online`, `offline`, dan `detail_transaksi`), maupun pemotongan stok otomatis pada `ProdukDAO.java`.
+* **Abstraksi Navigasi Antarmuka (`PelangganNav.java` & `PetugasNav.java`):** Mekanisme perpindahan antar-halaman di dalam jendela aplikasi diabstraksikan ke dalam kelas navigator `PelangganNav.java` dan `PetugasNav.java` bersama komponen `NavPill.java`, sehingga setiap panel fitur dapat dipanggil secara modular tanpa membebani kode pada `Main.java` maupun frame utama.
 
 ---
 
