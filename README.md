@@ -1,4 +1,7 @@
 # Pocketly
+<img width="2500" height="1250" alt="PPT CAPSTONE" src="https://github.com/user-attachments/assets/402ccb00-0b75-4346-8670-591d06079bfa" />
+
+---
 
 Pocketly adalah sistem informasi manajemen ritel dan pemesanan daring terintegrasi (*omnichannel*) yang menghubungkan operasional kasir gerai fisik (*Point of Sale*/POS) dengan platform belanja daring secara terpusat guna menyinkronkan stok barang secara *real-time* dan mengeliminasi kendala *siloed system* (kondisi di mana aplikasi, database, atau sistem informasi dalam suatu organisasi berjalan secara terpisah, mandiri, dan tidak saling terhubung atau berkomunikasi satu sama lain).
 
