@@ -13,10 +13,10 @@ Sistem ini menggunakan arsitektur *supertype-subtype* pada pengelolaan akun peng
 
 | Nama | NIM | Kelas | Kontribusi |
 |------|-------|------|----------|
-| Wahid Nur Hakim | 2509116016 | A | Perancangan dan pembuatan ERD, Membuat Laporan, Pembuatan Database, eksekusi query |
-| Yuzar Rahmat Rafi Alhaq | 2509116025 | A | Perancangan rencana pengerjaan, membantu laporan dan pencarian jurnal, perancangan dan pembuatan program, memastikan beban kerja yang merata, membantu revisi masing-masing anggota |
-| Muhammad Ihsan Kamil | 2509116035 | A | Pembuatan laporan, Perancangan ERD, Perancangan dan Pembuatan Flowchart, eksekusi query, pembuatan prototype UI |
-| Riaz Ramadhan Al Fattah | 2509116106 | C | Perancangan dan pembuatan program, pembuatan GUI, pembuatan usecase, pembuatan laporan |
+| Wahid Nur Hakim | 2509116016 | A | Perancangan dan pembuatan ERD, Membuat Laporan, Pembuatan Database, eksekusi query, membantu Slide Deck |
+| Yuzar Rahmat Rafi Alhaq (**`Ketua Kelompok`**) | 2509116025 | A | Perancangan rencana pengerjaan, membantu laporan dan pencarian jurnal, perancangan dan membantu program, memastikan beban kerja yang merata, membantu revisi masing-masing anggota, Membuat Readme |
+| Muhammad Ihsan Kamil | 2509116035 | A | Pembuatan laporan, Perancangan ERD, Perancangan dan Pembuatan Flowchart, eksekusi query, pembuatan prototype UI, Membuat Slide Deck |
+| Riaz Ramadhan Al Fattah | 2509116106 | C | Perancangan dan pembuatan program, pembuatan GUI, pembuatan usecase, pembuatan laporan, Membantu Readme, membantu Slide Deck |
 
 ---
 
@@ -24,33 +24,22 @@ Sistem ini menggunakan arsitektur *supertype-subtype* pada pengelolaan akun peng
 
 **Pocketly** dirancang dengan pendekatan *Omnichannel (Click-and-Mortar)* yang menyatukan operasional kasir gerai fisik (*Point of Sale*) dan pemesanan daring pelanggan ke dalam satu basis data relasional terpusat guna mengeliminasi selisih stok (*stock discrepancy*) :
 
-1. **Autentikasi Multi-Peran (*Role-Based Access Control*) & Registrasi Mandiri**
-* Memisahkan alur masuk pengguna berdasarkan atribut `peran_pengguna` pada entitas induk `pengguna` menjadi antarmuka khusus **Pelanggan** (`PelangganFrame`) dan **Petugas** (`PetugasFrame`).
-* Menyediakan fitur registrasi akun pelanggan baru dengan validasi keunikan `username` dan `email`, serta pencatatan otomatis `tanggal_registrasi` dan alamat pengiriman bawaan.
-
-2. **Katalog Produk Dinamis & Manajemen Inventaris Terpusat**
-* **Sisi Pelanggan:** Menampilkan katalog produk berstatus `'Aktif'` yang dikelompokkan ke dalam 8 kategori kebutuhan harian (`Makanan`, `Minuman`, `Dapur dan Bahan Masak`, `Ibu dan Anak`, `Makanan Hewan`, `Perawatan Diri`, `Kesehatan dan Kebersihan`, serta `Lainnya`) beserta informasi harga satuan, satuan barang, dan sisa stok terkini.
-* **Sisi Petugas (Admin):** Menyediakan fitur tambah produk baru, pembaruan harga/informasi barang, penyesuaian stok cepat melalui kontrol tambah/kurang (`+/-`) maupun input angka langsung, informasi lokasi rak (`Rak A1` s.d. `Rak H1`), serta mekanisme *soft delete* (mengubah status produk menjadi `'Nonaktif'`) agar riwayat penjualan masa lalu pada `detail_transaksi` tetap terjaga utuh.
-
-3. **Manajemen Keranjang Belanja Interaktif (*Cart Persistence*)**
-* Menyimpan pilihan belanja pelanggan secara persisten pada tabel `keranjang` di basis data sebelum dilakukan *checkout*.
-* Mendukung penyesuaian kuantitas barang dengan pengecekan ketersediaan stok secara langsung ke basis data, penghapusan item terpilih, kalkulasi `subtotal_estimasi` otomatis, dan pembaruan alamat pengiriman langsung dari panel keranjang.
-
-4. **Pemesanan Daring Fleksibel (*Pick-up* & *Pesan Antar*)**
-* **Layanan Ambil di Toko (*Pick up*):** Bebas biaya pengiriman (`biaya_ongkir = Rp0`), mendukung metode pembayaran tunai di kasir menggunakan *Kode Transaksi Cash* unik (contoh: `CSH-261008-001`) maupun pembayaran non-tunai (*E-Wallet* / *M-Banking*).
-* **Layanan Pesan Antar (*Delivery*):** Mencatat alamat pengiriman pelanggan dengan penambahan biaya ongkos kirim tetap sebesar `Rp5.000,00` ke dalam `total_bayar` serta mekanisme unggah bukti pembayaran digital (`bukti_pembayaran`).
-
-5. **Sistem Kasir Gerai Fisik (*Point of Sale* / POS *Offline*)**
-* Memfasilitasi petugas kasir dalam menginput ID produk dan kuantitas pembelian langsung di gerai tanpa mewajibkan pembeli memiliki akun pelanggan (cukup mencatat `nama_pembeli` opsional).
-* Menghitung total tagihan, memproses pembayaran tunai beserta kalkulasi otomatis `nominal_kembalian`, serta melayani pembayaran kasir non-tunai (*E-Wallet* / *M-Banking*).
-
-6. **Verifikasi Pembayaran Berjenjang & Pelacakan Status Pesanan**
-* Menerapkan aturan bisnis di mana pemotongan stok fisik pada tabel `produk` dan pencatatan `waktu_lunas` hanya dieksekusi setelah petugas memverifikasi bukti pembayaran pelanggan menjadi `'Berhasil'`.
-* Memisahkan status keuangan (`status_pembayaran`: `'Menunggu verifikasi'`, `'Berhasil'`, `'Dibatalkan'`) dari siklus pemenuhan logistik pesanan (`status_pesanan`: `'Dikemas'`, `'Siap diambil'`, `'Dikirim'`, `'Selesai'`, `'Dibatalkan'`).
-
-7. **Dashboard Analitik & Rekapitulasi Laporan Penjualan**
-* Menyajikan rekapitulasi pendapatan harian terpadu dari kanal penjualan *Online* dan *Offline* yang telah berstatus lunas (`'Berhasil'`) menggunakan visualisasi grafik kustom (`ChartPanel`) dan tabel rincian pendapatan (`PendapatanRow`).
-
+1. **Autentikasi Multi-Peran & Registrasi Akun**
+   * Memvalidasi kredensial pengguna berbasis peran (`peran_pengguna`) dan mengarahkan sesi secara otomatis ke antarmuka khusus **Pelanggan** (`PelangganFrame`) atau **Petugas** (`PetugasFrame`).
+   * Menyediakan fitur registrasi mandiri bagi pelanggan baru dengan validasi keunikan `username` dan `email`, disertai pencatatan otomatis `tanggal_registrasi` serta alamat pengiriman bawaan.
+2. **Katalog Produk & Keranjang Belanja**
+   * **Eksplorasi & Manajemen Katalog:** Menampilkan daftar produk berstatus `'Aktif'` dalam 8 kategori kebutuhan harian beserta sisa stok aktual bagi pelanggan, sekaligus memfasilitasi petugas (Admin) untuk menambah produk, memperbarui harga/stok, memetakan lokasi rak (`Rak A1` s.d. `Rak H1`), dan menerapkan *soft delete* (`status_produk = 'Nonaktif'`) guna menjaga keutuhan riwayat pada `detail_transaksi`.
+   * **Keranjang Belanja Persisten (*Cart Persistence*):** Menyimpan item pilihan pelanggan pada tabel `keranjang`, memvalidasi kecukupan stok secara *real-time* saat penyesuaian kuantitas, menghitung `subtotal_estimasi` otomatis, dan mendukung pengubahan alamat pengiriman sebelum *checkout*.
+3. **Pemesanan Daring (Pick-up & Delivery)**
+   * **Layanan Ambil di Toko (*Pick up*):** Bebas biaya pengiriman (`Rp 0`), mendukung pembayaran tunai di kasir menggunakan *Kode Transaksi Cash* unik (contoh: `CSH-261008-001`) maupun pembayaran non-tunai (*E-Wallet* / *M-Banking*).
+   * **Layanan Pesan Antar (*Delivery*):** Mencatat alamat pengiriman pelanggan dengan penambahan biaya ongkos kirim tetap sebesar `Rp 5.000` ke dalam `total_bayar` serta fitur unggah bukti pembayaran digital (`bukti_pembayaran`).
+4. **Kasir Fisik (POS) & Verifikasi Pembayaran**
+   * **Layanan Kasir Luring (*POS Offline*):** Memfasilitasi petugas kasir dalam menginput ID produk dan jumlah pembelian langsung di gerai tanpa mewajibkan pembeli memiliki akun pelanggan (cukup mencatat `nama_pembeli` opsional), lengkap dengan kalkulasi otomatis `nominal_kembalian` untuk pembayaran tunai maupun konfirmasi non-tunai.
+   * **Verifikasi Pembayaran & Sinkronisasi Stok:** Menerapkan aturan bisnis di mana pemotongan stok fisik pada tabel `produk` dan pencatatan `waktu_lunas` hanya dieksekusi secara otomatis setelah pembayaran terverifikasi lunas (`'Berhasil'`) oleh petugas.
+5. **Pelacakan Pesanan & Dashboard Pendapatan**
+   * **Pelacakan Status Logistik & Riwayat:** Memisahkan status keuangan (`Menunggu verifikasi`, `Berhasil`, `Dibatalkan`) dari tahapan pemenuhan pesanan daring (`Dikemas`, `Siap diambil`, `Dikirim`, `Selesai`, `Dibatalkan`) yang dapat dipantau pelanggan secara *real-time*.
+   * **Dashboard Analitik Penjualan:** Menyajikan ringkasan total akumulasi pendapatan, jumlah transaksi berhasil, visualisasi grafik batang pendapatan harian (`ChartPanel`), serta tabel rekapitulasi transaksi terpadu (*Online* dan *Offline*) bagi petugas.
+   
 ---
 
 ### Tech Stack & Lingkungan Pengembangan
@@ -164,6 +153,7 @@ Menampilkan daftar transaksi pelanggan beserta pratinjau bukti pembayaran atau k
 
 8. **Alur Ubah Status Pesanan Petugas** 
 <img width="522" height="251" alt="Picture8" src="https://github.com/user-attachments/assets/51761ae1-f37b-4a7d-abc2-b24af03f372d" />
+
 Memungkinkan petugas memperbarui tahapan logistik pesanan daring melalui *dropdown* (`Dikemas`, `Dikirim`, `Siap diambil`, `Selesai`) yang langsung disimpan ke tabel `online`.
 
 ---
@@ -291,118 +281,74 @@ Pocketly Capstone/
 
 ---
 
-### Cara Penggunaan, Konfigurasi Database, & Akun Pengujian
+## Cara Penggunaan & Screenshot GUI
 
-#### 1. Prasyarat Sistem
+### 1. Akun Pengujian Bawaan
 
-* **Java Development Kit (JDK):** Versi 17 atau lebih baru.
-* **Apache Maven:** Terinstal atau terbundel di dalam Apache NetBeans IDE.
-* **MySQL Server:** Versi 8.0+ (misalnya melalui Laragon / XAMPP) berjalan pada port `3306`.
+Gunakan Akun bawaan dari `db_pocketly.sql` dibawah untuk menguji alur **Pelanggan** maupun **Petugas**:
 
-
-
-#### 2. Langkah Instalasi & Konfigurasi Basis Data
-
-1. **Clone Repositori:**
-```bash
-git clone https://github.com/yuzarrahmat/Pocketly.git
-cd Pocketly
-
-```
-
-
-2. **Impor Skema & Data Awal Basis Data (`db_pocketly`):**
-Buat basis data `db_pocketly` di MySQL dan impor berkas skrip SQL yang tersedia di folder `sql/`:
-
-
-```sql
-CREATE DATABASE IF NOT EXISTS db_pocketly CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE db_pocketly;
-SOURCE sql/db_pocketly.sql;
-
-```
-
-
-3. **Konfigurasi Hak Akses DCL (Opsional / Standar Keamanan Produksi):**
-Sesuai standar keamanan basis data proyek, Anda dapat membuat akun pengguna basis data khusus untuk operasional aplikasi petugas dan administrator:
-
-
-```sql
-CREATE USER 'petugas'@'localhost' IDENTIFIED BY '1234';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.produk TO 'petugas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.kategori_produk TO 'petugas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.transaksi TO 'petugas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.online TO 'petugas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.offline TO 'petugas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON db_pocketly.detail_transaksi TO 'petugas'@'localhost';
-GRANT SELECT ON db_pocketly.pengguna TO 'petugas'@'localhost';
-GRANT SELECT ON db_pocketly.petugas TO 'petugas'@'localhost';
-GRANT SELECT ON db_pocketly.pelanggan TO 'petugas'@'localhost';
-
-CREATE USER 'db_administrator'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON db_pocketly.* TO 'db_administrator'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-
-```
-
-
-4.  Atur Berkas Konfigurasi `db.properties`:
-Salin berkas `db.properties.example` menjadi `db.properties` di direktori akar proyek, lalu sesuaikan parameter koneksi MySQL lokal Anda:
-```properties
-db.url=jdbc:mysql://localhost:3306/db_pocketly
-db.user=root
-db.password=
-
-```
-
-
-5. **Kompilasi & Jalankan Aplikasi:**
-Buka proyek di **Apache NetBeans IDE** lalu jalankan `com.pocketly.Main`, atau eksekusi melalui terminal Maven:
-```bash
-mvn clean compile exec:java -Dexec.mainClass="com.pocketly.Main"
-
-```
-
-
-
-#### 3. Daftar Akun Pengujian Bawaan (`db_pocketly.sql`)
-
-Gunakan kredensial resmi dari *seed data* `db_pocketly.sql` berikut untuk menguji seluruh fitur berdasarkan hak akses masing-masing aktor:
-
-| Peran Pengguna | Sub-Peran / Jabatan | Username | Password | Identitas / Keterangan Pengujian |
+| Peran | Jabatan / Status | Username | Password | Keterangan Penggunaan |
 | --- | --- | --- | --- | --- |
-| **Petugas** | **Admin** | `ptg_andi` | `Andi@Pocket#01` | NIP: `PTG-2026-001` — Pengelolaan produk, verifikasi & laporan |
-| **Petugas** | **Admin** | `ptg_siti` | `SitiAdm$Pk02` | NIP: `PTG-2026-002` — Pengelolaan produk, verifikasi & laporan |
-| **Petugas** | **Kasir** | `ptg_rudi` | `Rudi!Kasir#03` | NIP: `PTG-2026-003` — Pelayanan POS Kasir Offline & pemrosesan pesanan |
-| **Petugas** | **Kasir** | `ptg_dewi` | `Dewi*Kasir@04` | NIP: `PTG-2026-004` — Pelayanan POS Kasir Offline & pemrosesan pesanan |
-| **Pelanggan** | Pelanggan Terdaftar | `rina_ayu` | `RinaAyu#2026a` | Rina Ayuningtyas (`Jl. Mawar No. 12 RT 05`) — Memiliki item keranjang & histori |
-| **Pelanggan** | Pelanggan Terdaftar | `budi_san` | `BudiSan!7731` | Budi Santoso (`Jl. Melati No. 7 RT 02`) — Memiliki pesanan *Dikirim* (`TRX022`) |
-| **Pelanggan** | Pelanggan Terdaftar | `siti_aminah` | `SitiAm@8842` | Siti Aminah (`Jl. Kenanga No. 21 RT 08`) — Memiliki pesanan *Siap diambil* (`TRX023`) |
-| **Pelanggan** | Pelanggan Terdaftar | `dewi_angg` | `DewiAn#1064` | Dewi Anggraini (`Jl. Dahlia No. 15 RT 06`) — Memiliki pesanan *Menunggu verifikasi* (`TRX025`) |
-
-
-
-#### 4. Struktur Tangkapan Layar Antarmuka (Screenshot GUI)
-
-Susunan direktori dokumentasi visual antarmuka aplikasi pada `README.md`:
-
-```markdown
-### 🖥️ Tangkapan Layar Antarmuka (GUI)
-
-#### A. Antarmuka Pelanggan (`com.pocketly.view.pelanggan`)
-| Beranda & Katalog (`BerandaPanel`) | Keranjang & Checkout (`KeranjangPanel`) |
-| :---: | :---: |
-| ![Beranda Pelanggan](docs/screenshots/pelanggan_beranda.png) | ![Keranjang Belanja](docs/screenshots/pelanggan_keranjang.png) |
-| **Riwayat & Status Pesanan (`TransaksiPanel`)** | **Profil Pelanggan (`ProfilPanel`)** |
-| ![Transaksi Pelanggan](docs/screenshots/pelanggan_transaksi.png) | ![Profil Pelanggan](docs/screenshots/pelanggan_profil.png) |
-
-#### B. Antarmuka Petugas / Admin (`com.pocketly.view.petugas`)
-| Dashboard & Grafik Pendapatan (`BerandaPetugasPanel`) | POS Kasir Offline (`KasirPanel`) |
-| :---: | :---: |
-| ![Dashboard Petugas](docs/screenshots/petugas_beranda.png) | ![Kasir Offline](docs/screenshots/petugas_kasir.png) |
-| **Manajemen Produk & Stok (`KelolaProdukPanel`)** | **Verifikasi Pembayaran & Status (`VerifikasiPanel` & `StatusPanel`)** |
-| ![Kelola Produk](docs/screenshots/petugas_produk.png) | ![Verifikasi & Status](docs/screenshots/petugas_verifikasi.png) |
-
-```
+| **Pelanggan** | Pelanggan Aktif | `budi_san` | `BudiSan!7731` | Budi Santoso — Pengujian katalog, keranjang & pemesanan *Online* |
+| **Pelanggan** | Pelanggan Aktif | `rina_ayu` | `RinaAyu#2026a` | Rina Ayuningtyas — Pengujian keranjang & riwayat transaksi |
+| **Petugas** | Admin | `ptg_andi` | `Andi@Pocket#01` | NIP: `PTG-2026-001` — Dashboard pendapatan, kelola produk & kasir |
+| **Petugas** | Kasir | `ptg_rudi` | `Rudi!Kasir#03` | NIP: `PTG-2026-003` — Pelayanan transaksi POS *Kasir Offline* |
 
 ---
+
+### 2. Panduan Alur Penggunaan & Tangkapan Layar (GUI)
+
+#### A. Autentikasi & Login Sistem (`Main.java` & `AuthController.java`)
+
+<img width="1600" height="903" alt="Login" src="https://github.com/user-attachments/assets/6ac41e80-6ffa-4271-bd54-5450f62f9418" />
+
+* **Masuk ke Sistem:** Masukkan `Username` (contoh: `budi_san` untuk Pelanggan atau `ptg_andi` untuk Petugas) beserta `Password`, lalu klik tombol **Masuk**. Sistem secara otomatis mengenali peran pengguna dan mengarahkan sesi ke antarmuka yang sesuai (`PelangganFrame` atau `PetugasFrame`).
+* **Registrasi Pelanggan Baru:** Bagi pelanggan yang belum memiliki akun, klik tautan **Buat Akun** di bagian bawah kartu login untuk membuka formulir pendaftaran akun baru.
+
+---
+
+#### B. Alur Penggunaan Sisi Pelanggan (`com.pocketly.view.pelanggan`)
+
+##### 1. Eksplorasi Katalog & Kategori Produk (`BerandaPanel.java`)
+
+<img width="1600" height="850" alt="Beranda Pelanggan" src="https://github.com/user-attachments/assets/09c97d82-62d8-40c5-ba27-fb01035a92de" />
+
+* **Filter Kategori Produk:** Pada halaman **Beranda**, pelanggan dapat memilih kategori kebutuhan harian yang tersedia (*Makanan*, *Minuman*, *Dapur dan Bahan Masak*, *Makanan Hewan*, *Perawatan Diri*, atau *Kesehatan dan Kebersihan*).
+* **Pemantauan Stok & Penambahan Item:** Setiap kartu produk menampilkan nama barang, kategori, harga satuan, serta jumlah stok aktual yang tersinkronisasi dengan gerai fisik (contoh: *Indomie Goreng* dengan stok 199 bungkus dan *Roti Tawar Sari Roti* dengan stok 39 bungkus). Klik tombol aksi pada kartu produk untuk menambahkan barang ke dalam keranjang belanja.
+* **Navigasi Samping (`PelangganNav`):** Bilah navigasi di sisi kiri memudahkan perpindahan antara menu **Beranda**, **Keranjang** (dilengkapi indikator *badge* jumlah item aktif), **Transaksi**, dan profil pelanggan.
+
+##### 2. Pengelolaan Keranjang Belanja & Tipe Pemesanan (`KeranjangPanel.java`)
+
+<img width="1600" height="850" alt="Keranjang dan tipe" src="https://github.com/user-attachments/assets/b43bd27a-f61a-4c1d-b00b-dc700661cfed" />
+
+* **Pemilihan Tipe Pemesanan:** Gunakan *dropdown* **Tipe Pemesanan** di bagian atas untuk memilih metode penyerahan barang:
+* **Pesan antar:** Pesanan diantar ke alamat pelanggan dengan tambahan biaya pengiriman tetap sebesar `Rp 5.000`.
+* **Pick up:** Pesanan diambil mandiri di gerai fisik tanpa biaya pengiriman (`Rp 0`).
+
+
+* **Pengaturan Alamat Pengiriman:** Pelanggan dapat melihat alamat pengiriman bawaan (contoh: `Jl. Melati No. 7 RT 02`) atau menekan tombol **Ubah Alamat** untuk memperbarui lokasi pengantaran.
+* **Penyesuaian Kuantitas & Seleksi Barang:** Centang produk yang ingin diproses, ubah kuantitas pembelian menggunakan tombol `-` / `+` lalu tekan **OK** untuk memperbarui subtotal item, atau klik **Hapus** / **Hapus Terpilih** untuk mengeluarkan barang dari keranjang.
+* **Proses Checkout:** Setelah memeriksa rincian **Subtotal produk**, **Biaya pengiriman**, dan **Total bayar**, klik tombol **Checkout** di kanan bawah untuk memilih metode pembayaran (*Cash* dengan kode transaksi atau *E-Wallet* / *M-Banking* dengan unggah bukti pembayaran).
+
+---
+
+#### C. Alur Penggunaan Sisi Petugas / Admin (`com.pocketly.view.petugas`)
+
+##### 1. Dashboard Analitik & Rekapitulasi Pendapatan (`BerandaPetugasPanel.java`)
+
+<img width="1600" height="848" alt="Dashboard Petugas" src="https://github.com/user-attachments/assets/9ec67fe9-1998-4230-83ce-64a5f348cdeb" />
+
+* **Ringkasan Metrik Kinerja:** Halaman beranda petugas menampilkan tiga kartu indikator utama secara langsung, yaitu **Total Pendapatan** akumulatif (`Rp 1.587.000`), jumlah **Transaksi Berhasil** (`25 transaksi`), serta **Pendapatan Hari Ini**.
+* **Visualisasi Grafik Harian (`ChartPanel`):** Menampilkan grafik batang (*bar chart*) fluktuasi pendapatan harian toko dalam rentang satu bulan untuk memudahkan evaluasi performa penjualan.
+* **Tabel Rekapitulasi Transaksi Terpadu:** Menyajikan daftar seluruh transaksi yang telah lunas beserta rincian **Tanggal**, **ID Transaksi**, **Jenis** kanal penjualan (*Online* maupun *Offline*), **Metode** pembayaran (*Cash*, *E-Wallet*, *M-Bangking*), dan **Total** nominal transaksi.
+* **Navigasi Operasional (`PetugasNav`):** Petugas dapat mengakses seluruh fitur manajemen melalui bilah menu di sisi kiri yang mencakup **Beranda**, **Ubah Status**, **Verifikasi Bayar**, **Kasir Offline**, dan **Kelola Produk**.
+
+##### 2. Pelayanan Transaksi Gerai Fisik / POS (`KasirPanel.java`)
+
+<img width="1600" height="851" alt="Kasir Offline" src="https://github.com/user-attachments/assets/9a90083a-ae67-4a32-840e-f4ce1b9c5bac" />
+
+* **Input Cepat Produk Kasir:** Masukkan kode barang pada kolom **ID Produk** (contoh: `PRD009`) beserta kuantitas pada kolom **Jumlah**, lalu klik tombol **Tambah**. Petugas juga dapat mencatat **Nama pembeli (opsional)** pada kolom yang tersedia.
+* **Manajemen Daftar Belanja Kasir:** Tabel kasir menampilkan daftar barang yang dibeli pelanggan gerai fisik lengkap dengan harga satuan, kontrol **Ubah Jumlah** (`-` / `+`) yang tervalidasi langsung dengan sisa stok gudang, serta kalkulasi **Subtotal** per baris produk.
+* **Penyelesaian Pembayaran:** Total tagihan dihitung secara otomatis pada bagian **Total belanja** (contoh: `Rp 257.500`). Klik tombol hijau **Bayar** di kanan bawah untuk memilih metode pembayaran (*Tunai* dengan perhitungan uang kembalian otomatis atau *Non-Tunai*), menyimpan transaksi ke basis data, dan memotong stok produk secara *real-time*.
+
+```
